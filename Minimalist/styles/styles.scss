@@ -1,0 +1,179 @@
+@import './_variables';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    font-family: 'Roboto', sans-serif;
+    background-color: $background;
+}
+
+header {
+    .nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .nav__container {
+            display: flex;
+            flex-direction: row;
+            margin-top: 1rem;
+
+            .nav__item {
+                list-style-type: none;
+                margin: 0 .8rem;
+                font-weight: 300;
+                font-size: 14px;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+main {
+    .section {
+        display: flex;
+        flex-direction: column;
+
+        .section__content-box {
+            margin-top: 4rem;
+            margin-left: 1rem;
+
+            .section__line {
+                width: 80px;
+                height: 8px;
+                background-color: $dark;
+            }
+
+            .section__text {
+                height: 25vh;
+                background-color: $background;
+                margin-top: 1.5rem;
+
+                .section__title {
+                    color: $dark;
+                    font-size: 30px;
+                    position: relative;
+                    overflow: hidden;
+                    height: 40px;
+                    margin: 0;
+
+                    .hidden__text {
+                        position: absolute;
+                        z-index: 200;
+
+                        span {
+                            color: $dark;
+                        }
+                    }
+
+                    .items {
+                        margin-left: 120px;
+                    }
+                }
+            }
+
+            .section__title {
+                color: $dark;
+                margin-top: 1.5rem;
+                font-size: 30px;
+            }
+        }
+
+        .section__image-box {
+            display: flex;
+            justify-content: center;
+            margin-top: 5rem;
+            margin-bottom: 5rem;
+            position: relative;
+            overflow: hidden;
+            height: 150px;
+
+            .section__house-image {
+                width: 280px;
+                height: auto;
+                position: absolute;
+            }
+
+            .section__income-image {
+                width: 280px;
+                height: auto;
+            }
+        }
+
+        .section__video {
+            margin-left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: auto;
+            margin-top: 3rem;
+            margin-bottom: 5rem;
+        }
+
+        .section__title-movie {
+            text-align: center;
+            font-size: 30px;
+            color: $dark;
+        }
+    }
+
+    .section:nth-child(even) {
+        display: flex;
+        flex-direction: column;
+        text-align: end;
+         
+        .section__content-box {
+            margin-top: 4rem;
+            margin-right: 1rem;
+
+            .section__line {
+                width: 80px;
+                height: 8px;
+                background-color: $dark;
+                float: right;
+            }
+
+            .section__text {
+                height: 25vh;
+                background-color: $background;
+                margin-top: 1.5rem;
+
+                .section__title {
+                    color: $dark;
+                    font-size: 30px;
+                    position: relative;
+                    overflow: hidden;
+                    height: 40px;
+                    margin: 0;
+
+                    .hidden__text {
+                        position: absolute;
+                        z-index: 200;
+
+                        span {
+                            color: $dark;
+                        }
+                    }
+
+                    .items {
+                        margin-left: 120px;
+                    }
+                }
+            }
+        }
+        .section__image-box {
+            display: flex;
+            justify-content: center;
+            margin-top: 5rem;
+            margin-bottom: 5rem;
+
+            .section__throw-image {
+                width: 240px;
+                height: auto;
+            }
+        }
+    }
+}

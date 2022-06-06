@@ -1,0 +1,27 @@
+p.p_1 
+{
+    border: 2px solid green;
+    position: fixed;
+    left: 150px;
+    top: 160px;
+}
+p.p_1 
+{
+
+}
+p.p_2 
+{
+    border: 2px dashed red;
+    position: absolute;
+    left: 250px;
+    top: 20px;
+}
+p.p_3 
+{
+    margin: 0;
+    width: 100%;
+    border: 2px solid red;
+    position: sticky;
+    top: 10px;
+}
+

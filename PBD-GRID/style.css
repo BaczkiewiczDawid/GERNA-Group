@@ -1,0 +1,47 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    background-color: blue;
+    padding: 5px;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-areas:
+    "a a e"
+    "b c e"
+    "d d d";
+}
+
+header {
+    background-color: red;
+    grid-area: a;
+    height: 15vh;
+}
+
+nav {
+    background-color: orange;
+}
+
+main {
+    background-color: lightblue;
+    height: 75vh;
+}
+
+aside {
+    background-color: pink;
+    grid-area: e;
+}
+
+footer {
+    background-color: lightgreen;
+    height: 10vh;
+    grid-area: d;
+}

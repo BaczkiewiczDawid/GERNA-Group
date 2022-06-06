@@ -1,0 +1,23 @@
+.footer {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 	     1fr;
+	width: 100%;
+	margin-top: -3rem;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.link {
+	background-color: #656565;
+	border-radius: 100px;
+	width: 80px;
+	height: 80px;
+	margin-top: 30px;
+}
+	.icon {
+	width: 50%;
+	height: 50%;
+	margin-top: 50%;
+	margin-left: 50%;
+	transform: translate(-50%, -50%);
+}

@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    position: relative;
+    justify-content: center;
+}
+
+.card {
+    width: 400px;
+    height: auto;
+    position: absolute;
+}
+
+.card-one {
+    z-index: 2;
+}
+
+.card-two {
+    z-index: 1;
+}
+
+.card-three {
+    z-index: -1;
+}
+
+.card-four {
+    z-index: 0;
+}
