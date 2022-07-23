@@ -1,8 +1,17 @@
-import React from 'react';
+import React from "react";
+import GlobalStyle from "assets/styles/GlobalStyle";
+import {ThemeProvider} from "styled-components";
+import { theme } from "assets/styles/Theme";
+import Navigation from 'Navigation/Navigation';
 
 function App() {
   return (
-    <h1>GERNA Group</h1>
+    <>
+      <GlobalStyle />
+      <ThemeProvider theme={theme}>
+        <Navigation />
+      </ThemeProvider>
+    </>
   );
 }
 
