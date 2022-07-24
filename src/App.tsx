@@ -2,7 +2,7 @@ import React from "react";
 import GlobalStyle from "assets/styles/GlobalStyle";
 import {ThemeProvider} from "styled-components";
 import { theme } from "assets/styles/Theme";
-import Navigation from 'Navigation/Navigation';
+import Navigation from 'components/Navigation/Navigation';
 
 function App() {
   return (
