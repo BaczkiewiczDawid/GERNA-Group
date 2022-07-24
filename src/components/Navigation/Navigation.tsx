@@ -14,6 +14,7 @@ const Navigation = () => {
 
   window.onresize = () => {
     setIsMobile(window.innerWidth < 768 ? true : false);
+    setIsOpen(window.innerWidth > 768 ? true : false);
   };
 
   const navRef: any = useRef(null);
@@ -33,7 +34,8 @@ const Navigation = () => {
     }, [ref]);
   };
 
-  useOutsideAlerter(navRef)
+
+  useOutsideAlerter(navRef);
 
   return (
     <StyledNav>

@@ -25,6 +25,24 @@ export const StyledNav = styled.nav`
   align-items: center;
   justify-content: space-between;
   padding: 0 1rem;
+
+  @media screen and (min-width: 768px) {
+    width: 13vw;
+    height: 100%;
+    position: fixed;
+    justify-content: flex-start;
+    align-items: flex-start;
+    left: 0;
+    flex-direction: column;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0.5rem;
+
+    img {
+      width: 80%;
+      height: auto;
+      margin: 2rem auto;
+    }
+  }
 `;
 
 export const NavContent = styled.div<NavType>`
@@ -40,7 +58,8 @@ export const NavContent = styled.div<NavType>`
   display: ${(props) => (props.isOpen ? "flex" : "none")};
   justify-content: center;
   flex-direction: column;
-  animation: ${slide} .25s alternate;
+  animation: ${slide} 0.25s alternate;
+  z-index: 1;
 
   a {
     margin: 1rem 2rem;
@@ -48,8 +67,27 @@ export const NavContent = styled.div<NavType>`
     color: ${({ theme }) => theme.colors.text};
     cursor: pointer;
   }
+
+  @media screen and (min-width: 768px) {
+    background-color: transparent;
+    position: static;
+    width: 100%;
+    box-shadow: none;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 1rem;
+
+    a {
+      color: ${({ theme }) => theme.colors.background};
+      margin: 0.8rem 0;
+    }
+  }
 `;
 
 export const HamburgerWrapper = styled.div`
   z-index: 2;
+
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
 `;
