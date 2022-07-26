@@ -9,6 +9,7 @@ import {
 const Dashboard = () => {
   return (
     <Wrapper>
+    <h1>GERNA Group Dashboard</h1>
       <InformationsContainer>
         <Informations>
           <h2>New sales</h2>
