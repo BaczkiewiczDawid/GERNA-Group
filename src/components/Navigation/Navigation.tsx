@@ -4,6 +4,7 @@ import {
   StyledNav,
   NavContent,
   HamburgerWrapper,
+  NavDesktopContent,
 } from "components/Navigation/Navigation.style";
 import mobileLogo from "assets/images/mobile-logo.png";
 import desktopLogo from "assets/images/desktop-logo.png";
@@ -34,7 +35,6 @@ const Navigation = () => {
     }, [ref]);
   };
 
-
   useOutsideAlerter(navRef);
 
   return (
@@ -53,6 +53,12 @@ const Navigation = () => {
         <a href="#">Link 1</a>
         <a href="#">Link 1</a>
       </NavContent>
+      <NavDesktopContent>
+        <a href="#">Link 1</a>
+        <a href="#">Link 1</a>
+        <a href="#">Link 1</a>
+        <a href="#">Link 1</a>
+      </NavDesktopContent>
     </StyledNav>
   );
 };
