@@ -25,10 +25,11 @@ export const StyledNav = styled.nav`
   align-items: center;
   justify-content: space-between;
   padding: 0 1rem;
+  top: 0;
 
   @media screen and (min-width: 768px) {
     width: 13vw;
-    height: 100%;
+    height: 100vh;
     position: fixed;
     justify-content: flex-start;
     align-items: flex-start;
