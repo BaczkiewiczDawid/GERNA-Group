@@ -70,18 +70,7 @@ export const NavContent = styled.div<NavType>`
   }
 
   @media screen and (min-width: 768px) {
-    background-color: transparent;
-    position: static;
-    width: 100%;
-    box-shadow: none;
-    justify-content: flex-start;
-    align-items: center;
-    margin-top: 1rem;
-
-    a {
-      color: ${({ theme }) => theme.colors.background};
-      margin: 0.8rem 0;
-    }
+    display: none;
   }
 `;
 
@@ -90,5 +79,22 @@ export const HamburgerWrapper = styled.div`
 
   @media screen and (min-width: 768px) {
     display: none;
+  }
+`;
+
+export const NavDesktopContent = styled.div`
+  display: none;
+
+  @media screen and (min-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+
+    a {
+      margin: 1rem 0;
+      text-decoration: none;
+      color: ${({ theme }) => theme.colors.background};
+      cursor: pointer;
+    }
   }
 `;
