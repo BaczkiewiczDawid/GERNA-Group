@@ -9,6 +9,11 @@ export const Wrapper = styled.div`
   h1 {
     color: ${({ theme }) => theme.colors.text};
     margin-top: 2rem;
+    margin-left: 2rem;
+
+    @media screen and (min-width: 768px) {
+        margin-left: 0;
+    }
   }
 `;
 
