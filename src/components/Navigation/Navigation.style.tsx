@@ -28,7 +28,7 @@ export const StyledNav = styled.nav`
 
   @media screen and (min-width: 768px) {
     width: 13vw;
-    height: 100%;
+    height: 100vh;
     position: fixed;
     justify-content: flex-start;
     align-items: flex-start;
