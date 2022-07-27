@@ -11,7 +11,7 @@ import desktopLogo from "assets/images/desktop-logo.svg";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768 ? true : false);
 
   window.onresize = () => {
     setIsMobile(window.innerWidth < 768 ? true : false);
