@@ -26,4 +26,3 @@ export const InformationsContainer = styled.div`
   }
 `;
 
-
