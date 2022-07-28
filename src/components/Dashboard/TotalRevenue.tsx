@@ -1,4 +1,8 @@
-import { ContentWrapper } from "components/Dashboard/TotalRevenue.style";
+import {
+  ContentWrapper,
+  Title,
+  Revenue,
+} from "components/Dashboard/TotalRevenue.style";
 import {
   LineChart,
   Line,
@@ -58,10 +62,10 @@ const data = [
 const TotalRevenue = () => {
   return (
     <ContentWrapper>
-      <h2>Total revenue</h2>
-      <span>$746,245</span>
+      <Title>Total revenue</Title>
+      <Revenue>$746,245</Revenue>
       <ResponsiveContainer width="90%" height={300}>
-        <LineChart data={data}>
+        <LineChart data={data} margin={{ top: 40 }}>
           <Line type="monotone" dataKey="revenue" stroke="#8884d8" />
           <XAxis dataKey="name" />
           <YAxis />
