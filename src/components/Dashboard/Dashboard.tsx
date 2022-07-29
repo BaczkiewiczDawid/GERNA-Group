@@ -6,6 +6,7 @@ import {
 import Informations from "components/Dashboard/Informations";
 import TotalRevenue from "components/Dashboard/TotalRevenue";
 import TopSellingModels from "components/Dashboard/TopSellingModels";
+import TopSalers from 'components/Dashboard/TopSalers';
 
 const Dashboard = () => {
   return (
@@ -19,6 +20,7 @@ const Dashboard = () => {
       <Container>
         <TotalRevenue />
         <TopSellingModels />
+        <TopSalers />
       </Container>
     </Wrapper>
   );
