@@ -1,7 +1,28 @@
-import ContentWrapper from 'components/Dashboard/ContentWrapper';
-import { Header, Table } from 'components/Dashboard/TopSellingModels.style';
+import { useState, useEffect } from "react";
+import ContentWrapper from "components/Dashboard/ContentWrapper";
+import { Header, Table } from "components/Dashboard/TopSellingModels.style";
+import Axios from "axios";
 
 const TopSellingModels = () => {
+  const [topSellingModels, setTopSellingModels] = useState([]);
+
+  const getTopSellingModels = () => {
+    Axios.get("http://localhost:3001/top-selling-models")
+      .then((response) => {
+        setTopSellingModels(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        throw err;
+      });
+  };
+
+  useEffect(() => {
+    getTopSellingModels();
+  }, []);
+
+  console.log(topSellingModels);
+
   return (
     <ContentWrapper>
       <Header>
@@ -16,36 +37,16 @@ const TopSellingModels = () => {
         <th>Price</th>
         <th>Sold</th>
         <th>Income</th>
-        <tr>
-            <td>Audi A4</td>
-            <td>$45,254</td>
-            <td>275</td>
-            <td>$12,444,85</td>
-        </tr>
-        <tr>
-            <td>BMW M3</td>
-            <td>$53,547</td>
-            <td>246</td>
-            <td>$11,154,56</td>
-        </tr>
-        <tr>
-            <td>BMW M3</td>
-            <td>$53,547</td>
-            <td>246</td>
-            <td>$11,154,56</td>
-        </tr>
-        <tr>
-            <td>BMW M3</td>
-            <td>$53,547</td>
-            <td>246</td>
-            <td>$11,154,56</td>
-        </tr>
-        <tr>
-            <td>BMW M3</td>
-            <td>$53,547</td>
-            <td>246</td>
-            <td>$11,154,56</td>
-        </tr>
+        {topSellingModels.map((car: any) => {
+          return (
+            <tr>
+              <td>{car.manufactuer} {car.model}</td>
+              <td>{car.price}</td>
+              <td>{car.sales}</td>
+              <td>${car.price * car.sales}</td>
+            </tr>
+          )
+        })}
       </Table>
     </ContentWrapper>
   );
