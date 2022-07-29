@@ -1,11 +1,6 @@
 import styled from 'styled-components';
 
-export const Header = styled.div`
-    display: flex;
-    justify-content: space-between;
-`;
-
-export const Table = styled.table`
+export const StyledTable = styled.table`
     width: 100%;
     text-align: center;
     margin-top: 2rem;

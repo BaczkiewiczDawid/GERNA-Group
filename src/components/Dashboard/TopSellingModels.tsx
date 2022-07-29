@@ -1,10 +1,19 @@
 import { useState, useEffect } from "react";
 import ContentWrapper from "components/Dashboard/ContentWrapper";
-import { Header, Table } from "components/Dashboard/TopSellingModels.style";
+import Table from 'components/Dashboard/Table';
+import Header from 'components/Dashboard/Header';
 import Axios from "axios";
 
+interface Cars {
+  id: number
+  manufactuer: string,
+  model: string,
+  price: number,
+  sales: number,
+}
+
 const TopSellingModels = () => {
-  const [topSellingModels, setTopSellingModels] = useState([]);
+  const [topSellingModels, setTopSellingModels] = useState<Cars[]>([]);
 
   const getTopSellingModels = () => {
     Axios.get("http://localhost:3001/top-selling-models")
@@ -21,25 +30,17 @@ const TopSellingModels = () => {
     getTopSellingModels();
   }, []);
 
-  console.log(topSellingModels);
-
   return (
     <ContentWrapper>
-      <Header>
-        <h2>Top selling models</h2>
-        <select name="time-period-filter" id="">
-          <option value="yearly">Yearly</option>
-          <option value="monthly">Monthly</option>
-        </select>
-      </Header>
+      <Header title="Top selling models" />
       <Table>
         <th>Model</th>
         <th>Price</th>
         <th>Sold</th>
         <th>Income</th>
-        {topSellingModels.map((car: any) => {
+        {topSellingModels.map((car: Cars) => {
           return (
-            <tr>
+            <tr key={car.id}>
               <td>{car.manufactuer} {car.model}</td>
               <td>{car.price}</td>
               <td>{car.sales}</td>
