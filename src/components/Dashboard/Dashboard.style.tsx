@@ -26,3 +26,13 @@ export const InformationsContainer = styled.div`
   }
 `;
 
+export const Container = styled.section`
+  display: flex;
+  flex-direction: column;
+  margin-top: 3rem;
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+`;

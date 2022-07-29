@@ -1,5 +1,4 @@
 import {
-  ContentWrapper,
   Title,
   Revenue,
 } from "components/Dashboard/TotalRevenue.style";
@@ -11,6 +10,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import ContentWrapper from 'components/Dashboard/ContentWrapper';
 
 const data = [
   {
