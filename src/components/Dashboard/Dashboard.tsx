@@ -1,9 +1,11 @@
 import {
   Wrapper,
   InformationsContainer,
+  Container
 } from "components/Dashboard/Dashboard.style";
 import Informations from "components/Dashboard/Informations";
 import TotalRevenue from "components/Dashboard/TotalRevenue";
+import TopSellingModels from "components/Dashboard/TopSellingModels";
 
 const Dashboard = () => {
   return (
@@ -14,7 +16,10 @@ const Dashboard = () => {
         <Informations />
         <Informations />
       </InformationsContainer>
-      <TotalRevenue />
+      <Container>
+        <TotalRevenue />
+        <TopSellingModels />
+      </Container>
     </Wrapper>
   );
 };
