@@ -29,7 +29,7 @@ export const InformationsContainer = styled.div`
 export const Container = styled.section`
   display: flex;
   flex-direction: column;
-  margin-top: 3rem;
+  margin-top: 1rem;
 
   @media screen and (min-width: 768px) {
     flex-direction: row;
