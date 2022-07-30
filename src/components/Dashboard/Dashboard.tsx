@@ -1,5 +1,4 @@
 import {
-  Wrapper,
   InformationsContainer,
   Container
 } from "components/Dashboard/Dashboard.style";
@@ -7,6 +6,7 @@ import Informations from "components/Dashboard/Informations";
 import TotalRevenue from "components/Dashboard/TotalRevenue";
 import TopSellingModels from "components/Dashboard/TopSellingModels";
 import TopSalers from 'components/Dashboard/TopSalers';
+import Wrapper from 'components/Dashboard/Wrapper'
 
 const Dashboard = () => {
   return (
