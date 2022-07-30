@@ -4,6 +4,7 @@ import { ThemeProvider } from "styled-components";
 import { theme } from "assets/styles/Theme";
 import Navigation from "components/Navigation/Navigation";
 import Dashboard from "components/Dashboard/Dashboard";
+import Employees from "components/Employees/Employees";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Navigation />
           <Routes>
             <Route path="/" element={<Dashboard />} />
+            <Route path="/employees" element={<Employees />} />
           </Routes>
         </Router>
       </ThemeProvider>
