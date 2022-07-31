@@ -1,30 +1,45 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import {
   DepartmentNav,
   Container,
   LinksContainer,
   Content,
-  ContentContainer
+  ContentContainer,
 } from "components/Employees/Employees.style";
 import { Link } from "react-router-dom";
 import ContentWrapper from "components/Dashboard/ContentWrapper";
 import Table from "components/Dashboard/Table";
-import Axios from 'axios';
+import Axios from "axios";
 
 const Employees = () => {
   const [employeesList, setEmployeesList] = useState<any[]>([]);
+  const [selectedUser, setSelectedUser] = useState<number>(1);
 
   const getEmployeesList = () => {
-    Axios.get('http://localhost:3001/employees-list').then((response) => {
+    Axios.get("http://localhost:3001/employees-list").then((response) => {
       setEmployeesList(response.data);
-    })
+    });
   };
+
+  const getEmployeeDetails = () => {
+    Axios.post('http://localhost:3001/employee-details', {
+      selectedUser: selectedUser
+    }).then((response) => {
+      console.log(response.data)
+    })
+  }
 
   useEffect(() => {
     getEmployeesList();
-  }, [])
+  }, []);
 
-  console.log(employeesList)
+  useEffect(() => {
+    getEmployeeDetails();
+  }, [selectedUser])
+
+  const handleSelectEmployee = (employeeID: number) => {
+    setSelectedUser(employeeID);
+  };
 
   return (
     <Container>
@@ -58,13 +73,16 @@ const Employees = () => {
               <th>Total Sales</th>
               {employeesList.map((employee): any => {
                 return (
-                  <tr key={employee.id * 5000}>
+                  <tr
+                    key={employee.id * 5000}
+                    onClick={(employeeID) => handleSelectEmployee(employee.id)}
+                  >
                     <td>{employee.id}</td>
                     <td>{employee.name}</td>
                     <td>{employee.age}</td>
                     <td>{employee.position}</td>
                   </tr>
-                )
+                );
               })}
             </Table>
           </ContentWrapper>
