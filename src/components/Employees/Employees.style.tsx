@@ -32,6 +32,10 @@ export const DepartmentNav = styled.nav`
   }
 
   @media screen and (min-width: 1080px) {
+    left: 6vw;
+  }
+
+  @media screen and (min-width: 1080px) {
     width: 20vw;
   }
 
@@ -77,14 +81,25 @@ export const LinksContainer = styled.div`
   }
 `;
 
-export const Content = styled.section`
+export const ContentContainer = styled.section`
   margin-left: 1rem;
-
-  h1 {
-      margin-top: 2rem;
-    }
+  margin-top: 2rem;
+  color: ${({ theme }) => theme.colors.text};
 
   @media screen and (min-width: 768px) {
     margin-left: 40vw;
   }
+
+  @media screen and (min-width: 1080px) {
+    margin-left: 30vw;
+  }
+
+  @media screen and (min-width: 1440px) {
+    margin-left: 23vw;
+  }
+`;
+
+export const Content = styled.div`
+  display: flex;
+  flex-wrap: wrap;
 `;

@@ -4,6 +4,7 @@ import {
   Container,
   LinksContainer,
   Content,
+  ContentContainer
 } from "components/Employees/Employees.style";
 import { Link } from "react-router-dom";
 import ContentWrapper from "components/Dashboard/ContentWrapper";
@@ -31,41 +32,47 @@ const Employees = () => {
           <Link to="/employees/gdansk">GERNA Group Gdańsk</Link>
         </LinksContainer>
       </DepartmentNav>
-      <Content>
+      <ContentContainer>
         <h1>GERNA Group Employees - Katowice</h1>
-        <ContentWrapper>
-          <Table>
-            <th>Employee name</th>
-            <th>Age</th>
-            <th>Experience</th>
-            <th>Total Sales</th>
-            <tr>
-              <td>John Doe</td>
-              <td>32</td>
-              <td>3 Years as Sales Specialist</td>
-              <td>$634,234</td>
-            </tr>
-            <tr>
-              <td>John Doe</td>
-              <td>32</td>
-              <td>3 Years as Sales Specialist</td>
-              <td>$634,234</td>
-            </tr>
-            <tr>
-              <td>John Doe</td>
-              <td>32</td>
-              <td>3 Years as Sales Specialist</td>
-              <td>$634,234</td>
-            </tr>
-            <tr>
-              <td>John Doe</td>
-              <td>32</td>
-              <td>3 Years as Sales Specialist</td>
-              <td>$634,234</td>
-            </tr>
-          </Table>
-        </ContentWrapper>
-      </Content>
+        <Content>
+          <ContentWrapper>
+            <Table>
+              <th>Employee name</th>
+              <th>Age</th>
+              <th>Experience</th>
+              <th>Total Sales</th>
+              <tr>
+                <td>John Doe</td>
+                <td>32</td>
+                <td>3 Years as Sales Specialist</td>
+                <td>$634,234</td>
+              </tr>
+              <tr>
+                <td>John Doe</td>
+                <td>32</td>
+                <td>3 Years as Sales Specialist</td>
+                <td>$634,234</td>
+              </tr>
+              <tr>
+                <td>John Doe</td>
+                <td>32</td>
+                <td>3 Years as Sales Specialist</td>
+                <td>$634,234</td>
+              </tr>
+              <tr>
+                <td>John Doe</td>
+                <td>32</td>
+                <td>3 Years as Sales Specialist</td>
+                <td>$634,234</td>
+              </tr>
+            </Table>
+          </ContentWrapper>
+          <ContentWrapper secondary={true}>
+            <label htmlFor="">Full name</label>
+            <input type="text" />
+          </ContentWrapper>
+        </Content>
+      </ContentContainer>
     </Container>
   );
 };
