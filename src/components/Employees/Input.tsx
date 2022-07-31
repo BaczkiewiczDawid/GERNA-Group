@@ -9,9 +9,14 @@ export const StyledInput = styled.input`
     background-color: transparent;
 `;
 
-const Input = ({ type }: any) => {
+type InputType = {
+    type: string,
+    value: string | number
+}
+
+const Input = ({ type, value }: InputType) => {
     return (
-        <StyledInput type={type} />
+        <StyledInput type={type} value={value} />
     )
 }
 
