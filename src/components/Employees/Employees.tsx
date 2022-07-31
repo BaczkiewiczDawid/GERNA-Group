@@ -1,4 +1,4 @@
-import Wrapper from "components/Dashboard/Wrapper";
+import { useEffect, useState } from 'react';
 import {
   DepartmentNav,
   Container,
@@ -9,8 +9,23 @@ import {
 import { Link } from "react-router-dom";
 import ContentWrapper from "components/Dashboard/ContentWrapper";
 import Table from "components/Dashboard/Table";
+import Axios from 'axios';
 
 const Employees = () => {
+  const [employeesList, setEmployeesList] = useState<any[]>([]);
+
+  const getEmployeesList = () => {
+    Axios.get('http://localhost:3001/employees-list').then((response) => {
+      setEmployeesList(response.data);
+    })
+  };
+
+  useEffect(() => {
+    getEmployeesList();
+  }, [])
+
+  console.log(employeesList)
+
   return (
     <Container>
       <DepartmentNav>
@@ -41,30 +56,16 @@ const Employees = () => {
               <th>Age</th>
               <th>Experience</th>
               <th>Total Sales</th>
-              <tr>
-                <td>John Doe</td>
-                <td>32</td>
-                <td>3 Years as Sales Specialist</td>
-                <td>$634,234</td>
-              </tr>
-              <tr>
-                <td>John Doe</td>
-                <td>32</td>
-                <td>3 Years as Sales Specialist</td>
-                <td>$634,234</td>
-              </tr>
-              <tr>
-                <td>John Doe</td>
-                <td>32</td>
-                <td>3 Years as Sales Specialist</td>
-                <td>$634,234</td>
-              </tr>
-              <tr>
-                <td>John Doe</td>
-                <td>32</td>
-                <td>3 Years as Sales Specialist</td>
-                <td>$634,234</td>
-              </tr>
+              {employeesList.map((employee): any => {
+                return (
+                  <tr key={employee.id * 5000}>
+                    <td>{employee.id}</td>
+                    <td>{employee.name}</td>
+                    <td>{employee.age}</td>
+                    <td>{employee.position}</td>
+                  </tr>
+                )
+              })}
             </Table>
           </ContentWrapper>
           <ContentWrapper secondary={true}>
