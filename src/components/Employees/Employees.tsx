@@ -1,30 +1,57 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import {
   DepartmentNav,
   Container,
   LinksContainer,
   Content,
-  ContentContainer
+  ContentContainer,
 } from "components/Employees/Employees.style";
 import { Link } from "react-router-dom";
 import ContentWrapper from "components/Dashboard/ContentWrapper";
 import Table from "components/Dashboard/Table";
-import Axios from 'axios';
+import Axios from "axios";
+import EmployeeDetails from 'components/Employees/EmployeeDetails';
 
 const Employees = () => {
   const [employeesList, setEmployeesList] = useState<any[]>([]);
+  const [selectedUser, setSelectedUser] = useState<number>(1);
+  const [selectedUserDetails, setSelectedUserDetails] = useState<any[]>([]);
 
   const getEmployeesList = () => {
-    Axios.get('http://localhost:3001/employees-list').then((response) => {
-      setEmployeesList(response.data);
+    Axios.get("http://localhost:3001/employees-list")
+      .then((response) => {
+        setEmployeesList(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const getEmployeeDetails = () => {
+    Axios.post("http://localhost:3001/employee-details", {
+      selectedUser: selectedUser,
     })
+      .then((response) => {
+        setSelectedUserDetails(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {
     getEmployeesList();
-  }, [])
+  }, []);
 
-  console.log(employeesList)
+  useEffect(() => {
+    getEmployeeDetails();
+  }, [selectedUser]);
+
+  const handleSelectEmployee = (employeeID: number) => {
+    setSelectedUser(employeeID);
+  };
+
+  console.log(selectedUserDetails);
 
   return (
     <Container>
@@ -58,20 +85,20 @@ const Employees = () => {
               <th>Total Sales</th>
               {employeesList.map((employee): any => {
                 return (
-                  <tr key={employee.id * 5000}>
+                  <tr
+                    key={employee.id * 5000}
+                    onClick={(employeeID) => handleSelectEmployee(employee.id)}
+                  >
                     <td>{employee.id}</td>
                     <td>{employee.name}</td>
                     <td>{employee.age}</td>
                     <td>{employee.position}</td>
                   </tr>
-                )
+                );
               })}
             </Table>
           </ContentWrapper>
-          <ContentWrapper secondary={true}>
-            <label htmlFor="">Full name</label>
-            <input type="text" />
-          </ContentWrapper>
+          <EmployeeDetails selectedUserDetails={selectedUserDetails} />
         </Content>
       </ContentContainer>
     </Container>
