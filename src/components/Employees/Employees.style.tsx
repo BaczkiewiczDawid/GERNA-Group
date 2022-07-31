@@ -22,8 +22,8 @@ export const DepartmentNav = styled.nav`
     box-shadow: 6px 0px 25px -14px rgba(66, 68, 90, 1);
 
     h2 {
-        margin-top: 2rem;
-        margin-left: 2rem;
+      margin-top: 2rem;
+      margin-left: 2rem;
     }
 
     select {
@@ -44,6 +44,15 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
 
+  th {
+    font-size: .75rem;
+  }
+
+  td {
+    font-size: .75rem;
+    font-weight: 300;
+  }
+
   @media screen and (min-width: 768px) {
     flex-direction: row;
   }
@@ -63,15 +72,19 @@ export const LinksContainer = styled.div`
       text-decoration: none;
       color: ${({ theme }) => theme.colors.text};
       margin: 0.5rem 0;
-      font-size: .9rem;
+      font-size: 0.9rem;
     }
   }
 `;
 
 export const Content = styled.section`
-    margin-left: 40vw;
+  margin-left: 1rem;
 
-    h1 {
-        margin-top: 2rem;
+  h1 {
+      margin-top: 2rem;
     }
+
+  @media screen and (min-width: 768px) {
+    margin-left: 40vw;
+  }
 `;
