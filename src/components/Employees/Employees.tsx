@@ -1,8 +1,31 @@
-import Wrapper from "components/Dashboard/Wrapper";
-import { DepartmentNav, Container, LinksContainer, Content } from "components/Employees/Employees.style";
+import { useEffect, useState } from 'react';
+import {
+  DepartmentNav,
+  Container,
+  LinksContainer,
+  Content,
+  ContentContainer
+} from "components/Employees/Employees.style";
 import { Link } from "react-router-dom";
+import ContentWrapper from "components/Dashboard/ContentWrapper";
+import Table from "components/Dashboard/Table";
+import Axios from 'axios';
 
 const Employees = () => {
+  const [employeesList, setEmployeesList] = useState<any[]>([]);
+
+  const getEmployeesList = () => {
+    Axios.get('http://localhost:3001/employees-list').then((response) => {
+      setEmployeesList(response.data);
+    })
+  };
+
+  useEffect(() => {
+    getEmployeesList();
+  }, [])
+
+  console.log(employeesList)
+
   return (
     <Container>
       <DepartmentNav>
@@ -24,9 +47,33 @@ const Employees = () => {
           <Link to="/employees/gdansk">GERNA Group Gdańsk</Link>
         </LinksContainer>
       </DepartmentNav>
-      <Content>
+      <ContentContainer>
         <h1>GERNA Group Employees - Katowice</h1>
-      </Content>
+        <Content>
+          <ContentWrapper>
+            <Table>
+              <th>Employee name</th>
+              <th>Age</th>
+              <th>Experience</th>
+              <th>Total Sales</th>
+              {employeesList.map((employee): any => {
+                return (
+                  <tr key={employee.id * 5000}>
+                    <td>{employee.id}</td>
+                    <td>{employee.name}</td>
+                    <td>{employee.age}</td>
+                    <td>{employee.position}</td>
+                  </tr>
+                )
+              })}
+            </Table>
+          </ContentWrapper>
+          <ContentWrapper secondary={true}>
+            <label htmlFor="">Full name</label>
+            <input type="text" />
+          </ContentWrapper>
+        </Content>
+      </ContentContainer>
     </Container>
   );
 };

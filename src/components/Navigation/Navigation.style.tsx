@@ -45,6 +45,10 @@ export const StyledNav = styled.nav`
       margin: 2rem auto;
     }
   }
+
+  @media screen and (min-width: 1080px) {
+    width: 6vw;
+  }
 `;
 
 export const NavContent = styled.div<NavType>`

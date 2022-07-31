@@ -1,6 +1,11 @@
 import styled from "styled-components";
 
-const StyledWrapper = styled.div`
+interface ContentType {
+  children: any;
+  secondary?: boolean;
+}
+
+const StyledWrapper = styled.div<ContentType>`
   width: 90vw;
   height: auto;
   -webkit-box-shadow: 0px 12px 40px -12px rgba(66, 68, 90, 1);
@@ -12,17 +17,17 @@ const StyledWrapper = styled.div`
   color: ${({ theme }) => theme.colors.text};
 
   @media screen and (min-width: 768px) {
-    width: 60vw;
+    width: ${props => props.secondary ? '40vw' : '55vw'};
     margin: 4rem 2rem 0 0;
   }
 
   @media screen and (min-width: 1080px) {
-    width: 35vw;
+    width: ${props => props.secondary ? '25vw' : '35vw'};
   }
 `;
 
-const ContentWrapper = ({ children }: any) => {
-  return <StyledWrapper>{children}</StyledWrapper>;
+const ContentWrapper = ({ children, secondary }: ContentType) => {
+  return <StyledWrapper secondary={secondary}>{children}</StyledWrapper>;
 };
 
 export default ContentWrapper;
