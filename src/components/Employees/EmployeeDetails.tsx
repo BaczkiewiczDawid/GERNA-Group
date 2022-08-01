@@ -7,12 +7,11 @@ const EmployeeDetails = ({
   selectedUserDetails,
   setSelectedUserDetails,
 }: any) => {
-  const handleChangeUserDetails = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedUserDetails((prevState: any) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
+  const handleUpdateUserDetails = () => {
+    // Axios post...
   };
+
+  console.log(selectedUserDetails)
 
   return (
     <ContentWrapper secondary={true}>
@@ -21,59 +20,45 @@ const EmployeeDetails = ({
         label="Full name"
         value={selectedUserDetails.name}
         name="name"
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          handleChangeUserDetails(e)
-        }
+        setSelectedUserDetails={setSelectedUserDetails}
       />
       <EmployeeInformation
         label="Age"
         name="age"
         value={selectedUserDetails?.age}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          handleChangeUserDetails(e)
-        }
+        setSelectedUserDetails={setSelectedUserDetails}
       />
       <EmployeeInformation
         label="Address"
         name="address"
         value={selectedUserDetails?.address}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          handleChangeUserDetails(e)
-        }
+        setSelectedUserDetails={setSelectedUserDetails}
       />
       <EmployeeInformation
         label="City"
         name="city"
         value={selectedUserDetails?.city}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          handleChangeUserDetails(e)
-        }
+        setSelectedUserDetails={setSelectedUserDetails}
       />
       <EmployeeInformation
         label="Phone Number"
         name="phone_number"
         value={selectedUserDetails?.phone_number}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          handleChangeUserDetails(e)
-        }
+        setSelectedUserDetails={setSelectedUserDetails}
       />
       <EmployeeInformation
         label="Position"
         name="position"
         value={selectedUserDetails?.position}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          handleChangeUserDetails(e)
-        }
+        setSelectedUserDetails={setSelectedUserDetails}
       />
       <EmployeeInformation
         label="Salary"
         name="salary"
         value={selectedUserDetails?.salary}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          handleChangeUserDetails(e)
-        }
+        setSelectedUserDetails={setSelectedUserDetails}
       />
-      <Button text="Save" />
+      <Button text="Save" onClick={handleUpdateUserDetails} />
     </ContentWrapper>
   );
 };
