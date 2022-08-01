@@ -5,16 +5,30 @@ import React from "react";
 type EmployeeInformationType = {
   label: string;
   value: string | number;
-  onChange?: any,
-  name?: string,
+  onChange?: any;
+  name?: string;
+  setSelectedUserDetails: any,
 };
 
-const EmployeeInformation = ({ label, value, onChange, name }: EmployeeInformationType) => {
+const EmployeeInformation = ({
+  label,
+  value,
+  onChange,
+  name,
+  setSelectedUserDetails
+}: EmployeeInformationType) => {
+  const handleChangeUserDetails = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedUserDetails((prevState: any) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
 
   return (
     <>
       <Label>{label}</Label>
-      <Input onChange={onChange} value={value} name={name} type="text"/>
+      <Input onChange={handleChangeUserDetails} value={value} name={name} type="text"  />
+      
     </>
   );
 };
