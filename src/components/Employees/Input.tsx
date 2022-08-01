@@ -11,12 +11,14 @@ export const StyledInput = styled.input`
 
 type InputType = {
     type: string,
-    value: string | number
+    value: string | number,
+    onChange?: any,
+    name?: any,
 }
 
-const Input = ({ type, value }: InputType) => {
+const Input = ({ type, value, onChange, name }: InputType) => {
     return (
-        <StyledInput type={type} value={value} />
+        <StyledInput type={type} value={value} name={name} onChange={onChange} />
     )
 }
 

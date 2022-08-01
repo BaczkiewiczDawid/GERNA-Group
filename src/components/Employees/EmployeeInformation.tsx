@@ -1,16 +1,20 @@
-import { Label } from 'components/Employees/EmployeeInformation.style';
-import Input from 'components/Employees/Input';
+import { Label } from "components/Employees/EmployeeInformation.style";
+import Input from "components/Employees/Input";
+import React from "react";
 
 type EmployeeInformationType = {
-    label: string,
-    value: string | number,
-}
+  label: string;
+  value: string | number;
+  onChange?: any,
+  name?: string,
+};
 
-const EmployeeInformation = ({ label, value }: EmployeeInformationType) => {
+const EmployeeInformation = ({ label, value, onChange, name }: EmployeeInformationType) => {
+
   return (
     <>
-      <Label htmlFor="">{label}</Label>
-      <Input type="text" value={value} />
+      <Label>{label}</Label>
+      <Input onChange={onChange} value={value} name={name} type="text"/>
     </>
   );
 };

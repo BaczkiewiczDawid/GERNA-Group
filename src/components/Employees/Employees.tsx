@@ -32,7 +32,7 @@ const Employees = () => {
       selectedUser: selectedUser,
     })
       .then((response) => {
-        setSelectedUserDetails(response.data);
+        setSelectedUserDetails(response.data[0]);
       })
       .catch((err) => {
         console.log(err);
@@ -50,8 +50,6 @@ const Employees = () => {
   const handleSelectEmployee = (employeeID: number) => {
     setSelectedUser(employeeID);
   };
-
-  console.log(selectedUserDetails);
 
   return (
     <Container>
@@ -98,7 +96,7 @@ const Employees = () => {
               })}
             </Table>
           </ContentWrapper>
-          <EmployeeDetails selectedUserDetails={selectedUserDetails} />
+          <EmployeeDetails selectedUserDetails={selectedUserDetails} setSelectedUserDetails={setSelectedUserDetails} />
         </Content>
       </ContentContainer>
     </Container>
