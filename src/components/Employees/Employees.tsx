@@ -13,6 +13,8 @@ import Table from "components/Dashboard/Table";
 import Axios from "axios";
 import EmployeeDetails from "components/Employees/EmployeeDetails";
 import SingleEmployee from "components/Employees/SingleEmployee";
+import SelectDepartment from "components/Employees/SelectDepartment";
+import Button from "components/Employees/Button";
 
 const Employees = () => {
   const [employeesList, setEmployeesList] = useState<any[]>([]);
@@ -62,14 +64,7 @@ const Employees = () => {
     <Container>
       <DepartmentNav>
         <h2>Department</h2>
-        <select name="deparment">
-          <option value="katowice">Katowice</option>
-          <option value="wroclaw">Wrocław</option>
-          <option value="olsztyn">Olsztyn</option>
-          <option value="krakow">Kraków</option>
-          <option value="warszawa">Warszawa</option>
-          <option value="gdansk">Gdańsk</option>
-        </select>
+        <SelectDepartment />
         <LinksContainer>
           <Link to="/employees/katowice">GERNA Group Katowice</Link>
           <Link to="/employees/wroclaw">GERNA Group Wrocław</Link>
@@ -77,6 +72,9 @@ const Employees = () => {
           <Link to="/employees/krakow">GERNA Group Kraków</Link>
           <Link to="/employees/warszawa">GERNA Group Warszawa</Link>
           <Link to="/employees/gdansk">GERNA Group Gdańsk</Link>
+          <Link to="/employees/new">
+            <Button text="Add new employee" />
+          </Link>
         </LinksContainer>
       </DepartmentNav>
       <ContentContainer>
@@ -99,8 +97,8 @@ const Employees = () => {
             </Table>
           </ContentWrapper>
           <EmployeeDetails
-            selectedUserDetails={selectedUserDetails}
-            setSelectedUserDetails={setSelectedUserDetails}
+            employeeDetails={selectedUserDetails}
+            setEmployeeDetails={setSelectedUserDetails}
           />
         </Content>
       </ContentContainer>
