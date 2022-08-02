@@ -5,13 +5,13 @@ import Button from "components/Employees/Button";
 import Axios from "axios";
 
 const EmployeeDetails = ({
-  selectedUserDetails,
-  setSelectedUserDetails,
+  employeeDetails,
+  setEmployeeDetails,
 }: any) => {
   const handleUpdateUserDetails = () => {
     // Axios post...
     Axios.post("http://localhost:3001/update-employee-information", {
-      data: selectedUserDetails,
+      data: employeeDetails,
     })
       .then((response) => {
         console.log(response);
@@ -21,52 +21,50 @@ const EmployeeDetails = ({
       });
   };
 
-  console.log(selectedUserDetails);
-
   return (
     <ContentWrapper secondary={true}>
       <h3>Employee Details</h3>
       <EmployeeInformation
         label="Full name"
-        value={selectedUserDetails.name}
+        value={employeeDetails.name}
         name="name"
-        setSelectedUserDetails={setSelectedUserDetails}
+        setEmployeeDetails={setEmployeeDetails}
       />
       <EmployeeInformation
         label="Age"
         name="age"
-        value={selectedUserDetails?.age}
-        setSelectedUserDetails={setSelectedUserDetails}
+        value={employeeDetails?.age}
+        setEmployeeDetails={setEmployeeDetails}
       />
       <EmployeeInformation
         label="Address"
         name="address"
-        value={selectedUserDetails?.address}
-        setSelectedUserDetails={setSelectedUserDetails}
+        value={employeeDetails?.address}
+        setEmployeeDetails={setEmployeeDetails}
       />
       <EmployeeInformation
         label="City"
         name="city"
-        value={selectedUserDetails?.city}
-        setSelectedUserDetails={setSelectedUserDetails}
+        value={employeeDetails?.city}
+        setEmployeeDetails={setEmployeeDetails}
       />
       <EmployeeInformation
         label="Phone Number"
         name="phone_number"
-        value={selectedUserDetails?.phone_number}
-        setSelectedUserDetails={setSelectedUserDetails}
+        value={employeeDetails?.phone_number}
+        setEmployeeDetails={setEmployeeDetails}
       />
       <EmployeeInformation
         label="Position"
         name="position"
-        value={selectedUserDetails?.position}
-        setSelectedUserDetails={setSelectedUserDetails}
+        value={employeeDetails?.position}
+        setEmployeeDetails={setEmployeeDetails}
       />
       <EmployeeInformation
         label="Salary"
         name="salary"
-        value={selectedUserDetails?.salary}
-        setSelectedUserDetails={setSelectedUserDetails}
+        value={employeeDetails?.salary}
+        setEmployeeDetails={setEmployeeDetails}
       />
       <Button text="Save" onClick={handleUpdateUserDetails} />
     </ContentWrapper>

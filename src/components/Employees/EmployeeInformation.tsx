@@ -6,17 +6,17 @@ type EmployeeInformationType = {
   label: string;
   value: string | number;
   name?: string;
-  setSelectedUserDetails?: any,
+  setEmployeeDetails?: any,
 };
 
 const EmployeeInformation = ({
   label,
   value,
   name,
-  setSelectedUserDetails
+  setEmployeeDetails
 }: EmployeeInformationType) => {
   const handleChangeUserDetails = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedUserDetails((prevState: any) => ({
+    setEmployeeDetails((prevState: any) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));

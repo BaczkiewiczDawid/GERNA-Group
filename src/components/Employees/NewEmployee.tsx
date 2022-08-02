@@ -1,3 +1,4 @@
+import { useState } from "react";
 import ContentWrapper from "components/Dashboard/ContentWrapper";
 import Wrapper from "components/Dashboard/Wrapper";
 import SelectDepartment from "components/Employees/SelectDepartment";
@@ -6,9 +7,26 @@ import { StyledForm, Title } from "components/Employees/NewEmployee.style";
 import Button from "components/Employees/Button";
 
 const NewEmployee = () => {
+  const initialEmployeeInformations = {
+    name: "",
+    age: "",
+    position: "",
+    address: "",
+    city: "",
+    phone_number: "",
+    email: "",
+    salary: "",
+    department: "",
+  };
+  const [employeeInformation, setEmployeeInformation] = useState(
+    initialEmployeeInformations
+  );
+
   const handleNewEmployee = (e: Event) => {
     e.preventDefault();
   };
+
+  console.log(employeeInformation);
 
   return (
     <Wrapper>
@@ -17,11 +35,54 @@ const NewEmployee = () => {
         <Title>Select department</Title>
         <SelectDepartment />
         <StyledForm>
-          <EmployeeInformation label="Name" value="" />
-          <EmployeeInformation label="Name" value="" />
-          <EmployeeInformation label="Name" value="" />
-          <EmployeeInformation label="Name" value="" />
-          <EmployeeInformation label="Name" value="" />
+          <EmployeeInformation
+            label="Name"
+            value={employeeInformation?.name}
+            name="name"
+            setEmployeeDetails={setEmployeeInformation}
+          />
+          <EmployeeInformation
+            label="Age"
+            value={employeeInformation?.age}
+            name="age"
+            setEmployeeDetails={setEmployeeInformation}
+          />
+          <EmployeeInformation
+            label="Position"
+            value={employeeInformation?.position}
+            name="position"
+            setEmployeeDetails={setEmployeeInformation}
+          />
+          <EmployeeInformation
+            label="Address"
+            value={employeeInformation?.address}
+            name="address"
+            setEmployeeDetails={setEmployeeInformation}
+          />
+          <EmployeeInformation
+            label="City"
+            value={employeeInformation?.city}
+            name="city"
+            setEmployeeDetails={setEmployeeInformation}
+          />
+          <EmployeeInformation
+            label="Phone number"
+            value={employeeInformation?.phone_number}
+            name="phone_number"
+            setEmployeeDetails={setEmployeeInformation}
+          />
+          <EmployeeInformation
+            label="Email"
+            value={employeeInformation?.email}
+            name="email"
+            setEmployeeDetails={setEmployeeInformation}
+          />
+          <EmployeeInformation
+            label="Salary"
+            value={employeeInformation?.salary}
+            name="salary"
+            setEmployeeDetails={setEmployeeInformation}
+          />
           <Button
             text="Add new employee"
             onClick={(e: Event) => handleNewEmployee(e)}

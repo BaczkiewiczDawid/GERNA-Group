@@ -97,8 +97,8 @@ const Employees = () => {
             </Table>
           </ContentWrapper>
           <EmployeeDetails
-            selectedUserDetails={selectedUserDetails}
-            setSelectedUserDetails={setSelectedUserDetails}
+            employeeDetails={selectedUserDetails}
+            setEmployeeDetails={setSelectedUserDetails}
           />
         </Content>
       </ContentContainer>
