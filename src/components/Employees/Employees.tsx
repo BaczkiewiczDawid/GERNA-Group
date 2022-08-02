@@ -12,6 +12,7 @@ import ContentWrapper from "components/Dashboard/ContentWrapper";
 import Table from "components/Dashboard/Table";
 import Axios from "axios";
 import EmployeeDetails from 'components/Employees/EmployeeDetails';
+import SingleEmployee from "components/Employees/SingleEmployee";
 
 const Employees = () => {
   const [employeesList, setEmployeesList] = useState<any[]>([]);
@@ -89,15 +90,7 @@ const Employees = () => {
               <th>Total Sales</th>
               {employeesList.map((employee): any => {
                 return (
-                  <tr
-                    key={employee.id * 5000}
-                    onClick={(employeeID) => handleSelectEmployee(employee.id)}
-                  >
-                    <td>{employee.name}</td>
-                    <td>{employee.age}</td>
-                    <td>{employee.age}</td>
-                    <td>{employee.position}</td>
-                  </tr>
+                  <SingleEmployee employee={employee} handleSelectEmployee={handleSelectEmployee} />
                 );
               })}
             </Table>
