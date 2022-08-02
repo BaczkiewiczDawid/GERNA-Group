@@ -5,7 +5,6 @@ import React from "react";
 type EmployeeInformationType = {
   label: string;
   value: string | number;
-  onChange?: any;
   name?: string;
   setSelectedUserDetails: any,
 };
@@ -13,7 +12,6 @@ type EmployeeInformationType = {
 const EmployeeInformation = ({
   label,
   value,
-  onChange,
   name,
   setSelectedUserDetails
 }: EmployeeInformationType) => {

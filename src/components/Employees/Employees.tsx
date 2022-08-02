@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useParams } from 'react-router-dom';
 import {
   DepartmentNav,
   Container,
@@ -17,8 +18,13 @@ const Employees = () => {
   const [selectedUser, setSelectedUser] = useState<number>(1);
   const [selectedUserDetails, setSelectedUserDetails] = useState<any[]>([]);
 
+  const { department } = useParams();
+  console.log(department);
+
   const getEmployeesList = () => {
-    Axios.get("http://localhost:3001/employees-list")
+    Axios.post("http://localhost:3001/employees-list", {
+      department: department,
+    })
       .then((response) => {
         setEmployeesList(response.data);
       })
@@ -41,7 +47,7 @@ const Employees = () => {
 
   useEffect(() => {
     getEmployeesList();
-  }, []);
+  }, [department]);
 
   useEffect(() => {
     getEmployeeDetails();
@@ -87,8 +93,8 @@ const Employees = () => {
                     key={employee.id * 5000}
                     onClick={(employeeID) => handleSelectEmployee(employee.id)}
                   >
-                    <td>{employee.id}</td>
                     <td>{employee.name}</td>
+                    <td>{employee.age}</td>
                     <td>{employee.age}</td>
                     <td>{employee.position}</td>
                   </tr>
