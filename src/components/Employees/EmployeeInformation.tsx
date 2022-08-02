@@ -6,7 +6,7 @@ type EmployeeInformationType = {
   label: string;
   value: string | number;
   name?: string;
-  setSelectedUserDetails: any,
+  setSelectedUserDetails?: any,
 };
 
 const EmployeeInformation = ({

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 type ButtonType = {
     text: string,
-    onClick?: () => void,
+    onClick?: any
 }
 
 const StyledButton = styled.button`
