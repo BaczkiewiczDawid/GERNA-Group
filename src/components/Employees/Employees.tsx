@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 import {
   DepartmentNav,
   Container,
@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import ContentWrapper from "components/Dashboard/ContentWrapper";
 import Table from "components/Dashboard/Table";
 import Axios from "axios";
-import EmployeeDetails from 'components/Employees/EmployeeDetails';
+import EmployeeDetails from "components/Employees/EmployeeDetails";
 import SingleEmployee from "components/Employees/SingleEmployee";
 
 const Employees = () => {
@@ -90,12 +90,18 @@ const Employees = () => {
               <th>Total Sales</th>
               {employeesList.map((employee): any => {
                 return (
-                  <SingleEmployee employee={employee} handleSelectEmployee={handleSelectEmployee} />
+                  <SingleEmployee
+                    employee={employee}
+                    handleSelectEmployee={handleSelectEmployee}
+                  />
                 );
               })}
             </Table>
           </ContentWrapper>
-          <EmployeeDetails selectedUserDetails={selectedUserDetails} setSelectedUserDetails={setSelectedUserDetails} />
+          <EmployeeDetails
+            selectedUserDetails={selectedUserDetails}
+            setSelectedUserDetails={setSelectedUserDetails}
+          />
         </Content>
       </ContentContainer>
     </Container>
