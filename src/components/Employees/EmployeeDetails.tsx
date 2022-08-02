@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ContentWrapper from "components/Dashboard/ContentWrapper";
 import EmployeeInformation from "components/Employees/EmployeeInformation";
 import Button from "components/Employees/Button";
+import Axios from "axios";
 
 const EmployeeDetails = ({
   selectedUserDetails,
@@ -9,9 +10,18 @@ const EmployeeDetails = ({
 }: any) => {
   const handleUpdateUserDetails = () => {
     // Axios post...
+    Axios.post("http://localhost:3001/update-employee-information", {
+      data: selectedUserDetails,
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
-  console.log(selectedUserDetails)
+  console.log(selectedUserDetails);
 
   return (
     <ContentWrapper secondary={true}>

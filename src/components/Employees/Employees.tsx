@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import {
   DepartmentNav,
   Container,
@@ -10,15 +11,21 @@ import { Link } from "react-router-dom";
 import ContentWrapper from "components/Dashboard/ContentWrapper";
 import Table from "components/Dashboard/Table";
 import Axios from "axios";
-import EmployeeDetails from 'components/Employees/EmployeeDetails';
+import EmployeeDetails from "components/Employees/EmployeeDetails";
+import SingleEmployee from "components/Employees/SingleEmployee";
 
 const Employees = () => {
   const [employeesList, setEmployeesList] = useState<any[]>([]);
   const [selectedUser, setSelectedUser] = useState<number>(1);
   const [selectedUserDetails, setSelectedUserDetails] = useState<any[]>([]);
 
+  const { department } = useParams();
+  console.log(department);
+
   const getEmployeesList = () => {
-    Axios.get("http://localhost:3001/employees-list")
+    Axios.post("http://localhost:3001/employees-list", {
+      department: department,
+    })
       .then((response) => {
         setEmployeesList(response.data);
       })
@@ -41,7 +48,7 @@ const Employees = () => {
 
   useEffect(() => {
     getEmployeesList();
-  }, []);
+  }, [department]);
 
   useEffect(() => {
     getEmployeeDetails();
@@ -83,20 +90,18 @@ const Employees = () => {
               <th>Total Sales</th>
               {employeesList.map((employee): any => {
                 return (
-                  <tr
-                    key={employee.id * 5000}
-                    onClick={(employeeID) => handleSelectEmployee(employee.id)}
-                  >
-                    <td>{employee.id}</td>
-                    <td>{employee.name}</td>
-                    <td>{employee.age}</td>
-                    <td>{employee.position}</td>
-                  </tr>
+                  <SingleEmployee
+                    employee={employee}
+                    handleSelectEmployee={handleSelectEmployee}
+                  />
                 );
               })}
             </Table>
           </ContentWrapper>
-          <EmployeeDetails selectedUserDetails={selectedUserDetails} setSelectedUserDetails={setSelectedUserDetails} />
+          <EmployeeDetails
+            selectedUserDetails={selectedUserDetails}
+            setSelectedUserDetails={setSelectedUserDetails}
+          />
         </Content>
       </ContentContainer>
     </Container>
