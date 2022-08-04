@@ -5,6 +5,7 @@ import SelectDepartment from "components/Employees/SelectDepartment";
 import EmployeeInformation from "./EmployeeInformation";
 import { StyledForm, Title } from "components/Employees/NewEmployee.style";
 import Button from "components/Employees/Button";
+import Axios from "axios";
 
 const NewEmployee = () => {
   const initialEmployeeInformations = {
@@ -24,6 +25,16 @@ const NewEmployee = () => {
 
   const handleNewEmployee = (e: Event) => {
     e.preventDefault();
+
+    Axios.post("http://localhost:3001/new-employee", {
+      data: employeeInformation,
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   console.log(employeeInformation);
@@ -33,7 +44,7 @@ const NewEmployee = () => {
       <h1>Add new employee</h1>
       <ContentWrapper>
         <Title>Select department</Title>
-        <SelectDepartment />
+        <SelectDepartment setEmployeeInformation={setEmployeeInformation} />
         <StyledForm>
           <EmployeeInformation
             label="Name"
