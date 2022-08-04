@@ -5,8 +5,8 @@ const Links = () => {
     <>
       <Link to="/">D</Link>
       <Link to="/employees/katowice">E</Link>
-      <Link to="/">D</Link>
-      <Link to="/">D</Link>
+      <Link to="/sales/new">N</Link>
+      <Link to="/cars">C</Link>
     </>
   );
 };
