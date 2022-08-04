@@ -1,10 +1,14 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const SelectDepartment = () => {
   const navigate = useNavigate();
-
+  const location = useLocation();
+  
   const handleChangeURL = (e: any) => {
-    console.log(e.target.value);
+    if (location.pathname === "/employees/new") {
+      return;
+    }
+
     navigate(`/employees/${e.target.value}`, { replace: true });
   };
 
