@@ -3,12 +3,9 @@ import { useParams } from "react-router-dom";
 import {
   DepartmentNav,
   Container,
-  LinksContainer,
   Content,
   ContentContainer,
-  StyledLink,
 } from "components/Employees/Employees.style";
-import { Link } from "react-router-dom";
 import ContentWrapper from "components/Dashboard/ContentWrapper";
 import Table from "components/Dashboard/Table";
 import Axios from "axios";
@@ -76,7 +73,7 @@ const Employees = () => {
               <th>Employee name</th>
               <th>Age</th>
               <th>Experience</th>
-              <th>Total Sales</th>
+              <th>Position</th>
               {employeesList.map((employee): any => {
                 return (
                   <SingleEmployee
