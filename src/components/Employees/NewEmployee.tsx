@@ -44,7 +44,7 @@ const NewEmployee = () => {
       <h1>Add new employee</h1>
       <ContentWrapper>
         <Title>Select department</Title>
-        <SelectDepartment />
+        <SelectDepartment setEmployeeInformation={setEmployeeInformation} />
         <StyledForm>
           <EmployeeInformation
             label="Name"
