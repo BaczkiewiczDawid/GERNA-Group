@@ -6,6 +6,7 @@ import {
   LinksContainer,
   Content,
   ContentContainer,
+  StyledLink,
 } from "components/Employees/Employees.style";
 import { Link } from "react-router-dom";
 import ContentWrapper from "components/Dashboard/ContentWrapper";
@@ -14,7 +15,7 @@ import Axios from "axios";
 import EmployeeDetails from "components/Employees/EmployeeDetails";
 import SingleEmployee from "components/Employees/SingleEmployee";
 import SelectDepartment from "components/Employees/SelectDepartment";
-import Button from "components/Employees/Button";
+import DepartmentNavigation from "components/Employees/DepartmentNavigation";
 
 const Employees = () => {
   const [employeesList, setEmployeesList] = useState<any[]>([]);
@@ -65,17 +66,7 @@ const Employees = () => {
       <DepartmentNav>
         <h2>Department</h2>
         <SelectDepartment />
-        <LinksContainer>
-          <Link to="/employees/katowice">GERNA Group Katowice</Link>
-          <Link to="/employees/wroclaw">GERNA Group Wrocław</Link>
-          <Link to="/employees/olsztyn">GERNA Group Olsztyn</Link>
-          <Link to="/employees/krakow">GERNA Group Kraków</Link>
-          <Link to="/employees/warszawa">GERNA Group Warszawa</Link>
-          <Link to="/employees/gdansk">GERNA Group Gdańsk</Link>
-          <Link to="/employees/new">
-            <Button text="Add new employee" />
-          </Link>
-        </LinksContainer>
+        <DepartmentNavigation />
       </DepartmentNav>
       <ContentContainer>
         <h1>GERNA Group Employees - Katowice</h1>

@@ -4,7 +4,7 @@ const Links = () => {
   return (
     <>
       <Link to="/">D</Link>
-      <Link to="/employees">E</Link>
+      <Link to="/employees/katowice">E</Link>
       <Link to="/">D</Link>
       <Link to="/">D</Link>
     </>

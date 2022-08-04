@@ -1,4 +1,9 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+
+export interface LinkType {
+  active?: boolean;
+}
 
 export const DepartmentNav = styled.nav`
   display: flex;
@@ -49,11 +54,11 @@ export const Container = styled.div`
   flex-direction: column;
 
   th {
-    font-size: .75rem;
+    font-size: 0.75rem;
   }
 
   td {
-    font-size: .75rem;
+    font-size: 0.75rem;
     font-weight: 300;
   }
 
@@ -62,7 +67,7 @@ export const Container = styled.div`
   }
 `;
 
-export const LinksContainer = styled.div`
+export const LinksContainer = styled.div<LinkType>`
   display: none;
   @media screen and (min-width: 768px) {
     display: flex;
@@ -71,14 +76,15 @@ export const LinksContainer = styled.div`
     align-items: flex-start;
     margin-top: 2rem;
     margin-left: 2rem;
-
-    a {
-      text-decoration: none;
-      color: ${({ theme }) => theme.colors.text};
-      margin: 0.5rem 0;
-      font-size: 0.9rem;
-    }
   }
+`;
+
+export const StyledLink = styled(Link)<LinkType>`
+  text-decoration: none;
+  color: ${(props) =>
+    props.active ? props.theme.colors.blue : props.theme.colors.text};
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
 `;
 
 export const ContentContainer = styled.section`
