@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import ContentWrapper from "components/Dashboard/ContentWrapper";
 import carImg from "assets/images/audi-a4.png";
 import {
@@ -5,23 +6,46 @@ import {
   Informations,
   Price,
 } from "components/CarsList/SingleCar.style";
+import Axios from "axios";
 
 interface Car {
-  manufactuer: string,
-  model: string,
-  price: number
+  id: number,
+  manufactuer: string;
+  model: string;
+  price: number;
 }
 
-const SingleCar = ({ manufactuer, model, price }: Car) => {
+const SingleCar = ({ id, manufactuer, model, price }: Car) => {
+  const [sales, setSales] = useState([]);
+
+  const getSalesQuantity = () => {
+    Axios.post("http://localhost:3001/get-sales", {
+      data: id
+    })
+      .then((response) => {
+        setSales(response.data[0].sales);
+      })
+      .catch((err) => {
+        console.log(err);
+        throw err;
+      });
+  };
+
+  useEffect(() => {
+    getSalesQuantity();
+  }, [])
+
   return (
     <ContentWrapper>
-      <h2>{manufactuer} {model}</h2>
+      <h2>
+        {manufactuer} {model}
+      </h2>
       <ImageWrapper>
         <img src={carImg} alt={`${manufactuer} ${model}`} />
       </ImageWrapper>
       <Informations>
         <Price>${price}</Price>
-        <p>Total sold: 53</p>
+        <p>Total sold: {sales}</p>
       </Informations>
     </ContentWrapper>
   );

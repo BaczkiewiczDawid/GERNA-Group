@@ -30,6 +30,7 @@ const CarsList = () => {
         {carsList.map((car: any) => {
           return (
             <SingleCar
+              id={car.id}
               manufactuer={car.manufactuer}
               model={car.model}
               price={car.price}
