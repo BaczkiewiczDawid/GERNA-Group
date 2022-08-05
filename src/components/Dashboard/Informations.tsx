@@ -1,10 +1,15 @@
 import { Wrapper, Count, FinancialDetails } from 'components/Dashboard/Informations.style';
 
-const Informations = () => {
+interface Information {
+  title: string,
+  count: number | string,
+}
+
+const Informations = ({ title, count }: Information) => {
   return (
     <Wrapper>
-      <h2>New sales</h2>
-      <Count>261</Count>
+      <h2>{title}</h2>
+      <Count>{count}</Count>
       <FinancialDetails>
         +13% <span>(30 days)</span>
       </FinancialDetails>

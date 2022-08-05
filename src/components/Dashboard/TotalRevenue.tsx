@@ -57,6 +57,10 @@ const data = [
     name: "Nov",
     revenue: "542658",
   },
+  {
+    name: "Dec",
+    revenue: "725658",
+  },
 ];
 
 const TotalRevenue = () => {
