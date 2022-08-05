@@ -3,17 +3,24 @@ import carImg from "assets/images/audi-a4.png";
 import {
   ImageWrapper,
   Informations,
+  Price,
 } from "components/CarsList/SingleCar.style";
 
-const SingleCar = () => {
+interface Car {
+  manufactuer: string,
+  model: string,
+  price: number
+}
+
+const SingleCar = ({ manufactuer, model, price }: Car) => {
   return (
     <ContentWrapper>
-      <h2>Audi A4</h2>
+      <h2>{manufactuer} {model}</h2>
       <ImageWrapper>
-        <img src={carImg} alt="Audi A4" />
+        <img src={carImg} alt={`${manufactuer} ${model}`} />
       </ImageWrapper>
       <Informations>
-        <p>$53,312</p>
+        <Price>${price}</Price>
         <p>Total sold: 53</p>
       </Informations>
     </ContentWrapper>
