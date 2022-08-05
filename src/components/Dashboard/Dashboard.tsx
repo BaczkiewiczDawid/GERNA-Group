@@ -11,25 +11,34 @@ import Wrapper from "components/Dashboard/Wrapper";
 import Axios from "axios";
 
 const Dashboard = () => {
-  const [sales, setSales] = useState<number>()
+  const [sales, setSales] = useState<number>(0);
+  const [totalIncome, setTotalIncome] = useState<number>(0);
 
   const getLastSales = () => {
     Axios.get("http://localhost:3001/recent-sales").then((response) => {
-      setSales(response.data[0].sales)
+      setSales(response.data[0].sales);
+    });
+  };
+
+  const getTotalIncome = () => {
+    Axios.get("http://localhost:3001/total-income").then((response) => {
+      setTotalIncome(response.data[0].totalIncome);
+      console.log(response.data[0])
     });
   };
 
   useEffect(() => {
     getLastSales();
+    getTotalIncome();
   }, []);
 
   return (
     <Wrapper>
       <h1>GERNA Group Dashboard</h1>
       <InformationsContainer>
-        <Informations title="New sales" count={12} />
+        <Informations title="New sales" count={sales} />
         <Informations title="Income" count={123} />
-        <Informations title="Expenses" count={123} />
+        <Informations title="Total income" count={`$${totalIncome}`} />
       </InformationsContainer>
       <Container>
         <TotalRevenue />

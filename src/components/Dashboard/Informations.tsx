@@ -1,9 +1,8 @@
 import { Wrapper, Count, FinancialDetails } from 'components/Dashboard/Informations.style';
-import { count } from 'console';
 
 interface Information {
   title: string,
-  count: number,
+  count: number | string,
 }
 
 const Informations = ({ title, count }: Information) => {
