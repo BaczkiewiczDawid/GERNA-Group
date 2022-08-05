@@ -1,15 +1,11 @@
 import styled from 'styled-components';
 
-export const ImageWrapper = styled.div`
-    object-fit: cover;
-
-    img {
-        object-fit: cover;
-        width: 90%;
-    }
-`;
-
-export const Informations = styled.div`
+export const CarsContainer = styled.section`
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+
+    @media screen and (min-width: 768px) {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
 `;

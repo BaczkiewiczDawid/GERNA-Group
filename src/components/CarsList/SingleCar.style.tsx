@@ -1,15 +1,19 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const ImageWrapper = styled.div`
-    object-fit: cover;
+  object-fit: cover;
 
-    img {
-        object-fit: cover;
-        width: 90%;
-    }
+  img {
+    object-fit: cover;
+    width: 90%;
+  }
 `;
 
 export const Informations = styled.div`
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const Price = styled.p`
+  font-weight: bold;
 `;
