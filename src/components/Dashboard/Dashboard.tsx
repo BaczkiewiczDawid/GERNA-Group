@@ -12,6 +12,7 @@ import Axios from "axios";
 
 const Dashboard = () => {
   const [sales, setSales] = useState<number>(0);
+  const [recentIncome, setRecentIncome] = useState<number>(0);
   const [totalIncome, setTotalIncome] = useState<number>(0);
 
   const getLastSales = () => {
@@ -20,15 +21,22 @@ const Dashboard = () => {
     });
   };
 
+  const getRecentIncome = () => {
+    Axios.get("http://localhost:3001/recent-income").then((response) => {
+      setRecentIncome(response.data[0].totalIncome);
+    });
+  };
+
   const getTotalIncome = () => {
     Axios.get("http://localhost:3001/total-income").then((response) => {
       setTotalIncome(response.data[0].totalIncome);
-      console.log(response.data[0])
+      console.log(response.data[0]);
     });
   };
 
   useEffect(() => {
     getLastSales();
+    getRecentIncome();
     getTotalIncome();
   }, []);
 
@@ -37,7 +45,7 @@ const Dashboard = () => {
       <h1>GERNA Group Dashboard</h1>
       <InformationsContainer>
         <Informations title="New sales" count={sales} />
-        <Informations title="Income" count={123} />
+        <Informations title="Income" count={`$${recentIncome}`} />
         <Informations title="Total income" count={`$${totalIncome}`} />
       </InformationsContainer>
       <Container>
