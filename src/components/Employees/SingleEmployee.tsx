@@ -1,14 +1,20 @@
+import styled from 'styled-components';
+
+const Row = styled.tr`
+  cursor: pointer;
+`;
+
 const SingleEmployee = ({ employee, handleSelectEmployee }: any) => {
   return (
-    <tr
+    <Row
       key={employee.id * 5000}
-      onClick={(employeeID) => handleSelectEmployee(employee.id)}
+      onClick={() => handleSelectEmployee(employee.id)}
     >
       <td>{employee.name}</td>
       <td>{employee.age}</td>
       <td>{employee.age}</td>
       <td>{employee.position}</td>
-    </tr>
+    </Row>
   );
 };
 
