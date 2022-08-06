@@ -18,7 +18,7 @@ const SelectDepartment = ({ setEmployeeInformation }: any) => {
   };
 
   return (
-    <select name="deparment" onChange={(e: any) => handleChangeURL(e)}>
+    <select name="department" onChange={(e: any) => handleChangeURL(e)}>
       <option value="katowice">Katowice</option>
       <option value="wroclaw">Wrocław</option>
       <option value="olsztyn">Olsztyn</option>
