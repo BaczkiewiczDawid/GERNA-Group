@@ -70,18 +70,25 @@ const Employees = () => {
         <Content>
           <ContentWrapper>
             <Table>
-              <th>Employee name</th>
-              <th>Age</th>
-              <th>Experience</th>
-              <th>Position</th>
-              {employeesList.map((employee): any => {
-                return (
-                  <SingleEmployee
-                    employee={employee}
-                    handleSelectEmployee={handleSelectEmployee}
-                  />
-                );
-              })}
+              {employeesList.length < 1 ? (
+                <span>There's no employees in this department</span>
+              ) : (
+                <>
+                  {" "}
+                  <th>Employee name</th>
+                  <th>Age</th>
+                  <th>Experience</th>
+                  <th>Position</th>
+                  {employeesList.map((employee): any => {
+                    return (
+                      <SingleEmployee
+                        employee={employee}
+                        handleSelectEmployee={handleSelectEmployee}
+                      />
+                    );
+                  })}
+                </>
+              )}
             </Table>
           </ContentWrapper>
           <EmployeeDetails
