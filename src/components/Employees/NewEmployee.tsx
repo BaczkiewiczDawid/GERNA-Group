@@ -49,7 +49,7 @@ const NewEmployee = () => {
       data: employeeInformation,
     })
       .then((response) => {
-        console.log(response);
+        console.log(response)
         showModal(ResultType.success, "Employee added successfully!");
       })
       .catch((err) => {

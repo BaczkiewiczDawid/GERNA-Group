@@ -1,16 +1,18 @@
 import styled, { keyframes } from "styled-components";
 
 type ModalType = {
-    success?: boolean;
-}
+  success?: boolean;
+};
 
 const timerAnimation = keyframes`
     0% {
         width: 100%;
+        display: block;
     }
 
     100% {
         width: 0%;
+        display: none;
     }
 `;
 
@@ -36,15 +38,17 @@ export const Content = styled.div`
 
 export const Message = styled.p<ModalType>`
   font-size: 0.75rem;
-  color: ${props => props.success ? props.theme.colors.green : props.theme.colors.text};
+  color: ${(props) =>
+    props.success ? props.theme.colors.green : props.theme.colors.red};
   margin-left: 1rem;
 `;
 
-export const Timer = styled.div`
+export const Timer = styled.div<ModalType>`
   width: 100%;
   height: 0.3rem;
   position: absolute;
-  background-color: ${({ theme }) => theme.colors.green};
+  background-color: ${(props) =>
+    props.success ? props.theme.colors.green : props.theme.colors.red};
   bottom: 0;
   left: 0;
   animation: ${timerAnimation} 1s linear;

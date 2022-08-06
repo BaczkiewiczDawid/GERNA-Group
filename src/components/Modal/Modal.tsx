@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Wrapper, Timer, Content, Message } from "components/Modal/Modal.style";
 
 type ModalType = {
@@ -11,11 +10,17 @@ type ModalType = {
 const Modal = ({ isOpen, message, type, setIsOpen }: ModalType) => {
   const handleCloseModal = () => {
     setIsOpen({
-        isOpen: false,
-        message: message,
-        type: type,
+      isOpen: false,
+      message: message,
+      type: type,
     });
   };
+
+  if (isOpen) {
+    setTimeout(() => {
+        handleCloseModal()
+    }, 1000)
+  }
 
   return (
     <>
@@ -23,7 +28,7 @@ const Modal = ({ isOpen, message, type, setIsOpen }: ModalType) => {
         <Wrapper>
           <Content onClick={handleCloseModal}>
             <Message success={type === 0 ? true : false}>{message}</Message>
-            <Timer></Timer>
+            <Timer success={type === 0 ? true : false}></Timer>
           </Content>
         </Wrapper>
       )}
