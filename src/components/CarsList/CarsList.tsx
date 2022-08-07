@@ -39,9 +39,6 @@ const CarsList = () => {
             </StyledLink>
           );
         })}
-        {/* <SingleCar />
-        <SingleCar />
-        <SingleCar /> */}
       </CarsContainer>
     </Wrapper>
   );
