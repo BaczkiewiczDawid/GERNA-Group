@@ -3,11 +3,17 @@ import ContentWrapper from "components/Dashboard/ContentWrapper";
 import EmployeeInformation from "components/Employees/EmployeeInformation";
 import Button from "components/Employees/Button";
 import Axios from "axios";
-import { StyledButton, Container } from "components/Employees/EmployeeDetails.style";
+import {
+  StyledButton,
+  Container,
+} from "components/Employees/EmployeeDetails.style";
+import ConfirmationModal from "components/ConfirmationModal/ConfirmationModal";
 
 const EmployeeDetails = ({ employeeDetails, setEmployeeDetails }: any) => {
+  const [isConfirmationModalOpen, setIsConfirmationModalOpen] =
+    useState<boolean>(false);
+
   const handleUpdateUserDetails = () => {
-    // Axios post...
     Axios.post("http://localhost:3001/update-employee-information", {
       data: employeeDetails,
     })
@@ -20,19 +26,27 @@ const EmployeeDetails = ({ employeeDetails, setEmployeeDetails }: any) => {
   };
 
   const handleDeleteEmployee = (id: number) => {
-    console.log(id);
-    Axios.post('http://localhost:3001/delete-employee', {
-      id: id
-    }).then((response) => {
-      console.log(response);
-    })
+    // Axios.post("http://localhost:3001/delete-employee", {
+    //   id: id,
+    // }).then((reponse) => {
+    // })
+
+    setIsConfirmationModalOpen(true);
   };
 
   return (
     <ContentWrapper secondary={true}>
+      <ConfirmationModal
+        isOpen={isConfirmationModalOpen}
+        setIsOpen={setIsConfirmationModalOpen}
+      />
       <Container>
         <h3>Employee Details</h3>
-        <StyledButton onClick={(id) => handleDeleteEmployee(employeeDetails.id)}>Fire employee</StyledButton>
+        <StyledButton
+          onClick={(id) => handleDeleteEmployee(employeeDetails.id)}
+        >
+          Fire employee
+        </StyledButton>
       </Container>
       <EmployeeInformation
         label="Full name"
