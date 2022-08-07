@@ -9,7 +9,7 @@ import {
 import Axios from "axios";
 
 interface Car {
-  id: number,
+  id: number;
   manufactuer: string;
   model: string;
   price: number;
@@ -20,7 +20,7 @@ const SingleCar = ({ id, manufactuer, model, price }: Car) => {
 
   const getSalesQuantity = () => {
     Axios.post("http://localhost:3001/get-sales", {
-      data: id
+      data: id,
     })
       .then((response) => {
         setSales(response.data[0].sales);
@@ -33,20 +33,20 @@ const SingleCar = ({ id, manufactuer, model, price }: Car) => {
 
   useEffect(() => {
     getSalesQuantity();
-  }, [])
+  }, []);
 
   return (
     <ContentWrapper>
-      <h2>
-        {manufactuer} {model}
-      </h2>
-      <ImageWrapper>
-        <img src={carImg} alt={`${manufactuer} ${model}`} />
-      </ImageWrapper>
-      <Informations>
-        <Price>${price}</Price>
-        <p>Total sold: {sales}</p>
-      </Informations>
+        <h2>
+          {manufactuer} {model}
+        </h2>
+        <ImageWrapper>
+          <img src={carImg} alt={`${manufactuer} ${model}`} />
+        </ImageWrapper>
+        <Informations>
+          <Price>${price}</Price>
+          <p>Total sold: {sales}</p>
+        </Informations>
     </ContentWrapper>
   );
 };

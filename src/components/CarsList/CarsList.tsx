@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Wrapper from "components/Dashboard/Wrapper";
 import SingleCar from "components/CarsList/SingleCar";
-import { CarsContainer } from "components/CarsList/CarsList.style";
+import { CarsContainer, StyledLink } from "components/CarsList/CarsList.style";
 import Axios from "axios";
 
 const CarsList = () => {
@@ -29,12 +29,14 @@ const CarsList = () => {
       <CarsContainer>
         {carsList.map((car: any) => {
           return (
-            <SingleCar
-              id={car.id}
-              manufactuer={car.manufactuer}
-              model={car.model}
-              price={car.price}
-            />
+            <StyledLink to={`/cars/${car.id}`}>
+              <SingleCar
+                id={car.id}
+                manufactuer={car.manufactuer}
+                model={car.model}
+                price={car.price}
+              />
+            </StyledLink>
           );
         })}
         {/* <SingleCar />

@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { Link } from "react-router-dom";
+
 
 export const CarsContainer = styled.section`
     display: flex;
@@ -8,4 +10,8 @@ export const CarsContainer = styled.section`
         flex-direction: row;
         flex-wrap: wrap;
     }
+`;
+
+export const StyledLink = styled(Link)`
+    text-decoration: none;
 `;
