@@ -72,3 +72,11 @@ export const Description = styled.p`
   width: 90%;
   margin-bottom: 2rem;
 `;
+
+export const List = styled.ul`
+    margin-top: 2rem;
+`;
+
+export const ListItem = styled.li`
+    margin-top: 1rem;
+`;

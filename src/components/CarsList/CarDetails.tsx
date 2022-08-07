@@ -6,6 +6,8 @@ import {
   ModelInfo,
   Description,
   Details,
+  List,
+  ListItem,
 } from "components/CarsList/CarDetails.style";
 
 const CarDetails = () => {
@@ -36,18 +38,16 @@ const CarDetails = () => {
         <img src={carImg} alt="Car" />
         <Details secondary>
           <h3>Equipment</h3>
-          <ul>
-            <li>Heated seats</li>
-            <li>Xenon lights</li>
-            <li>Heated seats</li>
-            <li>Xenon lights</li>
-            <li>Heated seats</li>
-            <li>Xenon lights</li>
-            <li>Heated seats</li>
-            <li>Xenon lights</li>
-            <li>Heated seats</li>
-            <li>Xenon lights</li>
-          </ul>
+          <List>
+            <ListItem>Heated seats</ListItem>
+            <ListItem>Xenon lights</ListItem>
+            <ListItem>Heated seats</ListItem>
+            <ListItem>Xenon lights</ListItem>
+            <ListItem>Heated seats</ListItem>
+            <ListItem>Xenon lights</ListItem>
+            <ListItem>Heated seats</ListItem>
+            <ListItem>Xenon lights</ListItem>
+          </List>
         </Details>
       </CarContainer>
     </Wrapper>
