@@ -1,15 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import ContentWrapper from "components/Dashboard/ContentWrapper";
 import EmployeeInformation from "components/Employees/EmployeeInformation";
 import Button from "components/Employees/Button";
 import Axios from "axios";
+import {
+  StyledButton,
+  Container,
+} from "components/Employees/EmployeeDetails.style";
+import ConfirmationModal from "components/ConfirmationModal/ConfirmationModal";
+import { ConfirmationModalCtx } from "context/ConfirmationModalCtx";
 
-const EmployeeDetails = ({
-  employeeDetails,
-  setEmployeeDetails,
-}: any) => {
+const EmployeeDetails = ({ employeeDetails, setEmployeeDetails }: any) => {
+  // const [isConfirmationModalOpen, setIsConfirmationModalOpen] =
+  //   useState<boolean>(false);
+
+  const { handleShowModal, response } = useContext(ConfirmationModalCtx);
+
+  const [selectedEmployee, setSelectedEmployee] = useState(0);
+
   const handleUpdateUserDetails = () => {
-    // Axios post...
     Axios.post("http://localhost:3001/update-employee-information", {
       data: employeeDetails,
     })
@@ -21,9 +30,28 @@ const EmployeeDetails = ({
       });
   };
 
+  const handleDeleteEmployee = (id: number) => {
+    setSelectedEmployee(id);
+    handleShowModal();
+  };
+
+  useEffect(() => {
+    if (response === 0) {
+      Axios.post("http://localhost:3001/delete-employee", {
+        id: selectedEmployee,
+      });
+    }
+  }, [response, selectedEmployee]);
+
   return (
     <ContentWrapper secondary={true}>
-      <h3>Employee Details</h3>
+      <ConfirmationModal />
+      <Container>
+        <h3>Employee Details</h3>
+        <StyledButton onClick={() => handleDeleteEmployee(employeeDetails.id)}>
+          Fire employee
+        </StyledButton>
+      </Container>
       <EmployeeInformation
         label="Full name"
         value={employeeDetails.name}

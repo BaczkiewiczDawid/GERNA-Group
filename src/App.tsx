@@ -8,21 +8,24 @@ import Employees from "components/Employees/Employees";
 import NewEmployee from "components/Employees/NewEmployee";
 import CarsList from "components/CarsList/CarsList";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ConfirmationModalProvider from "context/ConfirmationModalCtx";
 
 function App() {
   return (
     <>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
-        <Router>
-          <Navigation />
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/employees/:department" element={<Employees />} />
-            <Route path="/employees/new" element={<NewEmployee />} />
-            <Route path="/cars" element={<CarsList />} />
-          </Routes>
-        </Router>
+        <ConfirmationModalProvider>
+          <Router>
+            <Navigation />
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/employees/:department" element={<Employees />} />
+              <Route path="/employees/new" element={<NewEmployee />} />
+              <Route path="/cars" element={<CarsList />} />
+            </Routes>
+          </Router>
+        </ConfirmationModalProvider>
       </ThemeProvider>
     </>
   );
