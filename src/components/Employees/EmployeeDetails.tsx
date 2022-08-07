@@ -11,9 +11,6 @@ import ConfirmationModal from "components/ConfirmationModal/ConfirmationModal";
 import { ConfirmationModalCtx } from "context/ConfirmationModalCtx";
 
 const EmployeeDetails = ({ employeeDetails, setEmployeeDetails }: any) => {
-  // const [isConfirmationModalOpen, setIsConfirmationModalOpen] =
-  //   useState<boolean>(false);
-
   const { handleShowModal, response } = useContext(ConfirmationModalCtx);
 
   const [selectedEmployee, setSelectedEmployee] = useState(0);

@@ -7,6 +7,7 @@ import Dashboard from "components/Dashboard/Dashboard";
 import Employees from "components/Employees/Employees";
 import NewEmployee from "components/Employees/NewEmployee";
 import CarsList from "components/CarsList/CarsList";
+import CarDetails from 'components/CarsList/CarDetails';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ConfirmationModalProvider from "context/ConfirmationModalCtx";
 
@@ -23,6 +24,7 @@ function App() {
               <Route path="/employees/:department" element={<Employees />} />
               <Route path="/employees/new" element={<NewEmployee />} />
               <Route path="/cars" element={<CarsList />} />
+              <Route path="/cars/:id" element={<CarDetails />} />
             </Routes>
           </Router>
         </ConfirmationModalProvider>

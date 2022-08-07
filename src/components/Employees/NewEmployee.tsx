@@ -23,7 +23,7 @@ const NewEmployee = () => {
     phone_number: "",
     email: "",
     salary: "",
-    department: "",
+    department: "katowice",
   };
   const [employeeInformation, setEmployeeInformation] = useState(
     initialEmployeeInformations
