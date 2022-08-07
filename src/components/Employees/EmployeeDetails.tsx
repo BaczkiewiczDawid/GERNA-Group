@@ -3,11 +3,9 @@ import ContentWrapper from "components/Dashboard/ContentWrapper";
 import EmployeeInformation from "components/Employees/EmployeeInformation";
 import Button from "components/Employees/Button";
 import Axios from "axios";
+import { StyledButton, Container } from "components/Employees/EmployeeDetails.style";
 
-const EmployeeDetails = ({
-  employeeDetails,
-  setEmployeeDetails,
-}: any) => {
+const EmployeeDetails = ({ employeeDetails, setEmployeeDetails }: any) => {
   const handleUpdateUserDetails = () => {
     // Axios post...
     Axios.post("http://localhost:3001/update-employee-information", {
@@ -21,9 +19,21 @@ const EmployeeDetails = ({
       });
   };
 
+  const handleDeleteEmployee = (id: number) => {
+    console.log(id);
+    Axios.post('http://localhost:3001/delete-employee', {
+      id: id
+    }).then((response) => {
+      console.log(response);
+    })
+  };
+
   return (
     <ContentWrapper secondary={true}>
-      <h3>Employee Details</h3>
+      <Container>
+        <h3>Employee Details</h3>
+        <StyledButton onClick={(id) => handleDeleteEmployee(employeeDetails.id)}>Fire employee</StyledButton>
+      </Container>
       <EmployeeInformation
         label="Full name"
         value={employeeDetails.name}
