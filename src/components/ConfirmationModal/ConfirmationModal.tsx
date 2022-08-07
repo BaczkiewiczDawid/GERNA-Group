@@ -1,26 +1,18 @@
-import { useState } from "react";
+import { useContext } from "react";
 import {
   Modal,
   Button,
   ButtonsContainer,
 } from "components/ConfirmationModal/ConfirmationModal.style";
+import { ConfirmationModalCtx } from "context/ConfirmationModalCtx";
 
 enum Response {
   yes = 0,
   no = 1,
 }
 
-const ConfirmationModal = ({ isOpen, setIsOpen }: any) => {
-  const [response, setResponse] = useState<Response>(1);
-
-  const handleCloseModal = (value: Response) => {
-    setIsOpen(false);
-    setResponse(value);
-
-    return response;
-  };
-
-  console.log(response)
+const ConfirmationModal = () => {
+  const { isOpen, handleSetResponse } = useContext(ConfirmationModalCtx);
 
   return (
     <>
@@ -29,10 +21,10 @@ const ConfirmationModal = ({ isOpen, setIsOpen }: any) => {
           <h4>Are you sure?</h4>
           <p>This process is not irreversible</p>
           <ButtonsContainer>
-            <Button primary onClick={() => handleCloseModal(0)}>
+            <Button primary onClick={() => handleSetResponse(Response.yes)}>
               Yes
             </Button>
-            <Button onClick={() => handleCloseModal(1)}>No</Button>
+            <Button onClick={() => handleSetResponse(Response.no)}>No</Button>
           </ButtonsContainer>
         </Modal>
       )}
