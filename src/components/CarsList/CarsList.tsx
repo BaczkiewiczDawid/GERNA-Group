@@ -3,6 +3,8 @@ import Wrapper from "components/Dashboard/Wrapper";
 import SingleCar from "components/CarsList/SingleCar";
 import { CarsContainer, StyledLink } from "components/CarsList/CarsList.style";
 import Axios from "axios";
+import Button from "components/Employees/Button";
+import { Link } from "react-router-dom";
 
 const CarsList = () => {
   const [carsList, setCarsList] = useState([]);
@@ -24,6 +26,9 @@ const CarsList = () => {
   return (
     <Wrapper>
       <h1>GERNA Group Cars</h1>
+      <Link to="/cars/new">
+        <Button text="Add new car" />
+      </Link>
       <CarsContainer>
         {carsList.map((car: any) => {
           return (
