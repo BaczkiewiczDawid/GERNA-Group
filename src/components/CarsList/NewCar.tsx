@@ -41,6 +41,7 @@ const NewCar = () => {
             value={inputValues.model}
             onChange={(e: any) => handleChangeInputValue(e)}
             name="model"
+            placeholder="Model..."
           />
           <Label>Engine</Label>
           <Input
@@ -48,6 +49,7 @@ const NewCar = () => {
             value={inputValues.engine}
             onChange={(e: any) => handleChangeInputValue(e)}
             name="engine"
+            placeholder="Engine..."
           />
           <Label>Price</Label>
           <Input
@@ -55,6 +57,7 @@ const NewCar = () => {
             value={inputValues.price}
             onChange={(e: any) => handleChangeInputValue(e)}
             name="price"
+            placeholder="Price..."
           />
         </Form>
       </ContentWrapper>
