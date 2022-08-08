@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import Wrapper from "components/Dashboard/Wrapper";
 import { useParams } from "react-router-dom";
 import carImg from "assets/images/audi-a4.png";
@@ -9,9 +10,31 @@ import {
   List,
   ListItem,
 } from "components/CarsList/CarDetails.style";
+import Axios from 'axios';
+
+interface Car {
+  id: number,
+  manufactuer: string,
+  model: string,
+  price: number,
+  engine: string
+}
 
 const CarDetails = () => {
   const carID: any = useParams().id;
+  const [carDetails, setCarDetails] = useState<Car>();
+
+  const getCarDetails = () => {
+    Axios.post('http://localhost:3001/car-details', {
+      id: carID,
+    }).then((response) => {
+      setCarDetails(response.data[0])
+    })
+  }
+
+  useEffect(() => {
+    getCarDetails();
+  }, [carID])
 
   return (
     <Wrapper>
@@ -20,8 +43,8 @@ const CarDetails = () => {
         <img src={carImg} alt="Car" />
         <Details>
           <ModelInfo>
-            <h2>Audi A4</h2>
-            <p>2.0T 240KM</p>
+            <h2>{carDetails?.manufactuer} {carDetails?.model}</h2>
+            <p>{carDetails?.engine}</p>
           </ModelInfo>
           <Description>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
@@ -31,7 +54,7 @@ const CarDetails = () => {
             sapien, consectetur non dui eu, semper porttitor dui. Sed venenatis
             erat quis condimentum luctus. Nulla consequat mattis enim a euismod.
           </Description>
-          <span>$53215</span>
+          <span>${carDetails?.price}</span>
         </Details>
       </CarContainer>
       <CarContainer secondary>

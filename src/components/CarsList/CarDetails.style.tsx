@@ -37,7 +37,7 @@ export const CarContainer = styled.div<CarContainerType>`
     img {
       width: 35%;
       object-fit: contain;
-      margin-right: ${props => props.secondary ? '8rem' : '0'};
+      margin-right: ${(props) => (props.secondary ? "8rem" : "0")};
     }
   }
 
@@ -45,7 +45,7 @@ export const CarContainer = styled.div<CarContainerType>`
     img {
       width: 40%;
       object-fit: contain;
-      margin-right: ${props => props.secondary ? '12rem' : '0'};
+      margin-right: ${(props) => (props.secondary ? "12rem" : "0")};
     }
   }
 `;
@@ -54,11 +54,13 @@ export const Details = styled.div<CarContainerType>`
   @media screen and (min-width: 768px) {
     margin-right: ${(props) => (props.secondary ? "0" : "4rem")};
     width: ${(props) => (props.secondary ? "30%" : "50%")};
+    margin-left: ${(props) => (props.secondary ? "4rem" : "0")};
   }
 
   @media screen and (min-width: 1080px) {
     margin-right: ${(props) => (props.secondary ? "0" : "8rem")};
     width: ${(props) => (props.secondary ? "20%" : "40%")};
+    margin-left: ${(props) => (props.secondary ? "3rem" : "0")};
   }
 `;
 
@@ -74,9 +76,9 @@ export const Description = styled.p`
 `;
 
 export const List = styled.ul`
-    margin-top: 2rem;
+  margin-top: 2rem;
 `;
 
 export const ListItem = styled.li`
-    margin-top: 1rem;
+  margin-top: 1rem;
 `;

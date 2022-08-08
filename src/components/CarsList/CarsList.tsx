@@ -21,8 +21,6 @@ const CarsList = () => {
     getCarsList();
   }, []);
 
-  console.log(carsList);
-
   return (
     <Wrapper>
       <h1>GERNA Group Cars</h1>
