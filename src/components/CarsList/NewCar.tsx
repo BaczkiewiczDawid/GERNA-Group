@@ -5,6 +5,7 @@ import { Form, Label } from "components/CarsList/NewCar.style";
 import manufactuersList from "data/ManufactuersList";
 import FormElement from "components/CarsList/FormElement";
 import Button from "components/Employees/Button";
+import Axios from 'axios';
 
 const NewCar = () => {
   const initialValue = {
@@ -23,22 +24,29 @@ const NewCar = () => {
     }));
   };
 
-  const handleAddNewCar = () => {
-    console.log("New car added");
+  const handleAddNewCar = (e: Event) => {
+    e.preventDefault()
+
+    const val = Object.values(inputValues);
+    const isNull = val.some((el) => el.length < 1)
+
+    if (!isNull) {
+      console.log('New car added!')
+    }
   };
   
   return (
     <Wrapper>
       <h1>Add new car to offer</h1>
       <ContentWrapper>
-        <Form onSubmit={handleAddNewCar}>
+        <Form onSubmit={(e: any) => handleAddNewCar(e)}>
           <Label htmlFor="">Manufactuer</Label>
           <select
             name="manufactuer"
             onChange={(e: any) => handleChangeInputValue(e)}
           >
             {manufactuersList.map((manufactuer: string) => {
-              return <option value={manufactuer}>{manufactuer}</option>;
+              return <option key={manufactuer} value={manufactuer}>{manufactuer}</option>;
             })}
           </select>
           <FormElement
