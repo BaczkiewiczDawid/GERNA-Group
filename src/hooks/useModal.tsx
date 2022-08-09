@@ -23,7 +23,8 @@ const useModal = () => {
   return {
     showModal: showModal,
     modalInformation: modalInformation,
-    setModalInformation: setModalInformation
+    setModalInformation: setModalInformation,
+    ResultType: ResultType
   }
 };
 

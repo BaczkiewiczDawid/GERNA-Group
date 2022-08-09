@@ -17,7 +17,7 @@ const NewCar = () => {
     price: "",
   };
 
-  const { showModal, modalInformation, setModalInformation } = useModal();
+  const { showModal, modalInformation, setModalInformation, ResultType } = useModal();
 
   const [inputValues, setInputValues] = useState(initialValue);
 
@@ -27,7 +27,7 @@ const NewCar = () => {
       [e.target.name]: e.target.value,
     }));
   };
-  
+
   const handleAddNewCar = (e: Event) => {
     e.preventDefault();
 
@@ -40,11 +40,11 @@ const NewCar = () => {
       })
         .then((response) => {
           setInputValues(initialValue);
-          showModal(0, "New car added successfully!");
+          showModal(ResultType.success, "New car added successfully!");
         })
         .catch((err) => {
           console.log(err);
-          showModal(1, "Something went wrong");
+          showModal(ResultType.error, "Something went wrong");
         });
     }
   };
