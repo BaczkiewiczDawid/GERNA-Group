@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Wrapper from "components/Dashboard/Wrapper";
 import ContentWrapper from "components/Dashboard/ContentWrapper";
 import { Form, Label } from "components/CarsList/NewCar.style";
@@ -7,11 +7,7 @@ import FormElement from "components/CarsList/FormElement";
 import Button from "components/Employees/Button";
 import Axios from "axios";
 import Modal from "components/Modal/Modal";
-
-enum ResultType {
-  success = 0,
-  error = 1,
-}
+import useModal from "hooks/useModal";
 
 const NewCar = () => {
   const initialValue = {
@@ -21,11 +17,7 @@ const NewCar = () => {
     price: "",
   };
 
-  const [modalInformation, setModalInformation] = useState({
-    isOpen: false,
-    type: ResultType.error,
-    message: "",
-  });
+  const { showModal, modalInformation, setModalInformation } = useModal();
 
   const [inputValues, setInputValues] = useState(initialValue);
 
@@ -35,15 +27,7 @@ const NewCar = () => {
       [e.target.name]: e.target.value,
     }));
   };
-
-  const showModal = (type: ResultType, message: string) => {
-    setModalInformation({
-      isOpen: true,
-      type: type,
-      message: message,
-    });
-  };
-
+  
   const handleAddNewCar = (e: Event) => {
     e.preventDefault();
 
@@ -56,14 +40,16 @@ const NewCar = () => {
       })
         .then((response) => {
           setInputValues(initialValue);
-          showModal(ResultType.success, "New car added successfully!");
+          showModal(0, "New car added successfully!");
         })
         .catch((err) => {
           console.log(err);
-          showModal(ResultType.error, "Something went wrong");
+          showModal(1, "Something went wrong");
         });
     }
   };
+
+  console.log(modalInformation)
 
   return (
     <Wrapper>
