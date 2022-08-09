@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Wrapper from "components/Dashboard/Wrapper";
 import ContentWrapper from "components/Dashboard/ContentWrapper";
 import { Form, Label } from "components/CarsList/NewCar.style";
 import manufactuersList from "data/ManufactuersList";
 import FormElement from "components/CarsList/FormElement";
 import Button from "components/Employees/Button";
+import Axios from "axios";
+import Modal from "components/Modal/Modal";
+import useModal from "hooks/useModal";
 
 const NewCar = () => {
   const initialValue = {
@@ -13,6 +16,8 @@ const NewCar = () => {
     engine: "",
     price: "",
   };
+
+  const { showModal, modalInformation, setModalInformation, ResultType } = useModal();
 
   const [inputValues, setInputValues] = useState(initialValue);
 
@@ -23,22 +28,45 @@ const NewCar = () => {
     }));
   };
 
-  const handleAddNewCar = () => {
-    console.log("New car added");
+  const handleAddNewCar = (e: Event) => {
+    e.preventDefault();
+
+    const val = Object.values(inputValues);
+    const isNull = val.some((el) => el.length < 1);
+
+    if (!isNull) {
+      Axios.post("http://localhost:3001/new-car", {
+        data: inputValues,
+      })
+        .then((response) => {
+          setInputValues(initialValue);
+          showModal(ResultType.success, "New car added successfully!");
+        })
+        .catch((err) => {
+          console.log(err);
+          showModal(ResultType.error, "Something went wrong");
+        });
+    }
   };
-  
+
+  console.log(modalInformation)
+
   return (
     <Wrapper>
       <h1>Add new car to offer</h1>
       <ContentWrapper>
-        <Form onSubmit={handleAddNewCar}>
+        <Form onSubmit={(e: any) => handleAddNewCar(e)}>
           <Label htmlFor="">Manufactuer</Label>
           <select
             name="manufactuer"
             onChange={(e: any) => handleChangeInputValue(e)}
           >
             {manufactuersList.map((manufactuer: string) => {
-              return <option value={manufactuer}>{manufactuer}</option>;
+              return (
+                <option key={manufactuer} value={manufactuer}>
+                  {manufactuer}
+                </option>
+              );
             })}
           </select>
           <FormElement
@@ -68,6 +96,12 @@ const NewCar = () => {
           <Button text="Add new car" type="submit" />
         </Form>
       </ContentWrapper>
+      <Modal
+        setIsOpen={setModalInformation}
+        isOpen={modalInformation.isOpen}
+        message={modalInformation.message}
+        type={modalInformation.type}
+      />
     </Wrapper>
   );
 };

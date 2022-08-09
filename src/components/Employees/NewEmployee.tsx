@@ -7,11 +7,7 @@ import { StyledForm, Title } from "components/Employees/NewEmployee.style";
 import Button from "components/Employees/Button";
 import Axios from "axios";
 import Modal from "components/Modal/Modal";
-
-enum ResultType {
-  success = 0,
-  error = 1,
-}
+import useModal from "hooks/useModal";
 
 const NewEmployee = () => {
   const initialEmployeeInformations = {
@@ -28,19 +24,8 @@ const NewEmployee = () => {
   const [employeeInformation, setEmployeeInformation] = useState(
     initialEmployeeInformations
   );
-  const [modalInformation, setModalInformation] = useState({
-    isOpen: false,
-    type: ResultType.error,
-    message: "",
-  });
 
-  const showModal = (type: ResultType, message: string) => {
-    setModalInformation({
-      isOpen: true,
-      type: type,
-      message: message,
-    });
-  };
+  const { showModal, modalInformation, setModalInformation, ResultType } = useModal();
 
   const handleNewEmployee = (e: Event) => {
     e.preventDefault();
@@ -49,7 +34,7 @@ const NewEmployee = () => {
       data: employeeInformation,
     })
       .then((response) => {
-        console.log(response)
+        console.log(response);
         showModal(ResultType.success, "Employee added successfully!");
       })
       .catch((err) => {
