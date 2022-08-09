@@ -23,6 +23,14 @@ export const Wrapper = styled.div`
   position: fixed;
   top: 1rem;
   right: 1rem;
+
+  @media screen and (min-width: 768px) {
+    width: 40vw;
+  }
+
+  @media screen and (min-width: 1080px) {
+    width: 30vw;
+  }
 `;
 
 export const Content = styled.div`

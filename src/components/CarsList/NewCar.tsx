@@ -49,8 +49,6 @@ const NewCar = () => {
     }
   };
 
-  console.log(modalInformation)
-
   return (
     <Wrapper>
       <h1>Add new car to offer</h1>
