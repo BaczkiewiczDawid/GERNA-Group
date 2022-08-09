@@ -7,6 +7,7 @@ export const StyledInput = styled.input`
   border: 1px solid ${({ theme }) => theme.colors.text};
   color: ${({ theme }) => theme.colors.text};
   background-color: transparent;
+  z-index: 2;
 `;
 
 type InputType = {
@@ -15,9 +16,10 @@ type InputType = {
   onChange?: any;
   name?: any;
   placeholder?: string;
+  autocomplete?: string,
 };
 
-const Input = ({ type, value, onChange, name, placeholder }: InputType) => {
+const Input = ({ type, value, onChange, name, placeholder, autocomplete }: InputType) => {
   return (
     <StyledInput
       type={type}
@@ -25,6 +27,7 @@ const Input = ({ type, value, onChange, name, placeholder }: InputType) => {
       value={value}
       name={name}
       onChange={onChange}
+      autoComplete={autocomplete}
     />
   );
 };

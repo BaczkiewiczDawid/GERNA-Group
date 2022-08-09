@@ -8,9 +8,10 @@ type FormElementType = {
     type: string,
     name: string,
     placeholder: string,
+    autocomplete?: any,
 }
 
-const FormElement = ({ label, onChange, value, type, name, placeholder }: FormElementType) => {
+const FormElement = ({ label, onChange, value, type, name, placeholder, autocomplete }: FormElementType) => {
   return (
     <>
       <Label>{label}</Label>
@@ -20,6 +21,7 @@ const FormElement = ({ label, onChange, value, type, name, placeholder }: FormEl
         onChange={onChange}
         name={name}
         placeholder={placeholder}
+        autocomplete={autocomplete}
       />
     </>
   );
