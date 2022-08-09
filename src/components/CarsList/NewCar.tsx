@@ -32,6 +32,11 @@ const NewCar = () => {
 
     if (!isNull) {
       console.log('New car added!')
+      Axios.post('http://localhost:3001/new-car', {
+        data: inputValues,
+      }).then((response) => {
+        console.log(response);
+      })
     }
   };
   
