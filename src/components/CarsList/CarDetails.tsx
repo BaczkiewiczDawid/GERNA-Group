@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import Wrapper from "components/Dashboard/Wrapper";
 import { useParams } from "react-router-dom";
 import carImg from "assets/images/audi-a4.png";
@@ -10,14 +10,15 @@ import {
   List,
   ListItem,
 } from "components/CarsList/CarDetails.style";
-import Axios from 'axios';
+import Axios from "axios";
 
 interface Car {
-  id: number,
-  manufactuer: string,
-  model: string,
-  price: number,
-  engine: string
+  id: number;
+  manufactuer: string;
+  model: string;
+  price: number;
+  engine: string;
+  equipment: any;
 }
 
 const CarDetails = () => {
@@ -25,16 +26,18 @@ const CarDetails = () => {
   const [carDetails, setCarDetails] = useState<Car>();
 
   const getCarDetails = () => {
-    Axios.post('http://localhost:3001/car-details', {
+    Axios.post("http://localhost:3001/car-details", {
       id: carID,
     }).then((response) => {
-      setCarDetails(response.data[0])
-    })
-  }
+      setCarDetails(response.data[0]);
+    });
+  };
 
   useEffect(() => {
     getCarDetails();
-  }, [carID])
+  }, [carID]);
+
+  const carEquipmentList = JSON.parse(carDetails?.equipment);
 
   return (
     <Wrapper>
@@ -43,7 +46,9 @@ const CarDetails = () => {
         <img src={carImg} alt="Car" />
         <Details>
           <ModelInfo>
-            <h2>{carDetails?.manufactuer} {carDetails?.model}</h2>
+            <h2>
+              {carDetails?.manufactuer} {carDetails?.model}
+            </h2>
             <p>{carDetails?.engine}</p>
           </ModelInfo>
           <Description>
@@ -62,14 +67,9 @@ const CarDetails = () => {
         <Details secondary>
           <h3>Equipment</h3>
           <List>
-            <ListItem>Heated seats</ListItem>
-            <ListItem>Xenon lights</ListItem>
-            <ListItem>Heated seats</ListItem>
-            <ListItem>Xenon lights</ListItem>
-            <ListItem>Heated seats</ListItem>
-            <ListItem>Xenon lights</ListItem>
-            <ListItem>Heated seats</ListItem>
-            <ListItem>Xenon lights</ListItem>
+            {carEquipmentList.map((el: string) => {
+              return <ListItem key={el}>{el}</ListItem>;
+            })}
           </List>
         </Details>
       </CarContainer>
