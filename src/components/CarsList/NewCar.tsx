@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Wrapper from "components/Dashboard/Wrapper";
 import ContentWrapper from "components/Dashboard/ContentWrapper";
 import {
@@ -7,7 +7,6 @@ import {
   Container,
   EquipmentContainer,
 } from "components/CarsList/NewCar.style";
-import manufactuersList from "data/ManufactuersList";
 import FormElement from "components/CarsList/FormElement";
 import Button from "components/Employees/Button";
 import Axios from "axios";
@@ -129,6 +128,7 @@ const NewCar = () => {
               filteredEquipment={filteredEquipment}
               setSelectedEquipment={setSelectedEquipment}
               selectedEquipment={selectedEquipment}
+              setIsOpen={setIsOpen}
             />
           </EquipmentContainer>
         </ContentWrapper>
