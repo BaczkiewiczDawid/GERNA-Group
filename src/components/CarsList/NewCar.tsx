@@ -27,8 +27,9 @@ const NewCar = () => {
   const { showModal, modalInformation, setModalInformation, ResultType } =
     useModal();
 
+  const [isOpen, setIsOpen] = useState(false);
   const [equipmentInputValue, setEquipmentInputValue] = useState<string>("");
-  const [selectedEquipment, setSelectedEquipment] = useState([]);
+  const [selectedEquipment, setSelectedEquipment] = useState<any[]>([]);
   const [filteredEquipment, setFilteredEquipment] = useState([]);
   const [inputValues, setInputValues] = useState(initialValue);
 
@@ -42,15 +43,16 @@ const NewCar = () => {
   const handleEquipmentList = (e: any) => {
     setEquipmentInputValue(e.target.value);
 
-    // const filteredItems: any = EquipmentList.filter(
-    //   (el) => el.name.toLowerCase() === e.target.value.toLowerCase()
-    // );
+    const items: any = EquipmentList.filter(
+      (item) =>
+        item.name.toLowerCase().indexOf(e.target.value.toLowerCase()) !== -1
+    );
 
-    // setFilteredEquipment(filteredItems)
+    if (items.length > 0) {
+      setIsOpen(true);
+    }
 
-    const items: any = EquipmentList.filter((item) => (item.name).toLowerCase().indexOf((e.target.value).toLowerCase()) !== -1)
-
-    setFilteredEquipment(items)
+    setFilteredEquipment(items);
   };
 
   const handleAddNewCar = (e: Event) => {
@@ -73,6 +75,15 @@ const NewCar = () => {
         });
     }
   };
+
+  const handleSelectEquipment = (item: any) => {
+    setSelectedEquipment((prevState: any) => ([
+      ...prevState,
+      item
+    ]))
+  };
+
+  console.log(selectedEquipment)
 
   return (
     <Wrapper>
@@ -132,11 +143,15 @@ const NewCar = () => {
               autocomplete="off"
               onChange={(e: any) => handleEquipmentList(e)}
             />
-            <Dropdown>
-              {filteredEquipment.map((el: any) => {
-                return <p>{el.name}</p>;
-              })}
-            </Dropdown>
+            {isOpen && (
+              <Dropdown>
+                {filteredEquipment.map((el: any) => {
+                  return (
+                    <p onClick={(item: any) => handleSelectEquipment(el.name)}>{el.name}</p>
+                  );
+                })}
+              </Dropdown>
+            )}
           </EquipmentContainer>
         </ContentWrapper>
       </Container>
