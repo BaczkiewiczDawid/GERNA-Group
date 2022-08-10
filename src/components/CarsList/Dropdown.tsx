@@ -1,14 +1,19 @@
+import { useRef, useEffect } from "react";
 import { List } from "components/CarsList/Dropdown.style";
+import useOutsideClickDetection from "hooks/useOutsideClickDetection";
 
 const Dropdown = ({
   isOpen,
   filteredEquipment,
   setSelectedEquipment,
   selectedEquipment,
+  setIsOpen,
 }: any) => {
-  const handleSelectEquipment = (item: any) => {
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const handleSelectEquipment = (item: string) => {
     const isDuplicated = selectedEquipment.filter(
-      (el: any) => el === item
+      (el: string) => el === item
     ).length;
 
     if (isDuplicated === 0) {
@@ -18,13 +23,15 @@ const Dropdown = ({
     }
   };
 
+  useOutsideClickDetection(dropdownRef, setIsOpen);
+
   return (
     <>
       {isOpen && (
-        <List>
+        <List ref={dropdownRef}>
           {filteredEquipment.map((el: any) => {
             return (
-              <p onClick={(item: any) => handleSelectEquipment(el.name)}>
+              <p onClick={(item) => handleSelectEquipment(el.name)}>
                 {el.name}
               </p>
             );
