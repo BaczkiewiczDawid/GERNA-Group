@@ -15,6 +15,7 @@ import Modal from "components/Modal/Modal";
 import useModal from "hooks/useModal";
 import EquipmentList from "data/EquipmentList";
 import Dropdown from "components/CarsList/Dropdown";
+import SelectManufactuer from "components/CarsList/SelectManufactuer";
 
 const NewCar = () => {
   const initialValue = {
@@ -83,18 +84,7 @@ const NewCar = () => {
         <ContentWrapper>
           <Form onSubmit={(e: any) => handleAddNewCar(e)}>
             <Label htmlFor="">Manufactuer</Label>
-            <select
-              name="manufactuer"
-              onChange={(e: any) => handleChangeInputValue(e)}
-            >
-              {manufactuersList.map((manufactuer: string) => {
-                return (
-                  <option key={manufactuer} value={manufactuer}>
-                    {manufactuer}
-                  </option>
-                );
-              })}
-            </select>
+            <SelectManufactuer setInputValues={setInputValues} />
             <FormElement
               label="Model"
               value={inputValues.model}
