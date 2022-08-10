@@ -6,7 +6,6 @@ import {
   Label,
   Container,
   EquipmentContainer,
-  Dropdown,
 } from "components/CarsList/NewCar.style";
 import manufactuersList from "data/ManufactuersList";
 import FormElement from "components/CarsList/FormElement";
@@ -15,6 +14,7 @@ import Axios from "axios";
 import Modal from "components/Modal/Modal";
 import useModal from "hooks/useModal";
 import EquipmentList from "data/EquipmentList";
+import Dropdown from "components/CarsList/Dropdown";
 
 const NewCar = () => {
   const initialValue = {
@@ -27,7 +27,7 @@ const NewCar = () => {
   const { showModal, modalInformation, setModalInformation, ResultType } =
     useModal();
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [equipmentInputValue, setEquipmentInputValue] = useState<string>("");
   const [selectedEquipment, setSelectedEquipment] = useState<any[]>([]);
   const [filteredEquipment, setFilteredEquipment] = useState([]);
@@ -75,18 +75,6 @@ const NewCar = () => {
         });
     }
   };
-
-  const handleSelectEquipment = (item: any) => {
-    const isDuplicated = selectedEquipment.filter((el) => el === item).length;
-
-    if (isDuplicated === 0) {
-      setSelectedEquipment((prevState: any) => [...prevState, item]);
-    } else {
-      console.log(`Can't add dupliced equipment`);
-    }
-  };
-
-  console.log(selectedEquipment);
 
   return (
     <Wrapper>
@@ -146,17 +134,12 @@ const NewCar = () => {
               autocomplete="off"
               onChange={(e: any) => handleEquipmentList(e)}
             />
-            {isOpen && (
-              <Dropdown>
-                {filteredEquipment.map((el: any) => {
-                  return (
-                    <p onClick={(item: any) => handleSelectEquipment(el.name)}>
-                      {el.name}
-                    </p>
-                  );
-                })}
-              </Dropdown>
-            )}
+            <Dropdown
+              isOpen={isOpen}
+              filteredEquipment={filteredEquipment}
+              setSelectedEquipment={setSelectedEquipment}
+              selectedEquipment={selectedEquipment}
+            />
           </EquipmentContainer>
         </ContentWrapper>
       </Container>
