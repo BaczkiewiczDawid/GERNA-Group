@@ -6,7 +6,6 @@ import {
   Label,
   Container,
   EquipmentContainer,
-  Dropdown,
 } from "components/CarsList/NewCar.style";
 import manufactuersList from "data/ManufactuersList";
 import FormElement from "components/CarsList/FormElement";
@@ -15,6 +14,8 @@ import Axios from "axios";
 import Modal from "components/Modal/Modal";
 import useModal from "hooks/useModal";
 import EquipmentList from "data/EquipmentList";
+import Dropdown from "components/CarsList/Dropdown";
+import SelectManufactuer from "components/CarsList/SelectManufactuer";
 
 const NewCar = () => {
   const initialValue = {
@@ -27,8 +28,9 @@ const NewCar = () => {
   const { showModal, modalInformation, setModalInformation, ResultType } =
     useModal();
 
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [equipmentInputValue, setEquipmentInputValue] = useState<string>("");
-  const [selectedEquipment, setSelectedEquipment] = useState([]);
+  const [selectedEquipment, setSelectedEquipment] = useState<any[]>([]);
   const [filteredEquipment, setFilteredEquipment] = useState([]);
   const [inputValues, setInputValues] = useState(initialValue);
 
@@ -42,15 +44,16 @@ const NewCar = () => {
   const handleEquipmentList = (e: any) => {
     setEquipmentInputValue(e.target.value);
 
-    // const filteredItems: any = EquipmentList.filter(
-    //   (el) => el.name.toLowerCase() === e.target.value.toLowerCase()
-    // );
+    const items: any = EquipmentList.filter(
+      (item) =>
+        item.name.toLowerCase().indexOf(e.target.value.toLowerCase()) !== -1
+    );
 
-    // setFilteredEquipment(filteredItems)
+    if (items.length > 0) {
+      setIsOpen(true);
+    }
 
-    const items: any = EquipmentList.filter((item) => (item.name).toLowerCase().indexOf((e.target.value).toLowerCase()) !== -1)
-
-    setFilteredEquipment(items)
+    setFilteredEquipment(items);
   };
 
   const handleAddNewCar = (e: Event) => {
@@ -81,18 +84,7 @@ const NewCar = () => {
         <ContentWrapper>
           <Form onSubmit={(e: any) => handleAddNewCar(e)}>
             <Label htmlFor="">Manufactuer</Label>
-            <select
-              name="manufactuer"
-              onChange={(e: any) => handleChangeInputValue(e)}
-            >
-              {manufactuersList.map((manufactuer: string) => {
-                return (
-                  <option key={manufactuer} value={manufactuer}>
-                    {manufactuer}
-                  </option>
-                );
-              })}
-            </select>
+            <SelectManufactuer setInputValues={setInputValues} />
             <FormElement
               label="Model"
               value={inputValues.model}
@@ -132,11 +124,12 @@ const NewCar = () => {
               autocomplete="off"
               onChange={(e: any) => handleEquipmentList(e)}
             />
-            <Dropdown>
-              {filteredEquipment.map((el: any) => {
-                return <p>{el.name}</p>;
-              })}
-            </Dropdown>
+            <Dropdown
+              isOpen={isOpen}
+              filteredEquipment={filteredEquipment}
+              setSelectedEquipment={setSelectedEquipment}
+              selectedEquipment={selectedEquipment}
+            />
           </EquipmentContainer>
         </ContentWrapper>
       </Container>
