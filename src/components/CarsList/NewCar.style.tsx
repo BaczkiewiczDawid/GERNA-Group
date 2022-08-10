@@ -31,7 +31,6 @@ export const EquipmentContainer = styled.div`
 `;
 
 export const Dropdown = styled.div`
-display: block;
   width: 100%;
   min-height: 5rem;
   z-index: 1;
@@ -44,6 +43,6 @@ display: block;
   padding: 1rem;
 
   p {
-    padding: .4rem 0;
+    padding: 0.4rem 0;
   }
 `;

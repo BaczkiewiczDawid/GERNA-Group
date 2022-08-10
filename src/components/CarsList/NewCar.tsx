@@ -77,13 +77,16 @@ const NewCar = () => {
   };
 
   const handleSelectEquipment = (item: any) => {
-    setSelectedEquipment((prevState: any) => ([
-      ...prevState,
-      item
-    ]))
+    const isDuplicated = selectedEquipment.filter((el) => el === item).length;
+
+    if (isDuplicated === 0) {
+      setSelectedEquipment((prevState: any) => [...prevState, item]);
+    } else {
+      console.log(`Can't add dupliced equipment`);
+    }
   };
 
-  console.log(selectedEquipment)
+  console.log(selectedEquipment);
 
   return (
     <Wrapper>
@@ -147,7 +150,9 @@ const NewCar = () => {
               <Dropdown>
                 {filteredEquipment.map((el: any) => {
                   return (
-                    <p onClick={(item: any) => handleSelectEquipment(el.name)}>{el.name}</p>
+                    <p onClick={(item: any) => handleSelectEquipment(el.name)}>
+                      {el.name}
+                    </p>
                   );
                 })}
               </Dropdown>
