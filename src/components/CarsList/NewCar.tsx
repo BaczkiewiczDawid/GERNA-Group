@@ -1,12 +1,7 @@
 import { useState } from "react";
 import Wrapper from "components/Dashboard/Wrapper";
 import ContentWrapper from "components/Dashboard/ContentWrapper";
-import {
-  Form,
-  Label,
-  Container,
-  EquipmentContainer,
-} from "components/CarsList/NewCar.style";
+import { Form, Label, Container } from "components/CarsList/NewCar.style";
 import FormElement from "components/CarsList/FormElement";
 import Button from "components/Employees/Button";
 import Axios from "axios";
@@ -15,6 +10,7 @@ import useModal from "hooks/useModal";
 import EquipmentList from "data/EquipmentList";
 import Dropdown from "components/CarsList/Dropdown";
 import SelectManufactuer from "components/CarsList/SelectManufactuer";
+import SelectEquipment from "components/CarsList/SelectEquipment";
 
 const NewCar = () => {
   const initialValue = {
@@ -27,10 +23,8 @@ const NewCar = () => {
   const { showModal, modalInformation, setModalInformation, ResultType } =
     useModal();
 
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [equipmentInputValue, setEquipmentInputValue] = useState<string>("");
   const [selectedEquipment, setSelectedEquipment] = useState<any[]>([]);
-  const [filteredEquipment, setFilteredEquipment] = useState([]);
+
   const [inputValues, setInputValues] = useState(initialValue);
 
   const handleChangeInputValue = (e: any) => {
@@ -38,21 +32,6 @@ const NewCar = () => {
       ...prevState,
       [e.target.name]: e.target.value,
     }));
-  };
-
-  const handleEquipmentList = (e: any) => {
-    setEquipmentInputValue(e.target.value);
-
-    const items: any = EquipmentList.filter(
-      (item) =>
-        item.name.toLowerCase().indexOf(e.target.value.toLowerCase()) !== -1
-    );
-
-    if (items.length > 0) {
-      setIsOpen(true);
-    }
-
-    setFilteredEquipment(items);
   };
 
   const handleAddNewCar = (e: Event) => {
@@ -75,6 +54,8 @@ const NewCar = () => {
         });
     }
   };
+
+  console.log(selectedEquipment)
 
   return (
     <Wrapper>
@@ -111,27 +92,10 @@ const NewCar = () => {
             <Button text="Add new car" type="submit" />
           </Form>
         </ContentWrapper>
-        <ContentWrapper>
-          <h2>Select equipment</h2>
-          <EquipmentContainer>
-            <FormElement
-              label="Equipment"
-              value={equipmentInputValue}
-              type="text"
-              name="equipment"
-              placeholder="Equipment..."
-              autocomplete="off"
-              onChange={(e: any) => handleEquipmentList(e)}
-            />
-            <Dropdown
-              isOpen={isOpen}
-              filteredEquipment={filteredEquipment}
-              setSelectedEquipment={setSelectedEquipment}
-              selectedEquipment={selectedEquipment}
-              setIsOpen={setIsOpen}
-            />
-          </EquipmentContainer>
-        </ContentWrapper>
+        <SelectEquipment
+          selectedEquipment={selectedEquipment}
+          setSelectedEquipment={setSelectedEquipment}
+        />
       </Container>
       <Modal
         setIsOpen={setModalInformation}

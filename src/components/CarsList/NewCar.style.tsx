@@ -24,8 +24,3 @@ export const Container = styled.div`
     flex-direction: row;
   }
 `;
-
-export const EquipmentContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;

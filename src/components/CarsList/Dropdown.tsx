@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { List } from "components/CarsList/Dropdown.style";
 import useOutsideClickDetection from "hooks/useOutsideClickDetection";
 
