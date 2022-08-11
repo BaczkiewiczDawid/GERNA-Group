@@ -7,8 +7,6 @@ import Button from "components/Employees/Button";
 import Axios from "axios";
 import Modal from "components/Modal/Modal";
 import useModal from "hooks/useModal";
-import EquipmentList from "data/EquipmentList";
-import Dropdown from "components/CarsList/Dropdown";
 import SelectManufactuer from "components/CarsList/SelectManufactuer";
 import SelectEquipment from "components/CarsList/SelectEquipment";
 
@@ -18,6 +16,7 @@ const NewCar = () => {
     model: "",
     engine: "",
     price: "",
+    equipment: [],
   };
 
   const { showModal, modalInformation, setModalInformation, ResultType } =
@@ -39,6 +38,11 @@ const NewCar = () => {
 
     const val = Object.values(inputValues);
     const isNull = val.some((el) => el.length < 1);
+
+    setInputValues((prevState: any) => ({
+      ...prevState,
+      equipment: selectedEquipment
+    }))
 
     if (!isNull) {
       Axios.post("http://localhost:3001/new-car", {
