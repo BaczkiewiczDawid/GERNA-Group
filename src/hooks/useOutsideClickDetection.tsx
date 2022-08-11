@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const useOutsideClickDetection = (ref: any,  setIsOpen: any) => {
+const useOutsideClickDetection = (ref: any,  setIsOpen: (state: boolean) => void) => {
   useEffect(() => {
     const handleClickOutside = (e: any) => {
       if (ref.current && !ref.current.contains(e.target)) {
