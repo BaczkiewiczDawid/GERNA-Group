@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { ThemeConsumer } from "styled-components";
 
 export const List = styled.div`
   width: 100%;
@@ -14,5 +14,12 @@ export const List = styled.div`
 
   p {
     padding: 0.4rem 0;
+    cursor: pointer;
+    padding: 1rem;
+
+    &:hover {
+      background-color: #e8e8e8;
+      transition: .25s;
+    }
   }
 `;

@@ -15,6 +15,11 @@ const StyledButton = styled.button`
   margin-top: 2rem;
   cursor: pointer;
   font-weight: bold;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.darkerBlue};
+    transition: .25s;
+  }
 `;
 
 const Button = ({ text, onClick, type }: ButtonType) => {
