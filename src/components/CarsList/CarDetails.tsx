@@ -23,6 +23,7 @@ interface Car {
 
 const CarDetails = () => {
   const carID: any = useParams().id;
+  const [equipmentList, setEquipmentList] = useState([])
   const [carDetails, setCarDetails] = useState<Car>();
 
   const getCarDetails = () => {
@@ -37,7 +38,13 @@ const CarDetails = () => {
     getCarDetails();
   }, [carID]);
 
-  const carEquipmentList = JSON.parse(carDetails?.equipment);
+  const handleEquipmentList = async () => {
+    const carEquipmentList = await JSON.parse(carDetails?.equipment);
+
+    setEquipmentList(carEquipmentList);
+  }
+
+  handleEquipmentList()
 
   return (
     <Wrapper>
@@ -67,7 +74,7 @@ const CarDetails = () => {
         <Details secondary>
           <h3>Equipment</h3>
           <List>
-            {carEquipmentList.map((el: string) => {
+            {equipmentList.map((el: string) => {
               return <ListItem key={el}>{el}</ListItem>;
             })}
           </List>
