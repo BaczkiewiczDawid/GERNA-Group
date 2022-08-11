@@ -8,6 +8,7 @@ const Dropdown = ({
   setSelectedEquipment,
   selectedEquipment,
   setIsOpen,
+  setEquipmentInputValue
 }: any) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -18,6 +19,7 @@ const Dropdown = ({
 
     if (isDuplicated === 0) {
       setSelectedEquipment((prevState: any) => [...prevState, item]);
+      setEquipmentInputValue('');
     } else {
       console.log(`Can't add dupliced equipment`);
     }

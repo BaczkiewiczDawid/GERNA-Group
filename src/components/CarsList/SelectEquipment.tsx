@@ -66,6 +66,7 @@ const SelectEquipment = ({
           setSelectedEquipment={setSelectedEquipment}
           selectedEquipment={selectedEquipment}
           setIsOpen={setIsOpen}
+          setEquipmentInputValue={setEquipmentInputValue}
         />
       </EquipmentContainer>
     </ContentWrapper>
