@@ -87,7 +87,17 @@ const NewSales = () => {
     getEmployeesList();
   }, [selectedDepartment]);
 
-  console.log(selectedValues);
+  const handleNewSale = () => {
+    Axios.post("http://localhost:3001/new-sale", {
+      data: selectedValues,
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <Wrapper>
@@ -124,7 +134,7 @@ const NewSales = () => {
             );
           })}
         </Select>
-        <Button text="New sale" />
+        <Button text="New sale" onClick={handleNewSale} />
       </ContentWrapper>
     </Wrapper>
   );
