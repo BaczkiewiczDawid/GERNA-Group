@@ -1,36 +1,10 @@
 import { LinksContainer, StyledLink } from "./Employees.style";
 import { useParams, Link } from "react-router-dom";
 import Button from "components/Employees/Button";
+import DepartmentsList from 'data/DepartmentsList';
 
 const DepartmentNavigation = () => {
   const { department } = useParams();
-
-  const DepartmentsList = [
-    {
-      name: "Katowice",
-      link: "katowice",
-    },
-    {
-      name: "Wrocław",
-      link: "wroclaw",
-    },
-    {
-      name: "Olsztyn",
-      link: "olsztyn",
-    },
-    {
-      name: "Kraków",
-      link: "krakow",
-    },
-    {
-      name: "Warszawa",
-      link: "warszawa",
-    },
-    {
-      name: "Gdańsk",
-      link: "gdansk",
-    },
-  ];
 
   return (
     <LinksContainer>
