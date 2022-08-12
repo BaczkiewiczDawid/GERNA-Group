@@ -9,6 +9,7 @@ import NewEmployee from "components/Employees/NewEmployee";
 import CarsList from "components/CarsList/CarsList";
 import CarDetails from "components/CarsList/CarDetails";
 import NewCar from "components/CarsList/NewCar";
+import NewSales from "components/NewSales/NewSales";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ConfirmationModalProvider from "context/ConfirmationModalCtx";
 
@@ -27,6 +28,7 @@ function App() {
               <Route path="/cars" element={<CarsList />} />
               <Route path="/cars/new" element={<NewCar />} />
               <Route path="/cars/:id" element={<CarDetails />} />
+              <Route path="/sales/new" element={<NewSales />} />
             </Routes>
           </Router>
         </ConfirmationModalProvider>
