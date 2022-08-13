@@ -4,9 +4,10 @@ import ContentWrapper from "components/Dashboard/ContentWrapper";
 import Button from "components/Employees/Button";
 import DepartmentsList from "data/DepartmentsList";
 import Axios from "axios";
-import { Label, Select } from "components/NewSales/NewSales.style";
+import { Label } from "components/NewSales/NewSales.style";
 import Modal from "components/Modal/Modal";
 import useModal from "hooks/useModal";
+import Select from 'components/Select/Select';
 
 interface Car {
   id: number;
@@ -111,7 +112,7 @@ const NewSales = () => {
       <h1>Add new sale</h1>
       <ContentWrapper>
         <Label>Select car</Label>
-        <Select name="car" onChange={(e) => handleSetValues(e)}>
+        <Select name="car" onChange={(e: any) => handleSetValues(e)}>
           {carsList.map((car: Car) => {
             return (
               <option key={car.id} value={car?.id}>
@@ -122,7 +123,7 @@ const NewSales = () => {
         </Select>
 
         <Label>Department</Label>
-        <Select name="department" onChange={(e) => handleSetValues(e)}>
+        <Select name="department" onChange={(e: any) => handleSetValues(e)}>
           {DepartmentsList.map((department) => {
             return (
               <option key={department.name} value={department.link}>
@@ -132,7 +133,7 @@ const NewSales = () => {
           })}
         </Select>
         <Label>Saler</Label>
-        <Select name="saler" onChange={(e) => handleSetValues(e)}>
+        <Select name="saler" onChange={(e: any) => handleSetValues(e)}>
           {employeesList.map((employee: Employee) => {
             return (
               <option key={employee?.id} value={employee?.id}>
