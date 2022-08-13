@@ -8,7 +8,8 @@ import {
 } from "components/Navigation/Navigation.style";
 import mobileLogo from "assets/images/mobile-logo.svg";
 import desktopLogo from "assets/images/desktop-logo.svg";
-import Links from 'components/Navigation/Links';
+import Links from "components/Navigation/Links";
+import useOutsideClickDetection from "hooks/useOutsideClickDetection";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -23,27 +24,12 @@ const Navigation = () => {
 
   const navRef: any = useRef(null);
 
-  const useOutsideAlerter = (ref: any) => {
-    useEffect(() => {
-      const handleClickOutside = (e: any) => {
-        if (ref.current && !ref.current.contains(e.target)) {
-          setIsOpen(false);
-        }
-      };
-      document.addEventListener("mousedown", handleClickOutside);
-
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }, [ref]);
-  };
-
-  useOutsideAlerter(navRef);
+  useOutsideClickDetection(navRef, setIsOpen);
 
   return (
     <StyledNav>
       <img src={isMobile ? mobileLogo : desktopLogo} alt="Gerna Group" />
-      <HamburgerWrapper>
+      <HamburgerWrapper ref={navRef}>
         <Hamburger
           toggled={isOpen}
           toggle={setIsOpen}
