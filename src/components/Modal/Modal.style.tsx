@@ -61,3 +61,8 @@ export const Timer = styled.div<ModalType>`
   left: 0;
   animation: ${timerAnimation} 1s linear;
 `;
+
+export const Container = styled.div`
+  display: flex;
+  align-items: center;
+`;

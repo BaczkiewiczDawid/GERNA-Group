@@ -1,4 +1,5 @@
 import manufactuersList from "data/ManufactuersList";
+import { StyledSelect } from 'components/CarsList/SelectManufactuer.style';
 
 const SelectManufactuer = ({ setInputValues }: any) => {
   const handleChangeInputValue = (e: any) => {
@@ -9,7 +10,7 @@ const SelectManufactuer = ({ setInputValues }: any) => {
   };
 
   return (
-    <select name="manufactuer" onChange={(e: any) => handleChangeInputValue(e)}>
+    <StyledSelect name="manufactuer" onChange={(e: any) => handleChangeInputValue(e)}>
       {manufactuersList.map((manufactuer: string) => {
         return (
           <option key={manufactuer} value={manufactuer}>
@@ -17,7 +18,7 @@ const SelectManufactuer = ({ setInputValues }: any) => {
           </option>
         );
       })}
-    </select>
+    </StyledSelect>
   );
 };
 

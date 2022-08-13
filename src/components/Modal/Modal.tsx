@@ -1,4 +1,6 @@
-import { Wrapper, Timer, Content, Message } from "components/Modal/Modal.style";
+import { Wrapper, Timer, Content, Message, Container } from "components/Modal/Modal.style";
+import SuccessIcon from "assets/images/success.svg";
+import ErrorIcon from "assets/images/error.svg";
 
 type ModalType = {
   isOpen: boolean;
@@ -18,8 +20,8 @@ const Modal = ({ isOpen, message, type, setIsOpen }: ModalType) => {
 
   if (isOpen) {
     setTimeout(() => {
-        handleCloseModal()
-    }, 1000)
+      handleCloseModal();
+    }, 1000);
   }
 
   return (
@@ -27,7 +29,10 @@ const Modal = ({ isOpen, message, type, setIsOpen }: ModalType) => {
       {isOpen && (
         <Wrapper>
           <Content onClick={handleCloseModal}>
-            <Message success={type === 0 ? true : false}>{message}</Message>
+            <Container>
+              <img src={type === 0 ? SuccessIcon : ErrorIcon} alt={type === 0 ? 'success' : 'error'} />
+              <Message success={type === 0 ? true : false}>{message}</Message>
+            </Container>
             <Timer success={type === 0 ? true : false}></Timer>
           </Content>
         </Wrapper>
