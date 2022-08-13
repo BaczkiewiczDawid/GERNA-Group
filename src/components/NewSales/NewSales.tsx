@@ -5,8 +5,8 @@ import Button from "components/Employees/Button";
 import DepartmentsList from "data/DepartmentsList";
 import Axios from "axios";
 import { Label, Select } from "components/NewSales/NewSales.style";
-import Modal from 'components/Modal/Modal';
-import useModal from 'hooks/useModal';
+import Modal from "components/Modal/Modal";
+import useModal from "hooks/useModal";
 
 interface Car {
   id: number;
@@ -33,7 +33,8 @@ const NewSales = () => {
     saler: "",
   });
 
-  const { showModal, modalInformation, setModalInformation, ResultType } = useModal();
+  const { showModal, modalInformation, setModalInformation, ResultType } =
+    useModal();
 
   const handleSetValues = (e: any) => {
     if (e.target.name === "department") {
@@ -97,9 +98,11 @@ const NewSales = () => {
     })
       .then((response) => {
         console.log(response);
+        showModal(ResultType.success, "New sale added successfully!");
       })
       .catch((err) => {
         console.log(err);
+        showModal(ResultType.error, "Something went wrong");
       });
   };
 
