@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Wrapper from "components/Dashboard/Wrapper";
 import SingleCar from "components/CarsList/SingleCar";
-import { CarsContainer, StyledLink } from "components/CarsList/CarsList.style";
+import { CarsContainer, StyledLink, ButtonLink } from "components/CarsList/CarsList.style";
 import Axios from "axios";
 import Button from "components/Employees/Button";
 import { Link } from "react-router-dom";
@@ -26,9 +26,9 @@ const CarsList = () => {
   return (
     <Wrapper>
       <h1>GERNA Group Cars</h1>
-      <Link to="/cars/new">
+      <ButtonLink to="/cars/new">
         <Button text="Add new car" />
-      </Link>
+      </ButtonLink>
       <CarsContainer>
         {carsList.map((car: any) => {
           return (

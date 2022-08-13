@@ -81,9 +81,11 @@ export const List = styled.ul`
 
 export const ListItem = styled.li`
   margin-top: 1rem;
+  margin-left: 2rem;
 `;
 
 export const ButtonWrapper = styled.div`
   margin-top: 2rem;
   margin-bottom: 5rem;
+  margin-left: 2rem;
 `;

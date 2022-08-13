@@ -19,7 +19,7 @@ const SelectDepartment = ({ setEmployeeInformation }: any) => {
   };
 
   return (
-    <Select primary={true} name="department" onChange={(e: any) => handleChangeURL(e)}>
+    <Select name="department" onChange={(e: any) => handleChangeURL(e)}>
       <option value="katowice">Katowice</option>
       <option value="wroclaw">Wrocław</option>
       <option value="olsztyn">Olsztyn</option>
