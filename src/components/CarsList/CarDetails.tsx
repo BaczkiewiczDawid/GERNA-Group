@@ -9,8 +9,10 @@ import {
   Details,
   List,
   ListItem,
+  ButtonWrapper
 } from "components/CarsList/CarDetails.style";
 import Axios from "axios";
+import Button from "components/Employees/Button";
 
 interface Car {
   id: number;
@@ -23,7 +25,7 @@ interface Car {
 
 const CarDetails = () => {
   const carID: any = useParams().id;
-  const [equipmentList, setEquipmentList] = useState([])
+  const [equipmentList, setEquipmentList] = useState([]);
   const [carDetails, setCarDetails] = useState<Car>();
 
   const getCarDetails = () => {
@@ -42,9 +44,19 @@ const CarDetails = () => {
     const carEquipmentList = await JSON.parse(carDetails?.equipment);
 
     setEquipmentList(carEquipmentList);
+  };
+
+  const handleRemoveCar = () => {
+    Axios.post('http://localhost:3001/remove-car', {
+      carID: carID
+    }).then((response) => {
+      console.log(response)
+    }).catch((err) => {
+      console.log(err)
+    })
   }
 
-  handleEquipmentList()
+  handleEquipmentList();
 
   return (
     <Wrapper>
@@ -80,6 +92,9 @@ const CarDetails = () => {
           </List>
         </Details>
       </CarContainer>
+      <ButtonWrapper>
+        <Button onClick={handleRemoveCar} text="Delete this car from offer" />
+      </ButtonWrapper>
     </Wrapper>
   );
 };
