@@ -9,10 +9,11 @@ import {
   Details,
   List,
   ListItem,
-  ButtonWrapper
+  ButtonWrapper,
 } from "components/CarsList/CarDetails.style";
 import Axios from "axios";
 import Button from "components/Employees/Button";
+import { useNavigate } from "react-router-dom";
 
 interface Car {
   id: number;
@@ -27,6 +28,8 @@ const CarDetails = () => {
   const carID: any = useParams().id;
   const [equipmentList, setEquipmentList] = useState([]);
   const [carDetails, setCarDetails] = useState<Car>();
+
+  const navigate = useNavigate();
 
   const getCarDetails = () => {
     Axios.post("http://localhost:3001/car-details", {
@@ -47,14 +50,17 @@ const CarDetails = () => {
   };
 
   const handleRemoveCar = () => {
-    Axios.post('http://localhost:3001/remove-car', {
-      carID: carID
-    }).then((response) => {
-      console.log(response)
-    }).catch((err) => {
-      console.log(err)
+    Axios.post("http://localhost:3001/remove-car", {
+      carID: carID,
     })
-  }
+      .then((response) => {
+        console.log(response);
+        navigate("/cars", { replace: true });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   handleEquipmentList();
 
