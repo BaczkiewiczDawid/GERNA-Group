@@ -5,6 +5,8 @@ import Button from "components/Employees/Button";
 import DepartmentsList from "data/DepartmentsList";
 import Axios from "axios";
 import { Label, Select } from "components/NewSales/NewSales.style";
+import Modal from 'components/Modal/Modal';
+import useModal from 'hooks/useModal';
 
 interface Car {
   id: number;
@@ -30,6 +32,8 @@ const NewSales = () => {
     department: "katowice",
     saler: "",
   });
+
+  const { showModal, modalInformation, setModalInformation, ResultType } = useModal();
 
   const handleSetValues = (e: any) => {
     if (e.target.name === "department") {
@@ -136,6 +140,12 @@ const NewSales = () => {
         </Select>
         <Button text="New sale" onClick={handleNewSale} />
       </ContentWrapper>
+      <Modal
+        setIsOpen={setModalInformation}
+        isOpen={modalInformation.isOpen}
+        message={modalInformation.message}
+        type={modalInformation.type}
+      />
     </Wrapper>
   );
 };
