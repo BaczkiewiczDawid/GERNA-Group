@@ -37,10 +37,10 @@ const Navigation = () => {
         />
       </HamburgerWrapper>
       <NavContent isOpen={isOpen} >
-        <Links />
+        <Links setIsOpen={setIsOpen} />
       </NavContent>
       <NavDesktopContent>
-        <Links />
+        <Links setIsOpen={setIsOpen} />
       </NavDesktopContent>
     </StyledNav>
   );
