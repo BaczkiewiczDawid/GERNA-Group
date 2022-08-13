@@ -15,3 +15,7 @@ export const CarsContainer = styled.section`
 export const StyledLink = styled(Link)`
     text-decoration: none;
 `;
+
+export const ButtonLink = styled(Link)`
+    margin-left: 2rem;
+`;

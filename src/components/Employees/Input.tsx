@@ -7,7 +7,7 @@ export const StyledInput = styled.input`
   border: 1px solid ${({ theme }) => theme.colors.text};
   color: ${({ theme }) => theme.colors.text};
   background-color: transparent;
-  z-index: 2;
+  z-index: 0;
 `;
 
 type InputType = {

@@ -1,12 +1,16 @@
 import { Link } from "react-router-dom";
 
-const Links = () => {
+const Links = ({ setIsOpen }: any) => {
+  const handleCloseNav = () => {
+    setIsOpen(false)
+  }
+
   return (
     <>
-      <Link to="/">D</Link>
-      <Link to="/employees/katowice">E</Link>
-      <Link to="/sales/new">N</Link>
-      <Link to="/cars">C</Link>
+      <Link onClick={handleCloseNav} to="/">D</Link>
+      <Link onClick={handleCloseNav} to="/employees/katowice">E</Link>
+      <Link onClick={handleCloseNav} to="/sales/new">N</Link>
+      <Link onClick={handleCloseNav} to="/cars">C</Link>
     </>
   );
 };

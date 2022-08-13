@@ -23,6 +23,7 @@ export const Wrapper = styled.div`
   position: fixed;
   top: 1rem;
   right: 1rem;
+  z-index: 9999;
 
   @media screen and (min-width: 768px) {
     width: 40vw;

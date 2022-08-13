@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import {
   DepartmentNav,
   Container,
@@ -13,6 +13,7 @@ import EmployeeDetails from "components/Employees/EmployeeDetails";
 import SingleEmployee from "components/Employees/SingleEmployee";
 import SelectDepartment from "components/Employees/SelectDepartment";
 import DepartmentNavigation from "components/Employees/DepartmentNavigation";
+import Button from "components/Employees/Button";
 
 const Employees = () => {
   const [employeesList, setEmployeesList] = useState<any[]>([]);
@@ -90,6 +91,9 @@ const Employees = () => {
                 </>
               )}
             </Table>
+            <Link to="/employees/new">
+              <Button text="Add new employee" />
+            </Link>
           </ContentWrapper>
           <EmployeeDetails
             employeeDetails={selectedUserDetails}
