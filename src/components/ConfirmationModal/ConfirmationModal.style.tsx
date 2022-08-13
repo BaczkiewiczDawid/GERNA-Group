@@ -22,7 +22,7 @@ export const Modal = styled.div`
   -webkit-box-shadow: 0px 12px 40px -12px rgba(66, 68, 90, 1);
   -moz-box-shadow: 0px 12px 40px -12px rgba(66, 68, 90, 1);
   box-shadow: 0px 12px 40px -12px rgba(66, 68, 90, 1);
-  z-index: 10;
+  z-index: 9999;
   color: ${({ theme }) => theme.colors.text};
   padding: 1rem;
 

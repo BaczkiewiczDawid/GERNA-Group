@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import Hamburger from "hamburger-react";
 import {
   StyledNav,
@@ -27,16 +27,16 @@ const Navigation = () => {
   useOutsideClickDetection(navRef, setIsOpen);
 
   return (
-    <StyledNav>
+    <StyledNav ref={navRef}>
       <img src={isMobile ? mobileLogo : desktopLogo} alt="Gerna Group" />
-      <HamburgerWrapper ref={navRef}>
+      <HamburgerWrapper>
         <Hamburger
           toggled={isOpen}
           toggle={setIsOpen}
           color={isOpen ? "#2A2A2A" : "#FAFAFA"}
         />
       </HamburgerWrapper>
-      <NavContent isOpen={isOpen} ref={navRef}>
+      <NavContent isOpen={isOpen} >
         <Links />
       </NavContent>
       <NavDesktopContent>
