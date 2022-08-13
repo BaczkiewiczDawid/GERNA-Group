@@ -20,6 +20,7 @@ const Dropdown = ({
     if (isDuplicated === 0) {
       setSelectedEquipment((prevState: any) => [...prevState, item]);
       setEquipmentInputValue('');
+      setIsOpen(false)
     } else {
       console.log(`Can't add dupliced equipment`);
     }
