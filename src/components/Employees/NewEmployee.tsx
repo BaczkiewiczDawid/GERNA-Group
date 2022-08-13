@@ -43,8 +43,6 @@ const NewEmployee = () => {
       });
   };
 
-  console.log(employeeInformation);
-
   return (
     <Wrapper>
       <h1>Add new employee</h1>

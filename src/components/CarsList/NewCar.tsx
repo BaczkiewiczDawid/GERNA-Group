@@ -50,6 +50,7 @@ const NewCar = () => {
       })
         .then((response) => {
           setInputValues(initialValue);
+          setSelectedEquipment([]);
           showModal(ResultType.success, "New car added successfully!");
         })
         .catch((err) => {
