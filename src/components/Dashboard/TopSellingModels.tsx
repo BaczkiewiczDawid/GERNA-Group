@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import ContentWrapper from "components/Dashboard/ContentWrapper";
-import Table from 'components/Dashboard/Table';
-import Header from 'components/Dashboard/Header';
+import Table from "components/Dashboard/Table";
+import Header from "components/Dashboard/Header";
 import Axios from "axios";
 
 interface Cars {
-  id: number
-  manufactuer: string,
-  model: string,
-  price: number,
-  sales: number,
+  id: number;
+  manufactuer: string;
+  model: string;
+  price: number;
+  sales: number;
 }
 
 const TopSellingModels = () => {
@@ -41,12 +41,14 @@ const TopSellingModels = () => {
         {topSellingModels.map((car: Cars) => {
           return (
             <tr key={car.id}>
-              <td>{car.manufactuer} {car.model}</td>
+              <td>
+                {car.manufactuer} {car.model}
+              </td>
               <td>{car.price}</td>
               <td>{car.sales}</td>
               <td>${car.price * car.sales}</td>
             </tr>
-          )
+          );
         })}
       </Table>
     </ContentWrapper>
