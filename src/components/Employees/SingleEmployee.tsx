@@ -10,9 +10,9 @@ const SingleEmployee = ({ employee, handleSelectEmployee }: any) => {
       key={employee.id * 5000}
       onClick={() => handleSelectEmployee(employee.id)}
     >
-      <td>{employee.name}</td>
-      <td>{employee.age}</td>
-      <td>{employee.age}</td>
+      <td data-testid="employee-name">{employee.name}</td>
+      <td >{employee.age}</td>
+      <td>{employee.city}</td>
       <td>{employee.position}</td>
     </Row>
   );

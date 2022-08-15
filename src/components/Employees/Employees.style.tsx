@@ -109,3 +109,9 @@ export const Content = styled.div`
   display: flex;
   flex-wrap: wrap;
 `;
+
+export const MobileButtonContainer = styled.div`
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
+`;

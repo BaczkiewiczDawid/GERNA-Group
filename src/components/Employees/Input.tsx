@@ -11,15 +11,16 @@ export const StyledInput = styled.input`
 `;
 
 type InputType = {
-  type: string;
+  type?: string
   value: string | number;
   onChange?: any;
   name?: any;
   placeholder?: string;
   autocomplete?: string,
+  id?: string,
 };
 
-const Input = ({ type, value, onChange, name, placeholder, autocomplete }: InputType) => {
+const Input = ({ type, value, onChange, name, placeholder, autocomplete, id }: InputType) => {
   return (
     <StyledInput
       type={type}
@@ -28,6 +29,7 @@ const Input = ({ type, value, onChange, name, placeholder, autocomplete }: Input
       name={name}
       onChange={onChange}
       autoComplete={autocomplete}
+      id={id}
     />
   );
 };

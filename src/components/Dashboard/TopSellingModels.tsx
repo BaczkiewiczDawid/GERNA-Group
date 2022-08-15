@@ -34,10 +34,15 @@ const TopSellingModels = () => {
     <ContentWrapper>
       <Header title="Top selling models" />
       <Table>
-        <th>Model</th>
-        <th>Price</th>
-        <th>Sold</th>
-        <th>Income</th>
+        <thead>
+          <tr>
+            <td>Model</td>
+            <td>Price</td>
+            <td>Sold</td>
+            <td>Income</td>
+          </tr>
+        </thead>
+        <tbody>
         {topSellingModels.map((car: Cars) => {
           return (
             <tr key={car.id}>
@@ -50,6 +55,7 @@ const TopSellingModels = () => {
             </tr>
           );
         })}
+        </tbody>
       </Table>
     </ContentWrapper>
   );
