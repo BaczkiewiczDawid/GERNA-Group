@@ -5,6 +5,7 @@ import {
   Container,
   Content,
   ContentContainer,
+  MobileButtonContainer
 } from "components/Employees/Employees.style";
 import ContentWrapper from "components/Dashboard/ContentWrapper";
 import Table from "components/Dashboard/Table";
@@ -78,7 +79,7 @@ const Employees = () => {
                   {" "}
                   <th>Employee name</th>
                   <th>Age</th>
-                  <th>Experience</th>
+                  <th>City</th>
                   <th>Position</th>
                   {employeesList.map((employee): any => {
                     return (
@@ -91,9 +92,11 @@ const Employees = () => {
                 </>
               )}
             </Table>
-            <Link to="/employees/new">
-              <Button text="Add new employee" />
-            </Link>
+            <MobileButtonContainer>
+              <Link to="/employees/new">
+                <Button text="Add new employee" />
+              </Link>
+            </MobileButtonContainer>
           </ContentWrapper>
           <EmployeeDetails
             employeeDetails={selectedUserDetails}
