@@ -12,8 +12,8 @@ const StyledSelect = styled.select<SelectType>`
   border: 1px solid ${({ theme }) => theme.colors.text};
 `;
 
-const Select = ({ children, primary, name, onChange }: any) => {
-  return <StyledSelect primary={primary} name={name} onChange={onChange}>{children}</StyledSelect>;
+const Select = ({ children, primary, name, onChange, title }: any) => {
+  return <StyledSelect primary={primary} name={name} title={title} onChange={onChange}>{children}</StyledSelect>;
 };
 
 export default Select;

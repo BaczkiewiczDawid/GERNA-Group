@@ -44,7 +44,7 @@ const SingleCar = ({ id, manufactuer, model, price }: Car) => {
           <img src={carImg} alt={`${manufactuer} ${model}`} />
         </ImageWrapper>
         <Informations>
-          <Price>${price}</Price>
+          <Price data-testid="price">${price}</Price>
           <p>Total sold: {sales}</p>
         </Informations>
     </ContentWrapper>
