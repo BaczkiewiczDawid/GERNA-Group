@@ -7,13 +7,15 @@ type EmployeeInformationType = {
   value: string | number;
   name?: string;
   setEmployeeDetails?: any,
+  type?: string
 };
 
 const EmployeeInformation = ({
   label,
   value,
   name,
-  setEmployeeDetails
+  setEmployeeDetails,
+  type,
 }: EmployeeInformationType) => {
   const handleChangeUserDetails = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmployeeDetails((prevState: any) => ({
@@ -24,8 +26,8 @@ const EmployeeInformation = ({
 
   return (
     <>
-      <Label>{label}</Label>
-      <Input onChange={handleChangeUserDetails} value={value} name={name} type="text"  />
+      <Label htmlFor={label}>{label}</Label>
+      <Input id={label} onChange={handleChangeUserDetails} value={value} name={name} type={type}  />
       
     </>
   );

@@ -29,6 +29,7 @@ const NewEmployee = () => {
 
   const handleNewEmployee = (e: Event) => {
     e.preventDefault();
+    setEmployeeInformation(initialEmployeeInformations)
 
     Axios.post("http://localhost:3001/new-employee", {
       data: employeeInformation,
@@ -60,6 +61,7 @@ const NewEmployee = () => {
             label="Age"
             value={employeeInformation?.age}
             name="age"
+            type="number"
             setEmployeeDetails={setEmployeeInformation}
           />
           <EmployeeInformation
@@ -84,6 +86,7 @@ const NewEmployee = () => {
             label="Phone number"
             value={employeeInformation?.phone_number}
             name="phone_number"
+            type="number"
             setEmployeeDetails={setEmployeeInformation}
           />
           <EmployeeInformation
@@ -96,6 +99,7 @@ const NewEmployee = () => {
             label="Salary"
             value={employeeInformation?.salary}
             name="salary"
+            type="number"
             setEmployeeDetails={setEmployeeInformation}
           />
           <Button
