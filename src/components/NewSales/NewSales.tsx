@@ -7,7 +7,8 @@ import Axios from "axios";
 import { Label } from "components/NewSales/NewSales.style";
 import Modal from "components/Modal/Modal";
 import useModal from "hooks/useModal";
-import Select from 'components/Select/Select';
+import Select from "components/Select/Select";
+import useAuth from "hooks/useAuth";
 
 interface Car {
   id: number;
@@ -33,6 +34,8 @@ const NewSales = () => {
     department: "katowice",
     saler: "",
   });
+
+  const isAuthenticated = useAuth();
 
   const { showModal, modalInformation, setModalInformation, ResultType } =
     useModal();
@@ -112,7 +115,11 @@ const NewSales = () => {
       <h1>Add new sale</h1>
       <ContentWrapper>
         <Label>Select car</Label>
-        <Select name="car" title="car" onChange={(e: any) => handleSetValues(e)}>
+        <Select
+          name="car"
+          title="car"
+          onChange={(e: any) => handleSetValues(e)}
+        >
           {carsList.map((car: Car) => {
             return (
               <option key={car.id} value={car?.id}>
@@ -123,7 +130,11 @@ const NewSales = () => {
         </Select>
 
         <Label>Department</Label>
-        <Select name="department" title="department" onChange={(e: any) => handleSetValues(e)}>
+        <Select
+          name="department"
+          title="department"
+          onChange={(e: any) => handleSetValues(e)}
+        >
           {DepartmentsList.map((department) => {
             return (
               <option key={department.name} value={department.link}>
@@ -133,7 +144,11 @@ const NewSales = () => {
           })}
         </Select>
         <Label>Saler</Label>
-        <Select name="saler" title="saler" onChange={(e: any) => handleSetValues(e)}>
+        <Select
+          name="saler"
+          title="saler"
+          onChange={(e: any) => handleSetValues(e)}
+        >
           {employeesList.map((employee: Employee) => {
             return (
               <option key={employee?.id} value={employee?.id}>

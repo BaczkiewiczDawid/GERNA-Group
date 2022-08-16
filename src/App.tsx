@@ -17,6 +17,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import ConfirmationModalProvider from "context/ConfirmationModalCtx";
+import useAuth from 'hooks/useAuth'
 
 function App() {
   const location = useLocation();

@@ -15,11 +15,14 @@ import SingleEmployee from "components/Employees/SingleEmployee";
 import SelectDepartment from "components/Employees/SelectDepartment";
 import DepartmentNavigation from "components/Employees/DepartmentNavigation";
 import Button from "components/Employees/Button";
+import useAuth from 'hooks/useAuth';
 
 const Employees = () => {
   const [employeesList, setEmployeesList] = useState<any[]>([]);
   const [selectedUser, setSelectedUser] = useState<number>(1);
   const [selectedUserDetails, setSelectedUserDetails] = useState<any[]>([]);
+
+  const isAuthenticated = useAuth();
 
   const { department } = useParams();
   console.log(department);

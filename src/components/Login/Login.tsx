@@ -3,12 +3,16 @@ import { LoginContainer, Header } from "components/Login/Login.style";
 import Input from "components/Login/Input";
 import Button from "components/Employees/Button";
 import Axios from "axios";
+import { useNavigate } from "react-router-dom";
+import useAuth from 'hooks/useAuth';
 
 const Login = () => {
   const [enteredValues, setEnteredValues] = useState({
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const handleInputValues = (e: any) => {
     setEnteredValues((prevState: any) => ({
@@ -24,7 +28,9 @@ const Login = () => {
       userData: enteredValues,
     })
       .then((response) => {
-        console.log(response);
+        console.log(response.data);
+        localStorage.setItem('auth', JSON.stringify(response.data));
+        navigate("/", { replace: true });
       })
       .catch((err) => {
         console.log(err);
