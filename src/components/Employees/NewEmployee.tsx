@@ -8,6 +8,7 @@ import Button from "components/Employees/Button";
 import Axios from "axios";
 import Modal from "components/Modal/Modal";
 import useModal from "hooks/useModal";
+import useAuth from "hooks/useAuth";
 
 const NewEmployee = () => {
   const initialEmployeeInformations = {
@@ -24,6 +25,8 @@ const NewEmployee = () => {
   const [employeeInformation, setEmployeeInformation] = useState(
     initialEmployeeInformations
   );
+
+  const isAuthenticated = useAuth();
 
   const { showModal, modalInformation, setModalInformation, ResultType } = useModal();
 

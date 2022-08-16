@@ -5,9 +5,12 @@ import { CarsContainer, StyledLink, ButtonLink } from "components/CarsList/CarsL
 import Axios from "axios";
 import Button from "components/Employees/Button";
 import { Link } from "react-router-dom";
+import useAuth from "hooks/useAuth";
 
 const CarsList = () => {
   const [carsList, setCarsList] = useState([]);
+
+  const isAuthenticated = useAuth();
 
   const getCarsList = () => {
     Axios.get("http://localhost:3001/get-cars")

@@ -9,11 +9,16 @@ import TopSellingModels from "components/Dashboard/TopSellingModels";
 import TopSalers from "components/Dashboard/TopSalers";
 import Wrapper from "components/Dashboard/Wrapper";
 import Axios from "axios";
+import useAuth from 'hooks/useAuth';
 
 const Dashboard = () => {
   const [sales, setSales] = useState<number>(0);
   const [recentIncome, setRecentIncome] = useState<number>(0);
   const [totalIncome, setTotalIncome] = useState<number>(0);
+
+  const isAuthenticated = useAuth();
+
+  console.log(isAuthenticated)
 
   const getLastSales = () => {
     Axios.get("http://localhost:3001/recent-sales").then((response) => {

@@ -9,6 +9,7 @@ import Modal from "components/Modal/Modal";
 import useModal from "hooks/useModal";
 import SelectManufactuer from "components/CarsList/SelectManufactuer";
 import SelectEquipment from "components/CarsList/SelectEquipment";
+import useAuth from "hooks/useAuth";
 
 const NewCar = () => {
   const initialValue = {
@@ -18,6 +19,8 @@ const NewCar = () => {
     price: "",
     equipment: [],
   };
+
+  const isAuthenticated = useAuth();
 
   const { showModal, modalInformation, setModalInformation, ResultType } =
     useModal();

@@ -14,6 +14,7 @@ import {
 import Axios from "axios";
 import Button from "components/Employees/Button";
 import { useNavigate } from "react-router-dom";
+import useAuth from 'hooks/useAuth'
 
 interface Car {
   id: number;
@@ -28,6 +29,8 @@ const CarDetails = () => {
   const carID: any = useParams().id;
   const [equipmentList, setEquipmentList] = useState([]);
   const [carDetails, setCarDetails] = useState<Car>();
+
+  const isAuthenticated = useAuth();
 
   const navigate = useNavigate();
 

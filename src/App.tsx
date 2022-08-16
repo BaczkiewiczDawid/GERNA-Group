@@ -10,18 +10,26 @@ import CarsList from "components/CarsList/CarsList";
 import CarDetails from "components/CarsList/CarDetails";
 import NewCar from "components/CarsList/NewCar";
 import NewSales from "components/NewSales/NewSales";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Login from "components/Login/Login";
+import {
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import ConfirmationModalProvider from "context/ConfirmationModalCtx";
+import useAuth from 'hooks/useAuth'
 
 function App() {
+  const location = useLocation();
+
   return (
     <>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
         <ConfirmationModalProvider>
-          <Router>
-            <Navigation />
+            {location.pathname !== '/login' && <Navigation />}
             <Routes>
+              <Route path="/login" element={<Login />} />
               <Route path="/" element={<Dashboard />} />
               <Route path="/employees/:department" element={<Employees />} />
               <Route path="/employees/new" element={<NewEmployee />} />
@@ -30,7 +38,6 @@ function App() {
               <Route path="/cars/:id" element={<CarDetails />} />
               <Route path="/sales/new" element={<NewSales />} />
             </Routes>
-          </Router>
         </ConfirmationModalProvider>
       </ThemeProvider>
     </>
