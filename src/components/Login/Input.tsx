@@ -9,8 +9,8 @@ export const StyledInput = styled.input`
     margin-top: 1.8rem;
 `;
 
-const Input = ({ type, placeholder, value, onChange, autoComplete }: any) => {
-    return <StyledInput type={type} placeholder={placeholder} value={value} onChange={onChange} autoComplete={autoComplete} />
+const Input = ({ type, placeholder, value, onChange, autoComplete, name }: any) => {
+    return <StyledInput type={type} placeholder={placeholder} value={value} onChange={onChange} autoComplete={autoComplete} name={name} />
 }
 
 export default Input
