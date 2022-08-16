@@ -2,6 +2,7 @@ import { useState } from "react";
 import { LoginContainer, Header } from "components/Login/Login.style";
 import Input from "components/Login/Input";
 import Button from "components/Employees/Button";
+import Axios from "axios";
 
 const Login = () => {
   const [enteredValues, setEnteredValues] = useState({
@@ -16,14 +17,26 @@ const Login = () => {
     }));
   };
 
-  console.log(enteredValues)
+  const handleLogin = (e: any) => {
+    e.preventDefault();
+
+    Axios.post("http://localhost:3001/login", {
+      userData: enteredValues,
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <LoginContainer>
       <Header>
         Login to <span>GERNA</span>
       </Header>
-      <form>
+      <form onSubmit={handleLogin}>
         <Input
           type="text"
           placeholder="E-Mail"
