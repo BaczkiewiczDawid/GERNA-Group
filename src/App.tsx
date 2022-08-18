@@ -9,6 +9,7 @@ import NewEmployee from "components/Employees/NewEmployee";
 import CarsList from "components/CarsList/CarsList";
 import CarDetails from "components/CarsList/CarDetails";
 import NewCar from "components/CarsList/NewCar";
+import SendEmail from 'components/SendEmail/SendEmail';
 import NewSales from "components/NewSales/NewSales";
 import Login from "components/Login/Login";
 import {
@@ -37,6 +38,7 @@ function App() {
               <Route path="/cars/new" element={<NewCar />} />
               <Route path="/cars/:id" element={<CarDetails />} />
               <Route path="/sales/new" element={<NewSales />} />
+              <Route path="/send" element={<SendEmail />} />
             </Routes>
         </ConfirmationModalProvider>
       </ThemeProvider>
