@@ -3,7 +3,11 @@ import ContentWrapper from "components/Dashboard/ContentWrapper";
 import Wrapper from "components/Dashboard/Wrapper";
 import SelectDepartment from "components/Employees/SelectDepartment";
 import EmployeeInformation from "./EmployeeInformation";
-import { StyledForm, Title, InvisibleInput } from "components/Employees/NewEmployee.style";
+import {
+  StyledForm,
+  Title,
+  InvisibleInput,
+} from "components/Employees/NewEmployee.style";
 import Button from "components/Employees/Button";
 import Axios from "axios";
 import Modal from "components/Modal/Modal";
@@ -11,24 +15,6 @@ import useModal from "hooks/useModal";
 import useAuth from "hooks/useAuth";
 import emailjs from "emailjs-com";
 import { useStateWithCallbackLazy } from "use-state-with-callback";
-
-const sendEmail = (e: any) => {
-  e.preventDefault();
-
-  emailjs
-    .sendForm(
-      "service_aev4svh",
-      "template_vzmo5os",
-      e.target,
-      "TFiGvZVNaPgrAPQie"
-    )
-    .then((result: any) => {
-      console.log(result.text);
-    })
-    .catch((err: any) => {
-      console.log(err.text);
-    });
-};
 
 const NewEmployee = () => {
   const initialEmployeeInformations = {
@@ -51,9 +37,27 @@ const NewEmployee = () => {
   const { showModal, modalInformation, setModalInformation, ResultType } =
     useModal();
 
+  const sendEmail = (e: any) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm(
+        "service_aev4svh",
+        "template_vzmo5os",
+        e.target,
+        "TFiGvZVNaPgrAPQie"
+      )
+      .then((result: any) => {
+        console.log(result.text);
+        setEmployeeInformation(initialEmployeeInformations);
+      })
+      .catch((err: any) => {
+        console.log(err.text);
+      });
+  };
+
   const handleNewEmployee = (e: Event) => {
     e.preventDefault();
-    // setEmployeeInformation(initialEmployeeInformations);
 
     Axios.post("http://localhost:3001/new-employee", {
       data: employeeInformation,
@@ -71,17 +75,13 @@ const NewEmployee = () => {
       });
   };
 
-  const addNewEmployee = (e: any) => {
-    handleNewEmployee(e);
-  };
-
   return (
     <Wrapper>
       <h1>Add new employee</h1>
       <ContentWrapper>
         <Title>Select department</Title>
         <SelectDepartment setEmployeeInformation={setEmployeeInformation} />
-        <StyledForm onSubmit={addNewEmployee}>
+        <StyledForm onSubmit={(e: any) => handleNewEmployee(e)}>
           <EmployeeInformation
             label="Name"
             value={employeeInformation?.name}
@@ -134,11 +134,7 @@ const NewEmployee = () => {
             setEmployeeDetails={setEmployeeInformation}
           />
           <InvisibleInput type="text" name="password" value={password} />
-          <Button
-            type="submit"
-            text="Add new employee"
-            onSubmit={addNewEmployee}
-          />
+          <Button type="submit" text="Add new employee" />
         </StyledForm>
       </ContentWrapper>
       <Modal
