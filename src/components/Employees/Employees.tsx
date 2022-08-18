@@ -5,7 +5,7 @@ import {
   Container,
   Content,
   ContentContainer,
-  MobileButtonContainer
+  MobileButtonContainer,
 } from "components/Employees/Employees.style";
 import ContentWrapper from "components/Dashboard/ContentWrapper";
 import Table from "components/Dashboard/Table";
@@ -15,7 +15,8 @@ import SingleEmployee from "components/Employees/SingleEmployee";
 import SelectDepartment from "components/Employees/SelectDepartment";
 import DepartmentNavigation from "components/Employees/DepartmentNavigation";
 import Button from "components/Employees/Button";
-import useAuth from 'hooks/useAuth';
+import useAuth from "hooks/useAuth";
+import NoAccess from "components/NoAccess/NoAccess";
 
 const Employees = () => {
   const [employeesList, setEmployeesList] = useState<any[]>([]);
@@ -65,48 +66,54 @@ const Employees = () => {
 
   return (
     <Container>
-      <DepartmentNav>
-        <h2>Department</h2>
-        <SelectDepartment />
-        <DepartmentNavigation />
-      </DepartmentNav>
-      <ContentContainer>
-        <h1>GERNA Group Employees - Katowice</h1>
-        <Content>
-          <ContentWrapper>
-            <Table>
-              {employeesList.length < 1 ? (
-                <span>There's no employees in this department</span>
-              ) : (
-                <>
-                  {" "}
-                  <th>Employee name</th>
-                  <th>Age</th>
-                  <th>City</th>
-                  <th>Position</th>
-                  {employeesList.map((employee): any => {
-                    return (
-                      <SingleEmployee
-                        employee={employee}
-                        handleSelectEmployee={handleSelectEmployee}
-                      />
-                    );
-                  })}
-                </>
-              )}
-            </Table>
-            <MobileButtonContainer>
-              <Link to="/employees/new">
-                <Button text="Add new employee" />
-              </Link>
-            </MobileButtonContainer>
-          </ContentWrapper>
-          <EmployeeDetails
-            employeeDetails={selectedUserDetails}
-            setEmployeeDetails={setSelectedUserDetails}
-          />
-        </Content>
-      </ContentContainer>
+      {isAuthenticated.role === "admin" ? (
+        <>
+          <DepartmentNav>
+            <h2>Department</h2>
+            <SelectDepartment />
+            <DepartmentNavigation />
+          </DepartmentNav>
+          <ContentContainer>
+            <h1>GERNA Group Employees - Katowice</h1>
+            <Content>
+              <ContentWrapper>
+                <Table>
+                  {employeesList.length < 1 ? (
+                    <span>There's no employees in this department</span>
+                  ) : (
+                    <>
+                      {" "}
+                      <th>Employee name</th>
+                      <th>Age</th>
+                      <th>City</th>
+                      <th>Position</th>
+                      {employeesList.map((employee): any => {
+                        return (
+                          <SingleEmployee
+                            employee={employee}
+                            handleSelectEmployee={handleSelectEmployee}
+                          />
+                        );
+                      })}
+                    </>
+                  )}
+                </Table>
+                <MobileButtonContainer>
+                  <Link to="/employees/new">
+                    <Button text="Add new employee" />
+                  </Link>
+                </MobileButtonContainer>
+              </ContentWrapper>
+              <EmployeeDetails
+                employeeDetails={selectedUserDetails}
+                setEmployeeDetails={setSelectedUserDetails}
+              />
+            </Content>
+          </ContentContainer>
+        </>
+      ) : (
+        <NoAccess />
+      )}
     </Container>
   );
 };

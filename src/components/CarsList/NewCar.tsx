@@ -10,6 +10,7 @@ import useModal from "hooks/useModal";
 import SelectManufactuer from "components/CarsList/SelectManufactuer";
 import SelectEquipment from "components/CarsList/SelectEquipment";
 import useAuth from "hooks/useAuth";
+import NoAccess from "components/NoAccess/NoAccess";
 
 const NewCar = () => {
   const initialValue = {
@@ -44,8 +45,8 @@ const NewCar = () => {
 
     setInputValues((prevState: any) => ({
       ...prevState,
-      equipment: selectedEquipment
-    }))
+      equipment: selectedEquipment,
+    }));
 
     if (!isNull) {
       Axios.post("http://localhost:3001/new-car", {
@@ -63,54 +64,58 @@ const NewCar = () => {
     }
   };
 
-  console.log(selectedEquipment)
+  console.log(selectedEquipment);
 
   return (
     <Wrapper>
-      <h1>Add new car to offer</h1>
-      <Container>
-        <ContentWrapper>
-          <Form onSubmit={(e: any) => handleAddNewCar(e)}>
-            <Label htmlFor="">Manufactuer</Label>
-            <SelectManufactuer setInputValues={setInputValues} />
-            <FormElement
-              label="Model"
-              value={inputValues.model}
-              type="text"
-              name="model"
-              placeholder="Model..."
-              onChange={(e: any) => handleChangeInputValue(e)}
+      {isAuthenticated.role === "admin" ? (
+        <>
+          <h1>Add new car to offer</h1>
+          <Container>
+            <ContentWrapper>
+              <Form onSubmit={(e: any) => handleAddNewCar(e)}>
+                <Label htmlFor="">Manufactuer</Label>
+                <SelectManufactuer setInputValues={setInputValues} />
+                <FormElement
+                  label="Model"
+                  value={inputValues.model}
+                  type="text"
+                  name="model"
+                  placeholder="Model..."
+                  onChange={(e: any) => handleChangeInputValue(e)}
+                />
+                <FormElement
+                  label="engine"
+                  value={inputValues.engine}
+                  type="text"
+                  name="engine"
+                  placeholder="Engine..."
+                  onChange={(e: any) => handleChangeInputValue(e)}
+                />
+                <FormElement
+                  label="Price"
+                  value={inputValues.price}
+                  type="text"
+                  name="price"
+                  placeholder="Price..."
+                  onChange={(e: any) => handleChangeInputValue(e)}
+                />
+                <Button text="Add new car" type="submit" />
+              </Form>
+            </ContentWrapper>
+            <SelectEquipment
+              selectedEquipment={selectedEquipment}
+              setSelectedEquipment={setSelectedEquipment}
             />
-            <FormElement
-              label="engine"
-              value={inputValues.engine}
-              type="text"
-              name="engine"
-              placeholder="Engine..."
-              onChange={(e: any) => handleChangeInputValue(e)}
-            />
-            <FormElement
-              label="Price"
-              value={inputValues.price}
-              type="text"
-              name="price"
-              placeholder="Price..."
-              onChange={(e: any) => handleChangeInputValue(e)}
-            />
-            <Button text="Add new car" type="submit" />
-          </Form>
-        </ContentWrapper>
-        <SelectEquipment
-          selectedEquipment={selectedEquipment}
-          setSelectedEquipment={setSelectedEquipment}
-        />
-      </Container>
-      <Modal
-        setIsOpen={setModalInformation}
-        isOpen={modalInformation.isOpen}
-        message={modalInformation.message}
-        type={modalInformation.type}
-      />
+          </Container>
+          <Modal
+            setIsOpen={setModalInformation}
+            isOpen={modalInformation.isOpen}
+            message={modalInformation.message}
+            type={modalInformation.type}
+          />
+        </>
+      ) : <NoAccess />}
     </Wrapper>
   );
 };
