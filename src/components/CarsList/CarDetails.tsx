@@ -14,7 +14,7 @@ import {
 import Axios from "axios";
 import Button from "components/Employees/Button";
 import { useNavigate } from "react-router-dom";
-import useAuth from 'hooks/useAuth'
+import useAuth from "hooks/useAuth";
 
 interface Car {
   id: number;
@@ -101,9 +101,11 @@ const CarDetails = () => {
           </List>
         </Details>
       </CarContainer>
-      <ButtonWrapper>
-        <Button onClick={handleRemoveCar} text="Delete this car from offer" />
-      </ButtonWrapper>
+      {isAuthenticated.role === "admin" && (
+        <ButtonWrapper>
+          <Button onClick={handleRemoveCar} text="Delete this car from offer" />
+        </ButtonWrapper>
+      )}
     </Wrapper>
   );
 };
