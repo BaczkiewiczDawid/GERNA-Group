@@ -3,12 +3,32 @@ import ContentWrapper from "components/Dashboard/ContentWrapper";
 import Wrapper from "components/Dashboard/Wrapper";
 import SelectDepartment from "components/Employees/SelectDepartment";
 import EmployeeInformation from "./EmployeeInformation";
-import { StyledForm, Title } from "components/Employees/NewEmployee.style";
+import { StyledForm, Title, InvisibleInput } from "components/Employees/NewEmployee.style";
 import Button from "components/Employees/Button";
 import Axios from "axios";
 import Modal from "components/Modal/Modal";
 import useModal from "hooks/useModal";
 import useAuth from "hooks/useAuth";
+import emailjs from "emailjs-com";
+import { useStateWithCallbackLazy } from "use-state-with-callback";
+
+const sendEmail = (e: any) => {
+  e.preventDefault();
+
+  emailjs
+    .sendForm(
+      "service_aev4svh",
+      "template_vzmo5os",
+      e.target,
+      "TFiGvZVNaPgrAPQie"
+    )
+    .then((result: any) => {
+      console.log(result.text);
+    })
+    .catch((err: any) => {
+      console.log(err.text);
+    });
+};
 
 const NewEmployee = () => {
   const initialEmployeeInformations = {
@@ -25,26 +45,34 @@ const NewEmployee = () => {
   const [employeeInformation, setEmployeeInformation] = useState(
     initialEmployeeInformations
   );
-
+  const [password, setPassword] = useStateWithCallbackLazy("");
   const isAuthenticated = useAuth();
 
-  const { showModal, modalInformation, setModalInformation, ResultType } = useModal();
+  const { showModal, modalInformation, setModalInformation, ResultType } =
+    useModal();
 
   const handleNewEmployee = (e: Event) => {
     e.preventDefault();
-    setEmployeeInformation(initialEmployeeInformations)
+    // setEmployeeInformation(initialEmployeeInformations);
 
     Axios.post("http://localhost:3001/new-employee", {
       data: employeeInformation,
     })
-      .then((response) => {
+      .then(async (response) => {
         console.log(response);
         showModal(ResultType.success, "Employee added successfully!");
+        setPassword(response.data, () => {
+          sendEmail(e);
+        });
       })
       .catch((err) => {
         console.log(err);
         showModal(ResultType.error, "Something went wrong");
       });
+  };
+
+  const addNewEmployee = (e: any) => {
+    handleNewEmployee(e);
   };
 
   return (
@@ -53,7 +81,7 @@ const NewEmployee = () => {
       <ContentWrapper>
         <Title>Select department</Title>
         <SelectDepartment setEmployeeInformation={setEmployeeInformation} />
-        <StyledForm>
+        <StyledForm onSubmit={addNewEmployee}>
           <EmployeeInformation
             label="Name"
             value={employeeInformation?.name}
@@ -105,9 +133,11 @@ const NewEmployee = () => {
             type="number"
             setEmployeeDetails={setEmployeeInformation}
           />
+          <InvisibleInput type="text" name="password" value={password} />
           <Button
+            type="submit"
             text="Add new employee"
-            onClick={(e: Event) => handleNewEmployee(e)}
+            onSubmit={addNewEmployee}
           />
         </StyledForm>
       </ContentWrapper>

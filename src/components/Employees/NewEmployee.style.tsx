@@ -8,3 +8,7 @@ export const StyledForm = styled.form`
 export const Title = styled.h2`
     margin-bottom: 1rem;
 `;
+
+export const InvisibleInput = styled.input`
+    display: none;
+`;
