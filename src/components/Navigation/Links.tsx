@@ -14,6 +14,7 @@ const Links = ({ setIsOpen }: any) => {
       {isAuthenticated.role === 'admin' && <Link onClick={handleCloseNav} to="/employees/katowice">E</Link>}
       <Link onClick={handleCloseNav} to="/sales/new">N</Link>
       <Link onClick={handleCloseNav} to="/cars">C</Link>
+      <Link onClick={handleCloseNav} to="/messages">M</Link>
     </>
   );
 };
