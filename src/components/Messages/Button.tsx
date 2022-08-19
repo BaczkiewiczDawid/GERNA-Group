@@ -29,7 +29,7 @@ const Button = () => {
   const navigate = useNavigate();
 
   const handleRedirect = () => {
-    navigate("/new/message", { replace: true });
+    navigate("/messages/new", { replace: true });
   };
 
   return <StyledButton onClick={handleRedirect}>New message</StyledButton>;
