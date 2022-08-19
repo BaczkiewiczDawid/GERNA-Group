@@ -13,6 +13,11 @@ const expand = keyframes`
 export const MessageWrapper = styled.article`
   color: ${({ theme }) => theme.colors.text};
   margin-top: 2rem;
+  cursor: pointer;
+
+  @media screen and (min-width: 1080px) {
+    width: 70%;
+  }
 `;
 
 export const Header = styled.div`
@@ -30,13 +35,14 @@ export const Header = styled.div`
     font-size: 1.1rem;
   }
 
-  h3 {
-    font-size: 0.9rem;
-    margin-top: 0.7rem;
-  }
-
   p {
     font-size: 0.8rem;
+  }
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
   }
 `;
 
@@ -55,8 +61,27 @@ export const Line = styled.div`
 `;
 
 export const Details = styled.div`
-    margin: 1rem auto;
-    width: 90%;
-    height: auto;
-    animation: ${expand} 1s ease-in forwards;
+  margin: 1rem auto;
+  width: 90%;
+  height: auto;
+  animation: ${expand} 1s ease-in forwards;
+`;
+
+export const DesktopTitle = styled.h3`
+  display: none;
+  font-size: .9rem;
+
+  @media screen and (min-width: 768px) {
+    display: block;
+  }
+`;
+
+export const MobileTitle = styled.h3`
+  display: block;
+  font-size: .9rem;
+  margin-top: .5rem;
+
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
 `;

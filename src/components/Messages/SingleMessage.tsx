@@ -5,6 +5,8 @@ import {
   Header,
   SecondaryDetails,
   Details,
+  DesktopTitle,
+  MobileTitle
 } from "components/Messages/SingleMessage.style";
 
 const SingleMessage = () => {
@@ -19,9 +21,10 @@ const SingleMessage = () => {
       <Header>
         <SecondaryDetails>
           <h2>Dawid Bączkiewicz</h2>
+          <DesktopTitle>Desktop title</DesktopTitle>
           <p>14.08.2022</p>
         </SecondaryDetails>
-        <h3>Primary title</h3>
+        <MobileTitle>Mobile title</MobileTitle>
       </Header>
       {isExpanded && (
         <Details>
