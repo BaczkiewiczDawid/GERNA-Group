@@ -11,6 +11,7 @@ import CarDetails from "components/CarsList/CarDetails";
 import NewCar from "components/CarsList/NewCar";
 import NewSales from "components/NewSales/NewSales";
 import Messages from "components/Messages/Messages";
+import NewMessage  from "components/Messages/NewMessage";
 import Login from "components/Login/Login";
 import { Routes, Route, useLocation } from "react-router-dom";
 import ConfirmationModalProvider from "context/ConfirmationModalCtx";
@@ -34,6 +35,7 @@ function App() {
             <Route path="/cars/:id" element={<CarDetails />} />
             <Route path="/sales/new" element={<NewSales />} />
             <Route path="/messages" element={<Messages />} />
+            <Route path="/messages/new" element={<NewMessage />} />
           </Routes>
         </ConfirmationModalProvider>
       </ThemeProvider>
