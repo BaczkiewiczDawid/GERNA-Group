@@ -60,9 +60,6 @@ const NewMessage = () => {
       ...prevState,
       [e.target.name]: e.target.value,
     }));
-
-    //send response if email is not found
-    //send resposne and redirect if message is sent successfully
   };
 
   useEffect(() => {
