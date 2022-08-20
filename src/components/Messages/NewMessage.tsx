@@ -13,6 +13,7 @@ import Input from "components/Employees/Input";
 import Button from "components/Employees/Button";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
+import { MessagesList } from "./Messages.style";
 
 const initialState = {
   title: "",
@@ -34,6 +35,18 @@ const NewMessage = () => {
 
   const handleSendMessage = (e: any) => {
     e.preventDefault();
+
+    const data = {
+      title: messageValues.title,
+      description: messageValues.description,
+      emailsList: emailsList
+    }
+
+    Axios.post('http://localhost:3001/send-message', {
+      data: data
+    }).then((response) => {
+      console.log(response)
+    })
   };
 
   const getEmployeeList = () => {
@@ -48,9 +61,6 @@ const NewMessage = () => {
       [e.target.name]: e.target.value,
     }));
 
-    Axios.post('htpp://localhost:3001/send-message')
-
-    //Axios post
     //send response if email is not found
     //send resposne and redirect if message is sent successfully
   };
