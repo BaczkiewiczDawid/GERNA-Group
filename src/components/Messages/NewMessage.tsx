@@ -27,8 +27,8 @@ interface MessagesProps {
 const NewMessage = () => {
   const [messageValues, setMessageValues] =
     useState<MessagesProps>(initialState);
-  const [emailsList, setEmailsList] = useState<string[]>([]);
   const [employeesList, setEmployeesList] = useState<string[]>([]);
+  const [emailsList, setEmailsList] = useState<string[]>([]);
 
   const navigate = useNavigate();
 
@@ -38,7 +38,7 @@ const NewMessage = () => {
 
   const getEmployeeList = () => {
     Axios.get("http://localhost:3001/employees").then((response) => {
-      setEmployeesList(response.data)
+      setEmployeesList(response.data);
     });
   };
 
@@ -48,21 +48,25 @@ const NewMessage = () => {
       [e.target.name]: e.target.value,
     }));
 
+    Axios.post('htpp://localhost:3001/send-message')
+
     //Axios post
     //send response if email is not found
     //send resposne and redirect if message is sent successfully
   };
 
   useEffect(() => {
-    getEmployeeList()
-  }, [])
+    getEmployeeList();
+  }, []);
 
   const handleAddNewAddress = (e: any) => {
-    console.log(e.target.textContent)
-    const selectedEmployee: any = employeesList.find((el: any) => el.name === e.target.textContent)
+    const selectedEmployee: any = employeesList.find(
+      (el: any) => el.name === e.target.textContent
+    );
+    const selectedEmployeeEmail: string = selectedEmployee.email;
 
-    console.log(selectedEmployee.email)
-  }
+    setEmailsList((prevState: string[]) => [...prevState, selectedEmployeeEmail]);
+  };
 
   console.log(messageValues);
 
@@ -74,9 +78,12 @@ const NewMessage = () => {
           <Form onSubmit={(e) => handleSendMessage(e)}>
             <label>Emails</label>
             <EmailsList>
-              <Email>hitlon22@onet.pl</Email>
+              {emailsList.map((email: string) => (
+                <Email>{email}</Email>
+              ))}
+              {/* <Email>hitlon22@onet.pl</Email>
               <Email>baczkiewicz.dawid22@gmail.com</Email>
-              <Email>karol.majek@gmail.com</Email>
+              <Email>karol.majek@gmail.com</Email> */}
             </EmailsList>
             <label htmlFor="">Title</label>
             <Input
@@ -100,9 +107,7 @@ const NewMessage = () => {
         <EmployeeList>
           <List>
             {employeesList.map((employee: any) => {
-              return (
-                <li onClick={handleAddNewAddress}>{employee.name}</li>
-              )
+              return <li onClick={handleAddNewAddress}>{employee.name}</li>;
             })}
           </List>
         </EmployeeList>
