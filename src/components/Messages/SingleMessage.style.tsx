@@ -16,7 +16,7 @@ export const MessageWrapper = styled.article`
   cursor: pointer;
 
   @media screen and (min-width: 1080px) {
-    width: 70%;
+    width: 90%;
   }
 `;
 
@@ -61,7 +61,7 @@ export const Line = styled.div`
 `;
 
 export const Details = styled.div`
-  margin: 1rem auto;
+  margin: 2rem auto;
   width: 90%;
   height: auto;
   animation: ${expand} 1s ease-in forwards;
