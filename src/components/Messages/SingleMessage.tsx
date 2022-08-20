@@ -9,7 +9,7 @@ import {
   MobileTitle
 } from "components/Messages/SingleMessage.style";
 
-const SingleMessage = ({ message, title, sender }: any) => {
+const SingleMessage = ({ message, title, sender, date }: any) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   const handleShowDetails = () => {
@@ -20,9 +20,9 @@ const SingleMessage = ({ message, title, sender }: any) => {
     <MessageWrapper onClick={handleShowDetails}>
       <Header>
         <SecondaryDetails>
-          <h2>Dawid Bączkiewicz</h2>
+          <h2>{sender}</h2>
           <DesktopTitle>{title}</DesktopTitle>
-          <p>14.08.2022</p>
+          <p>{date}</p>
         </SecondaryDetails>
         <MobileTitle>{title}</MobileTitle>
       </Header>

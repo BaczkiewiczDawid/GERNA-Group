@@ -28,7 +28,7 @@ const Messages = () => {
       <MessagesList>
         {messages.map((message: any) => {
           return (
-            <SingleMessage message={message.message} title={message.title} />
+            <SingleMessage message={message.message} title={message.title} date={message.date} sender={message.sender} />
           )
         })}
       </MessagesList>

@@ -13,7 +13,7 @@ import Input from "components/Employees/Input";
 import Button from "components/Employees/Button";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
-import { MessagesList } from "./Messages.style";
+import useAuth from "hooks/useAuth";
 
 const initialState = {
   title: "",
@@ -31,22 +31,44 @@ const NewMessage = () => {
   const [employeesList, setEmployeesList] = useState<string[]>([]);
   const [emailsList, setEmailsList] = useState<string[]>([]);
 
+  const isAuthenticated = useAuth();
+
   const navigate = useNavigate();
+
+  const getCurrentDate = () => {
+    let today: any = new Date();
+    const dd = String(today.getDate()).padStart(2, "0");
+    const mm = String(today.getMonth() + 1).padStart(2, "0");
+    const yyyy = today.getFullYear();
+
+    today = dd + "." + mm + "." + yyyy;
+
+    return today;
+  };
+
+  console.log(new Date());
 
   const handleSendMessage = (e: any) => {
     e.preventDefault();
 
+    const today = getCurrentDate();
+
     const data = {
       title: messageValues.title,
       description: messageValues.description,
-      emailsList: emailsList
-    }
+      emailsList: emailsList,
+      sender: isAuthenticated.authUser,
+      date: today,
+    };
 
-    Axios.post('http://localhost:3001/send-message', {
-      data: data
+    Axios.post("http://localhost:3001/send-message", {
+      data: data,
     }).then((response) => {
-      console.log(response)
-    })
+      console.log(response);
+      setMessageValues(initialState);
+      setEmailsList([]);
+      navigate("/messages", { replace: true });
+    });
   };
 
   const getEmployeeList = () => {
@@ -72,14 +94,19 @@ const NewMessage = () => {
     );
     const selectedEmployeeEmail: string = selectedEmployee.email;
 
-    setEmailsList((prevState: string[]) => [...prevState, selectedEmployeeEmail]);
+    setEmailsList((prevState: string[]) => [
+      ...prevState,
+      selectedEmployeeEmail,
+    ]);
   };
 
   const handleDeleteAddress = (e: any) => {
-    console.log(e.target.textContent)
-    const filteredEmailsList = emailsList.filter((email: string) => email !== e.target.textContent);
+    console.log(e.target.textContent);
+    const filteredEmailsList = emailsList.filter(
+      (email: string) => email !== e.target.textContent
+    );
     setEmailsList(filteredEmailsList);
-  }
+  };
 
   console.log(messageValues);
 

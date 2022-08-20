@@ -16,7 +16,7 @@ export const MessageWrapper = styled.article`
   cursor: pointer;
 
   @media screen and (min-width: 1080px) {
-    width: 70%;
+    width: 90%;
   }
 `;
 
