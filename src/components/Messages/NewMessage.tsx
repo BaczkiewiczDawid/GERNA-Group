@@ -68,6 +68,12 @@ const NewMessage = () => {
     setEmailsList((prevState: string[]) => [...prevState, selectedEmployeeEmail]);
   };
 
+  const handleDeleteAddress = (e: any) => {
+    console.log(e.target.textContent)
+    const filteredEmailsList = emailsList.filter((email: string) => email !== e.target.textContent);
+    setEmailsList(filteredEmailsList);
+  }
+
   console.log(messageValues);
 
   return (
@@ -79,11 +85,8 @@ const NewMessage = () => {
             <label>Emails</label>
             <EmailsList>
               {emailsList.map((email: string) => (
-                <Email>{email}</Email>
+                <Email onClick={handleDeleteAddress}>{email}</Email>
               ))}
-              {/* <Email>hitlon22@onet.pl</Email>
-              <Email>baczkiewicz.dawid22@gmail.com</Email>
-              <Email>karol.majek@gmail.com</Email> */}
             </EmailsList>
             <label htmlFor="">Title</label>
             <Input
