@@ -24,7 +24,7 @@ const Messages = () => {
 
   return (
     <Wrapper>
-      <h1>Messages</h1>
+      <h1>GERNA Group Messages</h1>
       <MessagesList>
         {messages.map((message: any) => {
           return (

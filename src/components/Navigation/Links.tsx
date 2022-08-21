@@ -15,6 +15,7 @@ const Links = ({ setIsOpen }: any) => {
       <Link onClick={handleCloseNav} to="/sales/new">N</Link>
       <Link onClick={handleCloseNav} to="/cars">C</Link>
       <Link onClick={handleCloseNav} to="/messages">M</Link>
+      <Link onClick={handleCloseNav} to="/news">N</Link>
     </>
   );
 };
