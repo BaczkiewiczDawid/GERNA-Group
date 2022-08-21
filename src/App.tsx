@@ -13,6 +13,7 @@ import NewSales from "components/NewSales/NewSales";
 import Messages from "components/Messages/Messages";
 import NewMessage  from "components/Messages/NewMessage";
 import Login from "components/Login/Login";
+import News from 'components/News/News';
 import { Routes, Route, useLocation } from "react-router-dom";
 import ConfirmationModalProvider from "context/ConfirmationModalCtx";
 
@@ -36,6 +37,7 @@ function App() {
             <Route path="/sales/new" element={<NewSales />} />
             <Route path="/messages" element={<Messages />} />
             <Route path="/messages/new" element={<NewMessage />} />
+            <Route path="/news" element={<News />} />
           </Routes>
         </ConfirmationModalProvider>
       </ThemeProvider>
