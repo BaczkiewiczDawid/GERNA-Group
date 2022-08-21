@@ -1,26 +1,26 @@
 import { useEffect, useState } from "react";
 import Wrapper from "components/Dashboard/Wrapper";
 import SingleMessage from "components/Messages/SingleMessage";
-import { MessagesList } from 'components/Messages/Messages.style';
-import Button from 'components/Messages/Button';
-import Axios from 'axios';
+import { MessagesList } from "components/Messages/Messages.style";
+import Button from "components/Messages/Button";
+import Axios from "axios";
 import useAuth from "hooks/useAuth";
 
 const Messages = () => {
   const isAuthenticated = useAuth();
-  const [messages, setMessages] = useState([])
+  const [messages, setMessages] = useState([]);
 
   const getMessages = () => {
-    Axios.post('http://localhost:3001/get-messages', {
-      user: isAuthenticated.authUser
+    Axios.post("http://localhost:3001/get-messages", {
+      user: isAuthenticated.authUser,
     }).then((response) => {
-      setMessages(response.data)
-    })
-  }
+      setMessages(response.data);
+    });
+  };
 
   useEffect(() => {
-    getMessages()
-  }, [])
+    getMessages();
+  }, []);
 
   return (
     <Wrapper>
@@ -28,9 +28,15 @@ const Messages = () => {
       <MessagesList>
         {messages.map((message: any) => {
           return (
-            <SingleMessage message={message.message} title={message.title} date={message.date} sender={message.sender} />
-          )
+            <SingleMessage
+              message={message.message}
+              title={message.title}
+              date={message.date}
+              sender={message.sender}
+            />
+          );
         })}
+        {messages.length === 0 && <p>There's no messages in Your inbox</p>}
       </MessagesList>
       <Button />
     </Wrapper>

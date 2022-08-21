@@ -14,6 +14,8 @@ import Button from "components/Employees/Button";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import useAuth from "hooks/useAuth";
+import useModal from "hooks/useModal";
+import Modal from "components/Modal/Modal";
 
 const initialState = {
   title: "",
@@ -32,8 +34,9 @@ const NewMessage = () => {
   const [emailsList, setEmailsList] = useState<string[]>([]);
 
   const isAuthenticated = useAuth();
-
   const navigate = useNavigate();
+  const { showModal, modalInformation, setModalInformation, ResultType } =
+    useModal();
 
   const getCurrentDate = () => {
     let today: any = new Date();
@@ -45,7 +48,7 @@ const NewMessage = () => {
 
     return today;
   };
-  
+
   const handleSendMessage = (e: any) => {
     e.preventDefault();
 
@@ -61,12 +64,16 @@ const NewMessage = () => {
 
     Axios.post("http://localhost:3001/send-message", {
       data: data,
-    }).then((response) => {
-      console.log(response);
-      setMessageValues(initialState);
-      setEmailsList([]);
-      navigate("/messages", { replace: true });
-    });
+    })
+      .then((response) => {
+        console.log(response);
+        setMessageValues(initialState);
+        setEmailsList([]);
+        showModal(ResultType.success, "Message sent successfully");
+      })
+      .catch((err) => {
+        showModal(ResultType.error, "Something went wrong");
+      });
   };
 
   const getEmployeeList = () => {
@@ -146,6 +153,12 @@ const NewMessage = () => {
           </List>
         </EmployeeList>
       </Container>
+      <Modal
+        setIsOpen={setModalInformation}
+        isOpen={modalInformation.isOpen}
+        message={modalInformation.message}
+        type={modalInformation.type}
+      />
     </Wrapper>
   );
 };
