@@ -24,6 +24,6 @@
   "include": [
     "src",
     "src/**/*",
-    "index.d.ts", "styled.d.ts",
+    "index.d.ts", "styled.d.ts", "setupEnzyme.js",
   ]
 }
