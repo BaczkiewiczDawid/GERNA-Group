@@ -49,14 +49,22 @@ export const EmployeeList = styled.div`
 
 export const List = styled.ul`
     list-style-type: none;
+    margin-top: 3rem;
 
     li {
-        padding: .4rem 0;
+        padding: .7rem .7rem;
         cursor: pointer;
+
+        &:hover {
+          background-color: ${({ theme }) => theme.colors.darkerBlue};
+          transition: .25s;
+        }
     }
 
     @media screen and (min-width: 768px) {
-        margin-top: 8rem;
+        margin-top: 5rem;
+        height: 60vh;
+        overflow-y: scroll;
     }
 `;
 
