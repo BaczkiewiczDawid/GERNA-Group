@@ -45,9 +45,7 @@ const NewMessage = () => {
 
     return today;
   };
-
-  console.log(new Date());
-
+  
   const handleSendMessage = (e: any) => {
     e.preventDefault();
 
@@ -108,8 +106,6 @@ const NewMessage = () => {
     setEmailsList(filteredEmailsList);
   };
 
-  console.log(messageValues);
-
   return (
     <Wrapper>
       <h1>New message</h1>
@@ -142,6 +138,7 @@ const NewMessage = () => {
           </Form>
         </ContentWrapper>
         <EmployeeList>
+          <h3>Employees list</h3>
           <List>
             {employeesList.map((employee: any) => {
               return <li onClick={handleAddNewAddress}>{employee.name}</li>;
