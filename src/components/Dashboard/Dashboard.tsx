@@ -21,19 +21,19 @@ const Dashboard = () => {
   console.log(isAuthenticated)
 
   const getLastSales = () => {
-    Axios.get("http://localhost:3001/recent-sales").then((response) => {
+    Axios.get("https://gernagroup-server.herokuapp.com/recent-sales").then((response) => {
       setSales(response.data[0].sales);
     });
   };
 
   const getRecentIncome = () => {
-    Axios.get("http://localhost:3001/recent-income").then((response) => {
+    Axios.get("https://gernagroup-server.herokuapp.com/recent-income").then((response) => {
       setRecentIncome(response.data[0].totalIncome);
     });
   };
 
   const getTotalIncome = () => {
-    Axios.get("http://localhost:3001/total-income").then((response) => {
+    Axios.get("https://gernagroup-server.herokuapp.com/total-income").then((response) => {
       setTotalIncome(response.data[0].totalIncome);
       console.log(response.data[0]);
     });

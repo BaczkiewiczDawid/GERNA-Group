@@ -35,7 +35,7 @@ const CarDetails = () => {
   const navigate = useNavigate();
 
   const getCarDetails = () => {
-    Axios.post("http://localhost:3001/car-details", {
+    Axios.post("https://gernagroup-server.herokuapp.com/car-details", {
       id: carID,
     }).then((response) => {
       setCarDetails(response.data[0]);
@@ -53,7 +53,7 @@ const CarDetails = () => {
   };
 
   const handleRemoveCar = () => {
-    Axios.post("http://localhost:3001/remove-car", {
+    Axios.post("https://gernagroup-server.herokuapp.com/remove-car", {
       carID: carID,
     })
       .then((response) => {

@@ -17,7 +17,7 @@ const CarsList = () => {
   const isAuthenticated = useAuth();
 
   const getCarsList = () => {
-    Axios.get("http://localhost:3001/get-cars")
+    Axios.get("https://gernagroup-server.herokuapp.com/get-cars")
       .then((response) => {
         setCarsList(response.data);
       })

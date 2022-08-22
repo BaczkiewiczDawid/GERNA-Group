@@ -59,7 +59,7 @@ const NewEmployee = () => {
   const handleNewEmployee = (e: Event) => {
     e.preventDefault();
 
-    Axios.post("http://localhost:3001/new-employee", {
+    Axios.post("https://gernagroup-server.herokuapp.com/new-employee", {
       data: employeeInformation,
     })
       .then(async (response) => {

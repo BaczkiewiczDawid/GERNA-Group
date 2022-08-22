@@ -55,7 +55,7 @@ const NewSales = () => {
   };
 
   const getCarsList = () => {
-    Axios.get("http://localhost:3001/get-cars")
+    Axios.get("https://gernagroup-server.herokuapp.com/get-cars")
       .then((response) =>
         setCarsList(
           response.data.sort((a: any, b: any) =>
@@ -69,7 +69,7 @@ const NewSales = () => {
   };
 
   const getEmployeesList = () => {
-    Axios.post("http://localhost:3001/employees-list", {
+    Axios.post("https://gernagroup-server.herokuapp.com/employees-list", {
       department: selectedDepartment,
     })
       .then((response) => {
@@ -97,7 +97,7 @@ const NewSales = () => {
   }, [selectedDepartment]);
 
   const handleNewSale = () => {
-    Axios.post("http://localhost:3001/new-sale", {
+    Axios.post("https://gernagroup-server.herokuapp.com/new-sale", {
       data: selectedValues,
     })
       .then((response) => {
