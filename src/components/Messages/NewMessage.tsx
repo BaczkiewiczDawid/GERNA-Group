@@ -62,7 +62,7 @@ const NewMessage = () => {
       date: today,
     };
 
-    Axios.post("http://localhost:3001/send-message", {
+    Axios.post("https://gernagroup-server.herokuapp.com/send-message", {
       data: data,
     })
       .then((response) => {
@@ -77,7 +77,7 @@ const NewMessage = () => {
   };
 
   const getEmployeeList = () => {
-    Axios.get("http://localhost:3001/employees").then((response) => {
+    Axios.get("https://gernagroup-server.herokuapp.com/employees").then((response) => {
       setEmployeesList(response.data);
     });
   };

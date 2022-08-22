@@ -16,7 +16,7 @@ const TopSellingModels = () => {
   const [topSellingModels, setTopSellingModels] = useState<Cars[]>([]);
 
   const getTopSellingModels = () => {
-    Axios.get("http://localhost:3001/top-selling-models")
+    Axios.get("https://gernagroup-server.herokuapp.com/top-selling-models")
       .then((response) => {
         setTopSellingModels(response.data);
       })

@@ -11,7 +11,7 @@ const Messages = () => {
   const [messages, setMessages] = useState([]);
 
   const getMessages = () => {
-    Axios.post("http://localhost:3001/get-messages", {
+    Axios.post("https://gernagroup-server.herokuapp.com/get-messages", {
       user: isAuthenticated.authUser,
     }).then((response) => {
       setMessages(response.data);

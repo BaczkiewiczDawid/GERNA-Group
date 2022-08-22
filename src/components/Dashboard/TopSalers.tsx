@@ -15,7 +15,7 @@ const TopSalers = () => {
   const [topSalers, setTopSalers] = useState<Salers[]>([]);
 
   const getTopSalers = () => {
-    Axios.get("http://localhost:3001/top-salers")
+    Axios.get("https://gernagroup-server.herokuapp.com/top-salers")
       .then((response) => {
         console.log(response);
         setTopSalers(response.data)

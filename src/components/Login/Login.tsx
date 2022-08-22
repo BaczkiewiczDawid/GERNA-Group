@@ -24,7 +24,7 @@ const Login = () => {
   const handleLogin = (e: any) => {
     e.preventDefault();
 
-    Axios.post("http://localhost:3001/login", {
+    Axios.post("https://gernagroup-server.herokuapp.com/login", {
       userData: enteredValues,
     })
       .then((response) => {

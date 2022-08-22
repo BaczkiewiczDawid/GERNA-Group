@@ -16,7 +16,7 @@ const EmployeeDetails = ({ employeeDetails, setEmployeeDetails }: any) => {
   const [selectedEmployee, setSelectedEmployee] = useState(0);
 
   const handleUpdateUserDetails = () => {
-    Axios.post("http://localhost:3001/update-employee-information", {
+    Axios.post("https://gernagroup-server.herokuapp.com/update-employee-information", {
       data: employeeDetails,
     })
       .then((response) => {
@@ -34,7 +34,7 @@ const EmployeeDetails = ({ employeeDetails, setEmployeeDetails }: any) => {
 
   useEffect(() => {
     if (response === 0) {
-      Axios.post("http://localhost:3001/delete-employee", {
+      Axios.post("https://gernagroup-server.herokuapp.com/delete-employee", {
         id: selectedEmployee,
       });
     }

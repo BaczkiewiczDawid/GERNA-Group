@@ -29,7 +29,7 @@ const Employees = () => {
   console.log(department);
 
   const getEmployeesList = () => {
-    Axios.post("http://localhost:3001/employees-list", {
+    Axios.post("https://gernagroup-server.herokuapp.com/employees-list", {
       department: department,
     })
       .then((response) => {
@@ -41,7 +41,7 @@ const Employees = () => {
   };
 
   const getEmployeeDetails = () => {
-    Axios.post("http://localhost:3001/employee-details", {
+    Axios.post("https://gernagroup-server.herokuapp.com/employee-details", {
       selectedUser: selectedUser,
     })
       .then((response) => {
