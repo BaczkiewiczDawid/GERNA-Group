@@ -68,7 +68,7 @@ const NewCar = () => {
 
   return (
     <Wrapper>
-      {isAuthenticated.role === "admin" ? (
+      {isAuthenticated?.role === "admin" ? (
         <>
           <h1>Add new car to offer</h1>
           <Container>

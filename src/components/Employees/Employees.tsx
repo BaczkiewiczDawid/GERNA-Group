@@ -66,7 +66,7 @@ const Employees = () => {
 
   return (
     <Container>
-      {isAuthenticated.role === "admin" ? (
+      {isAuthenticated?.role === "admin" ? (
         <>
           <DepartmentNav>
             <h2>Department</h2>

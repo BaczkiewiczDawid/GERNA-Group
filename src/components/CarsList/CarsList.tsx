@@ -33,7 +33,7 @@ const CarsList = () => {
   return (
     <Wrapper>
       <h1>GERNA Group Cars</h1>
-      {isAuthenticated.role === "admin" && (
+      {isAuthenticated?.role === "admin" && (
         <ButtonLink to="/cars/new">
           <Button text="Add new car" />
         </ButtonLink>
