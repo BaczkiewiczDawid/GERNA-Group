@@ -8,7 +8,7 @@ https://gerna-group.herokuapp.com
 
 # Login details
 
-<h3>Admin account:</h3>
+<h3>Admin account</h3>
 login: baczkiewicz.dawid22@gmail.com <br>
 password: test <br>
 
