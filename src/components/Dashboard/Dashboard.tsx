@@ -18,8 +18,6 @@ const Dashboard = () => {
 
   const isAuthenticated = useAuth();
 
-  console.log(isAuthenticated)
-
   const getLastSales = () => {
     Axios.get("https://gernagroup-server.herokuapp.com/recent-sales").then((response) => {
       setSales(response.data[0].sales);
