@@ -6,6 +6,17 @@ Application to manage a network of car dealerships
 
 https://gerna-group.herokuapp.com
 
+# Features
+
+<li>Managing employee data</li>
+<li>Adding new employee</li>
+<li>Generate an account for a new employee and send the account details to the employee's email</li>
+<li>Adding a new sale</li>
+<li>Adding a new car to a sale</li>
+<li>Sending messages to employees</li>
+<li>Logging into the account</li>
+<li>Displaying information about top sellers, best selling cars, revenue, number of new sales</li>
+
 # Login details
 
 <h3>Admin account</h3>
