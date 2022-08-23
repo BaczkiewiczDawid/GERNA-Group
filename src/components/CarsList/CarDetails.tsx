@@ -101,7 +101,7 @@ const CarDetails = () => {
           </List>
         </Details>
       </CarContainer>
-      {isAuthenticated.role === "admin" && (
+      {isAuthenticated?.role === "admin" && (
         <ButtonWrapper>
           <Button onClick={handleRemoveCar} text="Delete this car from offer" />
         </ButtonWrapper>
