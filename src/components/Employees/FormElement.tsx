@@ -5,8 +5,8 @@ interface Props {
     label: string,
     placeholder: string,
     name: string,
-    errors: string | undefined,
-    touched: boolean | undefined,
+    errors?: string | undefined,
+    touched?: boolean | undefined,
     type?: 'number' | 'string',
 }
 
