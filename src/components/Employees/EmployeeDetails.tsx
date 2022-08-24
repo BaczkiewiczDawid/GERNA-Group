@@ -37,11 +37,11 @@ const EmployeeDetails = ({ employeeDetails, setEmployeeDetails }: Props) => {
 
   const [selectedEmployee, setSelectedEmployee] = useState(0);
 
-  const handleUpdateUserDetails = () => {
+  const handleUpdateUserDetails = (values: Employee) => {
     Axios.post(
       "https://gernagroup-server.herokuapp.com/update-employee-information",
       {
-        data: employeeDetails,
+        data: values,
       }
     )
       .then((response) => {
@@ -110,7 +110,7 @@ const EmployeeDetails = ({ employeeDetails, setEmployeeDetails }: Props) => {
         enableReinitialize
         initialValues={employeeDetails}
         validationSchema={employeeDetailsSchema}
-        onSubmit={handleUpdateUserDetails}
+        onSubmit={(values) => handleUpdateUserDetails(values)}
       >
         {({ errors, touched }): any => (
           <StyledForm>
