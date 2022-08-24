@@ -2,11 +2,9 @@ import { useState } from "react";
 import ContentWrapper from "components/Dashboard/ContentWrapper";
 import Wrapper from "components/Dashboard/Wrapper";
 import SelectDepartment from "components/Employees/SelectDepartment";
-import EmployeeInformation from "./EmployeeInformation";
 import {
   StyledForm,
   Title,
-  InvisibleInput,
 } from "components/Employees/NewEmployee.style";
 import Button from "components/Employees/Button";
 import Axios from "axios";
@@ -14,37 +12,57 @@ import Modal from "components/Modal/Modal";
 import useModal from "hooks/useModal";
 import useAuth from "hooks/useAuth";
 import emailjs from "emailjs-com";
-import { useStateWithCallbackLazy } from "use-state-with-callback";
+import FormElement from "components/Employees/FormElement";
+import { Formik } from "formik";
+import * as Yup from "yup";
+
+interface ValuesType {
+  name: string,
+  age: number | undefined,
+  position: string,
+  address: string,
+  city: string,
+  phone_number: number | undefined,
+  email: string,
+  salary: number | undefined,
+  department: string,
+}
+
+const initialEmployeeInformations: ValuesType = {
+  name: "",
+  age: undefined,
+  position: "",
+  address: "",
+  city: "",
+  phone_number: undefined,
+  email: "",
+  salary: undefined,
+  department: "katowice",
+};
 
 const NewEmployee = () => {
-  const initialEmployeeInformations = {
-    name: "",
-    age: "",
-    position: "",
-    address: "",
-    city: "",
-    phone_number: "",
-    email: "",
-    salary: "",
-    department: "katowice",
-  };
   const [employeeInformation, setEmployeeInformation] = useState(
     initialEmployeeInformations
   );
-  const [password, setPassword] = useStateWithCallbackLazy("");
   const isAuthenticated = useAuth();
 
   const { showModal, modalInformation, setModalInformation, ResultType } =
     useModal();
 
-  const sendEmail = (e: any) => {
-    e.preventDefault();
+  const sendEmail = (values: ValuesType, password: string) => {
+    const data = {
+      email: values.email,
+      name: values.name,
+      password: password
+    }
+
+    console.log(data)
 
     emailjs
-      .sendForm(
+      .send(
         "service_aev4svh",
         "template_vzmo5os",
-        e.target,
+        data,
         "TFiGvZVNaPgrAPQie"
       )
       .then((result: any) => {
@@ -56,18 +74,15 @@ const NewEmployee = () => {
       });
   };
 
-  const handleNewEmployee = (e: Event) => {
-    e.preventDefault();
-
+  const handleNewEmployee = (values: ValuesType) => {
+    setEmployeeInformation(values);
+    
     Axios.post("https://gernagroup-server.herokuapp.com/new-employee", {
-      data: employeeInformation,
+      data: values,
     })
       .then(async (response) => {
-        console.log(response);
         showModal(ResultType.success, "Employee added successfully!");
-        setPassword(response.data, () => {
-          sendEmail(e);
-        });
+        sendEmail(values, response.data);
       })
       .catch((err) => {
         console.log(err);
@@ -75,67 +90,113 @@ const NewEmployee = () => {
       });
   };
 
+  const phoneRegExp =
+    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
+  const NewEmployeeSchema = Yup.object().shape({
+    name: Yup.string()
+      .min(2, "Too short!")
+      .max(50, "Too long!")
+      .required("Required"),
+    age: Yup.number()
+      .min(18, "Must be 18 years old")
+      .max(100, "Too old!")
+      .required("Required"),
+    email: Yup.string().email("Invalid email").required("Required"),
+    position: Yup.string()
+      .min(2, "Too short!")
+      .max(50, "Too long!")
+      .required("Required"),
+    city: Yup.string()
+      .min(2, "Too short")
+      .max(50, "Too long!")
+      .required("Required"),
+    phone_number: Yup.string()
+      .matches(phoneRegExp, "Phone number is not valid")
+      .required("Required"),
+    salary: Yup.number()
+      .min(1000, "Employee can't earn less than $1000")
+      .max(100000, "Employee can't earn more than $100000!")
+      .required("Required"),
+  });
+
   return (
     <Wrapper>
       <h1>Add new employee</h1>
       <ContentWrapper>
         <Title>Select department</Title>
         <SelectDepartment setEmployeeInformation={setEmployeeInformation} />
-        <StyledForm onSubmit={(e: any) => handleNewEmployee(e)}>
-          <EmployeeInformation
-            label="Name"
-            value={employeeInformation?.name}
-            name="name"
-            setEmployeeDetails={setEmployeeInformation}
-          />
-          <EmployeeInformation
-            label="Age"
-            value={employeeInformation?.age}
-            name="age"
-            type="number"
-            setEmployeeDetails={setEmployeeInformation}
-          />
-          <EmployeeInformation
-            label="Position"
-            value={employeeInformation?.position}
-            name="position"
-            setEmployeeDetails={setEmployeeInformation}
-          />
-          <EmployeeInformation
-            label="Address"
-            value={employeeInformation?.address}
-            name="address"
-            setEmployeeDetails={setEmployeeInformation}
-          />
-          <EmployeeInformation
-            label="City"
-            value={employeeInformation?.city}
-            name="city"
-            setEmployeeDetails={setEmployeeInformation}
-          />
-          <EmployeeInformation
-            label="Phone number"
-            value={employeeInformation?.phone_number}
-            name="phone_number"
-            type="number"
-            setEmployeeDetails={setEmployeeInformation}
-          />
-          <EmployeeInformation
-            label="Email"
-            value={employeeInformation?.email}
-            name="email"
-            setEmployeeDetails={setEmployeeInformation}
-          />
-          <EmployeeInformation
-            label="Salary"
-            value={employeeInformation?.salary}
-            name="salary"
-            type="number"
-            setEmployeeDetails={setEmployeeInformation}
-          />
-          <InvisibleInput type="text" name="password" value={password} />
-          <Button type="submit" text="Add new employee" />
-        </StyledForm>
+        <Formik
+          initialValues={initialEmployeeInformations}
+          validationSchema={NewEmployeeSchema}
+          onSubmit={(values: ValuesType, { resetForm }) => {
+            handleNewEmployee(values);
+            resetForm()
+          }}
+        >
+          {({ errors, touched }): any => (
+            <StyledForm>
+              <FormElement
+                label="Name"
+                placeholder="Name..."
+                name="name"
+                errors={errors.name}
+                touched={touched.name}
+              />
+              <FormElement
+                label="Age"
+                placeholder="Age..."
+                name="age"
+                errors={errors.age}
+                touched={touched.age}
+              />
+              <FormElement
+                label="Position"
+                placeholder="Position..."
+                name="position"
+                errors={errors.position}
+                touched={touched.position}
+              />
+              <FormElement
+                label="Address"
+                placeholder="Address..."
+                name="address"
+                errors={errors.address}
+                touched={touched.address}
+              />
+              <FormElement
+                label="City"
+                placeholder="City..."
+                name="city"
+                errors={errors.city}
+                touched={touched.city}
+              />
+              <FormElement
+                label="Phone number"
+                placeholder="Phone number..."
+                name="phone_number"
+                type="number"
+                errors={errors.phone_number}
+                touched={touched.phone_number}
+              />
+              <FormElement
+                label="Email"
+                placeholder="Email..."
+                name="email"
+                errors={errors.email}
+                touched={touched.email}
+              />
+              <FormElement
+                label="Salary"
+                placeholder="Salary..."
+                name="salary"
+                errors={errors.salary}
+                touched={touched.salary}
+              />
+              <Button type="submit" text="Add new employee" />
+            </StyledForm>
+          )}
+        </Formik>
       </ContentWrapper>
       <Modal
         setIsOpen={setModalInformation}
