@@ -16,20 +16,16 @@ import Axios from "axios";
 import useAuth from "hooks/useAuth";
 import useModal from "hooks/useModal";
 import Modal from "components/Modal/Modal";
+import { Message } from 'types/types'
 
-const initialState = {
+const initialState: Message = {
   title: "",
   description: "",
 };
 
-interface MessagesProps {
-  title: string;
-  description: string;
-}
-
 const NewMessage = () => {
   const [messageValues, setMessageValues] =
-    useState<MessagesProps>(initialState);
+    useState<Message>(initialState);
   const [employeesList, setEmployeesList] = useState<string[]>([]);
   const [emailsList, setEmailsList] = useState<string[]>([]);
 

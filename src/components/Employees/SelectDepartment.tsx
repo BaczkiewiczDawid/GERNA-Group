@@ -1,5 +1,7 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import Select from 'components/Select/Select';
+import Select from "components/Select/Select";
+import React from "react";
+import { Employee } from "types/types";
 
 const SelectDepartment = ({ setEmployeeInformation }: any) => {
   const navigate = useNavigate();
@@ -19,7 +21,7 @@ const SelectDepartment = ({ setEmployeeInformation }: any) => {
   };
 
   return (
-    <Select name="department" onChange={(e: any) => handleChangeURL(e)}>
+    <Select name="department" onChange={handleChangeURL}>
       <option value="katowice">Katowice</option>
       <option value="wroclaw">Wrocław</option>
       <option value="olsztyn">Olsztyn</option>

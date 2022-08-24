@@ -5,6 +5,7 @@ import { MessagesList } from "components/Messages/Messages.style";
 import Button from "components/Messages/Button";
 import Axios from "axios";
 import useAuth from "hooks/useAuth";
+import { MessageProps } from 'types/types';
 
 const Messages = () => {
   const isAuthenticated = useAuth();
@@ -26,7 +27,7 @@ const Messages = () => {
     <Wrapper>
       <h1>GERNA Group Messages</h1>
       <MessagesList>
-        {messages.map((message: any) => {
+        {messages.map((message: MessageProps) => {
           return (
             <SingleMessage
               message={message.message}

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Field } from 'formik'
+import { InputProps } from 'types/types'
 
 export const StyledInput = styled.input`
   margin-top: 1rem;
@@ -11,17 +12,7 @@ export const StyledInput = styled.input`
   z-index: 0;
 `;
 
-type InputType = {
-  type?: string
-  value: string | number;
-  onChange?: any;
-  name?: any;
-  placeholder?: string;
-  autocomplete?: string,
-  id?: string,
-};
-
-const Input = ({ type, value, onChange, name, placeholder, autocomplete, id }: InputType) => {
+const Input = ({ type, value, onChange, name, placeholder, autocomplete, id }: InputProps) => {
   return (
     <StyledInput
       type={type}

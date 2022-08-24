@@ -7,13 +7,7 @@ import {
   Price,
 } from "components/CarsList/SingleCar.style";
 import Axios from "axios";
-
-interface Car {
-  id: number;
-  manufactuer: string;
-  model: string;
-  price: number;
-}
+import { Car } from 'types/types';
 
 const SingleCar = ({ id, manufactuer, model, price }: Car) => {
   const [sales, setSales] = useState([]);

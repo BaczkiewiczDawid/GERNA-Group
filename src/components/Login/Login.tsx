@@ -4,10 +4,10 @@ import Input from "components/Login/Input";
 import Button from "components/Employees/Button";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
-import useAuth from 'hooks/useAuth';
+import { EnteredValuesProps } from 'types/types';
 
 const Login = () => {
-  const [enteredValues, setEnteredValues] = useState({
+  const [enteredValues, setEnteredValues] = useState<EnteredValuesProps>({
     email: "",
     password: "",
   });
@@ -49,7 +49,7 @@ const Login = () => {
           autoComplete="email"
           name="email"
           value={enteredValues.email}
-          onChange={(e: any) => handleInputValues(e)}
+          onChange={handleInputValues}
         />
         <Input
           type="password"
@@ -57,7 +57,7 @@ const Login = () => {
           autoComplete="current-password"
           name="password"
           value={enteredValues.password}
-          onChange={(e: any) => handleInputValues(e)}
+          onChange={handleInputValues}
         />
         <Button text="Log in" type="submit" secondary />
       </form>

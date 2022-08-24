@@ -18,15 +18,40 @@ import Button from "components/Employees/Button";
 import useAuth from "hooks/useAuth";
 import NoAccess from "components/NoAccess/NoAccess";
 
+interface Employee {
+  id: number | undefined;
+  address: string;
+  age: number | undefined;
+  city: string;
+  department: string;
+  email: string;
+  name: string;
+  phone_number: number | undefined;
+  position: string;
+  salary: number | undefined;
+}
+
+const initialState = {
+  id: undefined,
+  name: "",
+  age: undefined,
+  position: "",
+  address: "",
+  city: "",
+  phone_number: undefined,
+  email: "",
+  salary: undefined,
+  department: "katowice",
+};
+
 const Employees = () => {
   const [employeesList, setEmployeesList] = useState<any[]>([]);
   const [selectedUser, setSelectedUser] = useState<number>(1);
-  const [selectedUserDetails, setSelectedUserDetails] = useState<any[]>([]);
+  const [selectedUserDetails, setSelectedUserDetails] = useState<Employee>(initialState);
 
   const isAuthenticated = useAuth();
 
   const { department } = useParams();
-  console.log(department);
 
   const getEmployeesList = () => {
     Axios.post("https://gernagroup-server.herokuapp.com/employees-list", {
@@ -46,6 +71,7 @@ const Employees = () => {
     })
       .then((response) => {
         setSelectedUserDetails(response.data[0]);
+        console.log(response.data[0])
       })
       .catch((err) => {
         console.log(err);

@@ -14,21 +14,10 @@ import useAuth from "hooks/useAuth";
 import emailjs from "emailjs-com";
 import FormElement from "components/Employees/FormElement";
 import { Formik } from "formik";
+import { Employee } from 'types/types';
 import * as Yup from "yup";
 
-interface ValuesType {
-  name: string,
-  age: number | undefined,
-  position: string,
-  address: string,
-  city: string,
-  phone_number: number | undefined,
-  email: string,
-  salary: number | undefined,
-  department: string,
-}
-
-const initialEmployeeInformations: ValuesType = {
+const initialEmployeeInformations: Employee = {
   name: "",
   age: undefined,
   position: "",
@@ -44,12 +33,13 @@ const NewEmployee = () => {
   const [employeeInformation, setEmployeeInformation] = useState(
     initialEmployeeInformations
   );
+  
   const isAuthenticated = useAuth();
 
   const { showModal, modalInformation, setModalInformation, ResultType } =
     useModal();
 
-  const sendEmail = (values: ValuesType, password: string) => {
+  const sendEmail = (values: Employee, password: string) => {
     const data = {
       email: values.email,
       name: values.name,
@@ -74,7 +64,7 @@ const NewEmployee = () => {
       });
   };
 
-  const handleNewEmployee = (values: ValuesType) => {
+  const handleNewEmployee = (values: Employee) => {
     setEmployeeInformation(values);
     
     Axios.post("https://gernagroup-server.herokuapp.com/new-employee", {
@@ -129,7 +119,7 @@ const NewEmployee = () => {
         <Formik
           initialValues={initialEmployeeInformations}
           validationSchema={NewEmployeeSchema}
-          onSubmit={(values: ValuesType, { resetForm }) => {
+          onSubmit={(values: Employee, { resetForm }) => {
             handleNewEmployee(values);
             resetForm()
           }}

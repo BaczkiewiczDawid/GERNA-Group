@@ -3,14 +3,9 @@ import {
   ImageWrapper,
   Content,
 } from "components/News/SingleNews.style";
+import { NewsProps } from 'types/types'
 
-interface Props {
-  url: string;
-  title: string;
-  description: string;
-}
-
-const SingleNews = ({ url, title, description }: Props) => {
+const SingleNews = ({ url, title, description }: NewsProps) => {
   return (
     <Wrapper>
       <ImageWrapper>

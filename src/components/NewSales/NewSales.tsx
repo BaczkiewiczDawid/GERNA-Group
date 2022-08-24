@@ -9,21 +9,7 @@ import Modal from "components/Modal/Modal";
 import useModal from "hooks/useModal";
 import Select from "components/Select/Select";
 import useAuth from "hooks/useAuth";
-
-interface Car {
-  id: number;
-  manufactuer: string;
-  model: string;
-  price: number;
-  equipment: string[];
-}
-
-interface Employee {
-  id: number;
-  name: string;
-  age: number;
-  position: string;
-}
+import { Car, Employee } from 'types/types'
 
 const NewSales = () => {
   const [carsList, setCarsList] = useState<any[]>([]);
@@ -118,7 +104,7 @@ const NewSales = () => {
         <Select
           name="car"
           title="car"
-          onChange={(e: any) => handleSetValues(e)}
+          onChange={handleSetValues}
         >
           {carsList.map((car: Car) => {
             return (
@@ -133,7 +119,7 @@ const NewSales = () => {
         <Select
           name="department"
           title="department"
-          onChange={(e: any) => handleSetValues(e)}
+          onChange={handleSetValues}
         >
           {DepartmentsList.map((department) => {
             return (
@@ -147,7 +133,7 @@ const NewSales = () => {
         <Select
           name="saler"
           title="saler"
-          onChange={(e: any) => handleSetValues(e)}
+          onChange={handleSetValues}
         >
           {employeesList.map((employee: Employee) => {
             return (

@@ -1,17 +1,8 @@
 import Input from "components/Employees/Input";
 import { Label } from 'components/CarsList/FormElement.style';
+import { FormProps } from 'types/types'
 
-type FormElementType = {
-    label: string,
-    onChange: (e: any) => void,
-    value: string | number,
-    type: string,
-    name: string,
-    placeholder: string,
-    autocomplete?: any,
-}
-
-const FormElement = ({ label, onChange, value, type, name, placeholder, autocomplete }: FormElementType) => {
+const FormElement = ({ label, onChange, value, type, name, placeholder, autocomplete }: FormProps) => {
   return (
     <>
       <Label>{label}</Label>

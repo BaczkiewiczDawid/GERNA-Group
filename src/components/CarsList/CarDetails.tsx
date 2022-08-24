@@ -15,19 +15,11 @@ import Axios from "axios";
 import Button from "components/Employees/Button";
 import { useNavigate } from "react-router-dom";
 import useAuth from "hooks/useAuth";
-
-interface Car {
-  id: number;
-  manufactuer: string;
-  model: string;
-  price: number;
-  engine: string;
-  equipment: any;
-}
+import { Car } from 'types/types';
 
 const CarDetails = () => {
   const carID: any = useParams().id;
-  const [equipmentList, setEquipmentList] = useState([]);
+  const [equipmentList, setEquipmentList] = useState<string[]>([]);
   const [carDetails, setCarDetails] = useState<Car>();
 
   const isAuthenticated = useAuth();

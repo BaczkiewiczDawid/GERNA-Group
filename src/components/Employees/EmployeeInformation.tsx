@@ -4,17 +4,7 @@ import {
 } from "components/Employees/EmployeeInformation.style";
 import Input from "components/Employees/Input";
 import React from "react";
-
-type EmployeeInformationType = {
-  label: string;
-  value: string | number;
-  name?: string;
-  setEmployeeDetails?: any;
-  type?: string;
-  htmlFor?: string;
-  onChange?: any;
-  error?: any
-};
+import { EmployeeInformationProps } from 'types/types';
 
 const EmployeeInformation = ({
   label,
@@ -24,14 +14,7 @@ const EmployeeInformation = ({
   type,
   htmlFor,
   error,
-}: EmployeeInformationType) => {
-  // const handleChangeUserDetails = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setEmployeeDetails((prevState: any) => ({
-  //     ...prevState,
-  //     [e.target.name]: e.target.value,
-  //   }));
-  // };
-
+}: EmployeeInformationProps) => {
   return (
     <>
       <Label htmlFor={htmlFor}>{label}</Label>

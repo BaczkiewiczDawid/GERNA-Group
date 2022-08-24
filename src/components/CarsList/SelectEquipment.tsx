@@ -7,19 +7,15 @@ import {
   EquipmentContainer,
   EquipmentListContainer,
 } from "components/CarsList/SelectEquipment.style";
-
-interface PropsTypes {
-  selectedEquipment: string[];
-  setSelectedEquipment: any;
-}
+import { SelectEquipmentProps } from "types/types";
 
 const SelectEquipment = ({
   selectedEquipment,
   setSelectedEquipment,
-}: PropsTypes) => {
+}: SelectEquipmentProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [equipmentInputValue, setEquipmentInputValue] = useState<string>("");
-  const [filteredEquipment, setFilteredEquipment] = useState([]);
+  const [filteredEquipment, setFilteredEquipment] = useState<string[]>([]);
 
   const handleEquipmentList = (e: any) => {
     setEquipmentInputValue(e.target.value);
@@ -47,7 +43,7 @@ const SelectEquipment = ({
       <h2>Select equipment</h2>
       <EquipmentListContainer>
         {selectedEquipment.map((el) => {
-          return <p onClick={(e) => handleDeleteEquipment(e)}>{el}</p>;
+          return <p onClick={handleDeleteEquipment}>{el}</p>;
         })}
       </EquipmentListContainer>
       <EquipmentContainer>
@@ -58,7 +54,7 @@ const SelectEquipment = ({
           name="equipment"
           placeholder="Equipment..."
           autocomplete="off"
-          onChange={(e: any) => handleEquipmentList(e)}
+          onChange={handleEquipmentList}
         />
         <Dropdown
           isOpen={isOpen}

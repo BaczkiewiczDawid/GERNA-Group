@@ -26,7 +26,7 @@ const NewCar = () => {
   const { showModal, modalInformation, setModalInformation, ResultType } =
     useModal();
 
-  const [selectedEquipment, setSelectedEquipment] = useState<any[]>([]);
+  const [selectedEquipment, setSelectedEquipment] = useState<string[]>([]);
 
   const [inputValues, setInputValues] = useState(initialValue);
 
@@ -83,7 +83,7 @@ const NewCar = () => {
                   type="text"
                   name="model"
                   placeholder="Model..."
-                  onChange={(e: any) => handleChangeInputValue(e)}
+                  onChange={handleChangeInputValue}
                 />
                 <FormElement
                   label="engine"
@@ -91,7 +91,7 @@ const NewCar = () => {
                   type="text"
                   name="engine"
                   placeholder="Engine..."
-                  onChange={(e: any) => handleChangeInputValue(e)}
+                  onChange={handleChangeInputValue}
                 />
                 <FormElement
                   label="Price"
@@ -99,7 +99,7 @@ const NewCar = () => {
                   type="text"
                   name="price"
                   placeholder="Price..."
-                  onChange={(e: any) => handleChangeInputValue(e)}
+                  onChange={handleChangeInputValue}
                 />
                 <Button text="Add new car" type="submit" />
               </Form>
