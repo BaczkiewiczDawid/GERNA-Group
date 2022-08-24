@@ -5,11 +5,7 @@ import {
   ButtonsContainer,
 } from "components/ConfirmationModal/ConfirmationModal.style";
 import { ConfirmationModalCtx } from "context/ConfirmationModalCtx";
-
-enum Response {
-  yes = 0,
-  no = 1,
-}
+import { Response } from 'types/types'
 
 const ConfirmationModal = () => {
   const { isOpen, handleSetResponse } = useContext(ConfirmationModalCtx);

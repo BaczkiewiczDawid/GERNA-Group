@@ -6,10 +6,11 @@ import {
   SecondaryDetails,
   Details,
   DesktopTitle,
-  MobileTitle
+  MobileTitle,
 } from "components/Messages/SingleMessage.style";
+import { MessageProps } from "types/types";
 
-const SingleMessage = ({ message, title, sender, date }: any) => {
+const SingleMessage = ({ message, title, sender, date }: MessageProps) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   const handleShowDetails = () => {
@@ -28,9 +29,7 @@ const SingleMessage = ({ message, title, sender, date }: any) => {
       </Header>
       {isExpanded && (
         <Details>
-          <p>
-            {message}
-          </p>
+          <p>{message}</p>
         </Details>
       )}
       <Line></Line>

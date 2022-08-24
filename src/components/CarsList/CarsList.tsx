@@ -8,11 +8,11 @@ import {
 } from "components/CarsList/CarsList.style";
 import Axios from "axios";
 import Button from "components/Employees/Button";
-import { Link } from "react-router-dom";
 import useAuth from "hooks/useAuth";
+import { Car } from 'types/types'
 
 const CarsList = () => {
-  const [carsList, setCarsList] = useState([]);
+  const [carsList, setCarsList] = useState<Car[]>([]);
 
   const isAuthenticated = useAuth();
 
@@ -39,7 +39,7 @@ const CarsList = () => {
         </ButtonLink>
       )}
       <CarsContainer>
-        {carsList.map((car: any) => {
+        {carsList.map((car: Car) => {
           return (
             <StyledLink to={`/cars/${car.id}`}>
               <SingleCar

@@ -1,15 +1,7 @@
 import styled from "styled-components";
+import { ButtonType, ButtonProps } from 'types/types';
 
-type ButtonType = {
-  text: string;
-  onClick?: any;
-  onSubmit?: any;
-  type?: "submit" | "button";
-};
 
-interface ButtonProps {
-  secondary?: boolean;
-}
 
 const StyledButton = styled.button<ButtonProps>`
   background-color: ${({ theme }) => theme.colors.blue};

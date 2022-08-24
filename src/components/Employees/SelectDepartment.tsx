@@ -1,6 +1,7 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import Select from "components/Select/Select";
 import React from "react";
+import { Employee } from "types/types";
 
 const SelectDepartment = ({ setEmployeeInformation }: any) => {
   const navigate = useNavigate();

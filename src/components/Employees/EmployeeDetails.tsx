@@ -13,26 +13,9 @@ import FormElement from "components/Employees/FormElement";
 import { StyledForm } from "components/Employees/NewEmployee.style";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { Employee, EmployeeDetailsProps } from 'types/types';
 
-interface Employee {
-  id: number | undefined;
-  address: string;
-  age: number | undefined;
-  city: string;
-  department: string;
-  email: string;
-  name: string;
-  phone_number: number | undefined;
-  position: string;
-  salary: number | undefined;
-}
-
-interface Props {
-  employeeDetails: Employee;
-  setEmployeeDetails: any;
-}
-
-const EmployeeDetails = ({ employeeDetails, setEmployeeDetails }: Props) => {
+const EmployeeDetails = ({ employeeDetails, setEmployeeDetails }: EmployeeDetailsProps) => {
   const { handleShowModal, response } = useContext(ConfirmationModalCtx);
 
   const [selectedEmployee, setSelectedEmployee] = useState(0);
@@ -161,49 +144,6 @@ const EmployeeDetails = ({ employeeDetails, setEmployeeDetails }: Props) => {
           </StyledForm>
         )}
       </Formik>
-      {/* <EmployeeInformation
-        label="Full name"
-        value={employeeDetails.name}
-        name="name"
-        setEmployeeDetails={setEmployeeDetails}
-      />
-      <EmployeeInformation
-        label="Age"
-        name="age"
-        value={employeeDetails?.age}
-        setEmployeeDetails={setEmployeeDetails}
-      />
-      <EmployeeInformation
-        label="Address"
-        name="address"
-        value={employeeDetails?.address}
-        setEmployeeDetails={setEmployeeDetails}
-      />
-      <EmployeeInformation
-        label="City"
-        name="city"
-        value={employeeDetails?.city}
-        setEmployeeDetails={setEmployeeDetails}
-      />
-      <EmployeeInformation
-        label="Phone Number"
-        name="phone_number"
-        value={employeeDetails?.phone_number}
-        setEmployeeDetails={setEmployeeDetails}
-      />
-      <EmployeeInformation
-        label="Position"
-        name="position"
-        value={employeeDetails?.position}
-        setEmployeeDetails={setEmployeeDetails}
-      />
-      <EmployeeInformation
-        label="Salary"
-        name="salary"
-        value={employeeDetails?.salary}
-        setEmployeeDetails={setEmployeeDetails}
-      /> */}
-      {/* <Button text="Save" onClick={handleUpdateUserDetails} /> */}
     </ContentWrapper>
   );
 };

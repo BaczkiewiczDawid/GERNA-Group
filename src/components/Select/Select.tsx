@@ -1,8 +1,5 @@
 import styled from "styled-components";
-
-type SelectType = {
-    primary?: boolean,
-}
+import { SelectType } from 'types/types'
 
 const StyledSelect = styled.select<SelectType>`
   width: ${props => props.primary ? '100%' : '42%'};
