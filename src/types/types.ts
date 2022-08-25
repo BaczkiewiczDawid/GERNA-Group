@@ -25,10 +25,13 @@ export interface FormProps {
   name: string;
   errors?: string | undefined;
   touched?: boolean | undefined;
+  // errors?: any;
+  // touched?: any;
   type?: "number" | "text";
   value?: any;
   onChange?: any;
   autocomplete?: "on" | "off";
+  component?: "input" | "textarea" | "select";
 }
 
 export interface InputProps {
@@ -83,28 +86,28 @@ export enum Response {
 }
 
 export interface EnteredValuesProps {
-    email: string,
-    password: string,
+  email: string;
+  password: string;
 }
 
 export interface Message {
-    title: string;
-    description: string;
-  }
+  title: string;
+  description: string;
+}
 
 export interface MessageProps {
-    message: string,
-    title: string,
-    date: string,
-    sender: string,
+  message: string;
+  title: string;
+  date: string;
+  sender: string;
 }
 
 export interface NewsProps {
-    url: string;
-    title: string;
-    description: string;
-  }
+  url: string;
+  title: string;
+  description: string;
+}
 
-  export type SelectType = {
-    primary?: boolean;
-  }
+export type SelectType = {
+  primary?: boolean;
+};

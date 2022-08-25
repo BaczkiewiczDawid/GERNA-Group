@@ -2,21 +2,23 @@ import { useEffect, useState } from "react";
 import Wrapper from "components/Dashboard/Wrapper";
 import ContentWrapper from "components/Dashboard/ContentWrapper";
 import {
-  Form,
+  StyledForm,
   Container,
   EmployeeList,
   Email,
   EmailsList,
   List,
 } from "components/Messages/NewMessage.style";
-import Input from "components/Employees/Input";
 import Button from "components/Employees/Button";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import useAuth from "hooks/useAuth";
 import useModal from "hooks/useModal";
 import Modal from "components/Modal/Modal";
-import { Message } from 'types/types'
+import { Message } from "types/types";
+import { Formik } from "formik";
+import FormElement from "components/Employees/FormElement";
+import * as Yup from "yup";
 
 const initialState: Message = {
   title: "",
@@ -24,38 +26,35 @@ const initialState: Message = {
 };
 
 const NewMessage = () => {
-  const [messageValues, setMessageValues] =
-    useState<Message>(initialState);
   const [employeesList, setEmployeesList] = useState<string[]>([]);
   const [emailsList, setEmailsList] = useState<string[]>([]);
 
   const isAuthenticated = useAuth();
-  const navigate = useNavigate();
+
   const { showModal, modalInformation, setModalInformation, ResultType } =
     useModal();
 
   const getCurrentDate = () => {
-    let today: any = new Date();
+    let today: Date = new Date();
     const dd = String(today.getDate()).padStart(2, "0");
     const mm = String(today.getMonth() + 1).padStart(2, "0");
     const yyyy = today.getFullYear();
 
-    today = dd + "." + mm + "." + yyyy;
+    const currentDate: string = dd + "." + mm + "." + yyyy;
 
-    return today;
+    return currentDate;
   };
 
-  const handleSendMessage = (e: any) => {
-    e.preventDefault();
-
-    const today = getCurrentDate();
+  const handleSendMessage = (values: Message) => {
+    const currentDate: string = getCurrentDate();
+    console.log(values);
 
     const data = {
-      title: messageValues.title,
-      description: messageValues.description,
+      title: values.title,
+      description: values.description,
       emailsList: emailsList,
       sender: isAuthenticated.authUser,
-      date: today,
+      date: currentDate,
     };
 
     Axios.post("https://gernagroup-server.herokuapp.com/send-message", {
@@ -63,7 +62,6 @@ const NewMessage = () => {
     })
       .then((response) => {
         console.log(response);
-        setMessageValues(initialState);
         setEmailsList([]);
         showModal(ResultType.success, "Message sent successfully");
       })
@@ -73,16 +71,11 @@ const NewMessage = () => {
   };
 
   const getEmployeeList = () => {
-    Axios.get("https://gernagroup-server.herokuapp.com/employees").then((response) => {
-      setEmployeesList(response.data);
-    });
-  };
-
-  const handleInputValues = (e: any) => {
-    setMessageValues((prevState: any) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
+    Axios.get("https://gernagroup-server.herokuapp.com/employees").then(
+      (response) => {
+        setEmployeesList(response.data);
+      }
+    );
   };
 
   useEffect(() => {
@@ -109,42 +102,67 @@ const NewMessage = () => {
     setEmailsList(filteredEmailsList);
   };
 
+  const MessageSchema = Yup.object().shape({
+    title: Yup.string()
+      .min(2, "Too short!")
+      .max(50, "Too long!")
+      .required("Required"),
+    description: Yup.string()
+      .min(2, "Too short!")
+      .max(300, "Too long!")
+      .required("Required"),
+  });
+
   return (
     <Wrapper>
       <h1>New message</h1>
       <Container>
         <ContentWrapper>
-          <Form onSubmit={(e) => handleSendMessage(e)}>
-            <label>Emails</label>
-            <EmailsList>
-              {emailsList.map((email: string) => (
-                <Email onClick={handleDeleteAddress}>{email}</Email>
-              ))}
-            </EmailsList>
-            <label htmlFor="">Title</label>
-            <Input
-              name="title"
-              onChange={handleInputValues}
-              type="text"
-              value={messageValues.title}
-              placeholder="Title..."
-            />
-            <label>Description</label>
-            <textarea
-              name="description"
-              onChange={handleInputValues}
-              maxLength={250}
-              placeholder="Input Your message here..."
-              value={messageValues.description}
-            ></textarea>
-            <Button type="submit" text="Send" />
-          </Form>
+          <label>Emails</label>
+          <EmailsList>
+            {emailsList.map((email: string) => (
+              <Email onClick={handleDeleteAddress}>{email}</Email>
+            ))}
+          </EmailsList>
+          <Formik
+            initialValues={initialState}
+            validationSchema={MessageSchema}
+            onSubmit={(values: Message, { resetForm }) => {
+              handleSendMessage(values);
+              resetForm();
+            }}
+          >
+            {({ errors, touched }) => (
+              <StyledForm>
+                <FormElement
+                  label="Title"
+                  name="title"
+                  placeholder="Title..."
+                  errors={errors.title}
+                  touched={touched.title}
+                />
+                <FormElement
+                  label="description"
+                  name="description"
+                  placeholder="description..."
+                  component="textarea"
+                  errors={errors.description}
+                  touched={touched.description}
+                />
+                <Button type="submit" text="Send" />
+              </StyledForm>
+            )}
+          </Formik>
         </ContentWrapper>
         <EmployeeList>
           <h3>Employees list</h3>
           <List>
             {employeesList.map((employee: any) => {
-              return <li onClick={handleAddNewAddress}>{employee.name}</li>;
+              return (
+                <li key={Math.random() * 100} onClick={handleAddNewAddress}>
+                  {employee.name}
+                </li>
+              );
             })}
           </List>
         </EmployeeList>
