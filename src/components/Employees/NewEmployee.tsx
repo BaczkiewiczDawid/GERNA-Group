@@ -124,7 +124,7 @@ const NewEmployee = () => {
             resetForm()
           }}
         >
-          {({ errors, touched }): any => (
+          {({ errors, touched }) => (
             <StyledForm>
               <FormElement
                 label="Name"
