@@ -1,35 +1,29 @@
-import { useState } from "react";
-import { LoginContainer, Header } from "components/Login/Login.style";
-import Input from "components/Login/Input";
+import {
+  LoginContainer,
+  Header,
+  StyledForm,
+} from "components/Login/Login.style";
 import Button from "components/Employees/Button";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { EnteredValuesProps } from 'types/types';
+import { EnteredValuesProps } from "types/types";
+import { Formik } from "formik";
+import FormElement from "components/Employees/FormElement";
 
 const Login = () => {
-  const [enteredValues, setEnteredValues] = useState<EnteredValuesProps>({
+  const initialState: EnteredValuesProps = {
     email: "",
     password: "",
-  });
+  };
 
   const navigate = useNavigate();
 
-  const handleInputValues = (e: any) => {
-    setEnteredValues((prevState: any) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const handleLogin = (e: any) => {
-    e.preventDefault();
-
+  const handleLogin = (values: EnteredValuesProps) => {
     Axios.post("https://gernagroup-server.herokuapp.com/login", {
-      userData: enteredValues,
+      userData: values,
     })
       .then((response) => {
-        console.log(response.data);
-        localStorage.setItem('auth', JSON.stringify(response.data));
+        localStorage.setItem("auth", JSON.stringify(response.data));
         navigate("/", { replace: true });
       })
       .catch((err) => {
@@ -42,25 +36,33 @@ const Login = () => {
       <Header>
         Login to <span>GERNA</span>
       </Header>
-      <form onSubmit={handleLogin}>
-        <Input
-          type="text"
-          placeholder="E-Mail"
-          autoComplete="email"
-          name="email"
-          value={enteredValues.email}
-          onChange={handleInputValues}
-        />
-        <Input
-          type="password"
-          placeholder="password"
-          autoComplete="current-password"
-          name="password"
-          value={enteredValues.password}
-          onChange={handleInputValues}
-        />
-        <Button text="Log in" type="submit" secondary />
-      </form>
+      <Formik
+        initialValues={initialState}
+        onSubmit={(values: EnteredValuesProps) => {
+          handleLogin(values);
+        }}
+      >
+        {({ errors, touched }) => (
+          <StyledForm>
+            <FormElement
+              label="Email"
+              name="email"
+              placeholder="Email..."
+              errors={errors.email}
+              touched={touched.email}
+            />
+            <FormElement
+              label="Password"
+              name="password"
+              placeholder="Password..."
+              errors={errors.password}
+              touched={touched.password}
+              type="password"
+            />
+            <Button text="Log in" type="submit" />
+          </StyledForm>
+        )}
+      </Formik>
     </LoginContainer>
   );
 };

@@ -25,9 +25,7 @@ export interface FormProps {
   name: string;
   errors?: string | undefined;
   touched?: boolean | undefined;
-  // errors?: any;
-  // touched?: any;
-  type?: "number" | "text";
+  type?: "number" | "text" | "password";
   value?: any;
   onChange?: any;
   autocomplete?: "on" | "off";

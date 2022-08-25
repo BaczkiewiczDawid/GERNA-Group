@@ -142,9 +142,9 @@ const NewMessage = () => {
                   touched={touched.title}
                 />
                 <FormElement
-                  label="description"
+                  label="Description"
                   name="description"
-                  placeholder="description..."
+                  placeholder="Description..."
                   component="textarea"
                   errors={errors.description}
                   touched={touched.description}
