@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Form } from 'formik';
 
 export const LoginContainer = styled.div`
   display: flex;
@@ -25,4 +26,14 @@ export const Header = styled.h1`
     span {
         font-weight: 700
     }
+`;
+
+export const StyledForm = styled(Form)`
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
+
+  @media screen and (min-width: 768px) {
+    width: 40vw;
+  }
 `;
