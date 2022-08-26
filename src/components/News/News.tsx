@@ -1,24 +1,24 @@
-import { useState } from 'react';
+import { useEffect, useState } from "react";
 import Wrapper from "components/Dashboard/Wrapper";
 import { NewsWrapper } from "components/News/News.style";
 import SingleNews from "components/News/SingleNews";
-import Axios from 'axios';
-import { NewsTypes } from 'types/types';
+import Axios from "axios";
+import { NewsTypes } from "types/types";
+import useAxios from "hooks/useAxios";
 
 const News = () => {
-  const [newsList, setNewsList] = useState<NewsTypes[]>([])
+  const [newsList, setNewsList] = useState<NewsTypes[]>([]);
 
-  Axios.get('https://gernagroup-server.herokuapp.com/news').then((response) => {
-    setNewsList(response.data);
-  })
+  const { response, error } = useAxios("get", "news", undefined);
 
   return (
     <Wrapper>
       <h1>GERNA Group News</h1>
       <NewsWrapper>
-        {newsList.map((news: NewsTypes) => {
+        {response.map((news: NewsTypes) => {
           return (
             <SingleNews
+              key={news.id}
               url={news.url}
               title={news.title}
               description={news.description}
