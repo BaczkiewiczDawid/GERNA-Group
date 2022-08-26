@@ -17,19 +17,7 @@ import DepartmentNavigation from "components/Employees/DepartmentNavigation";
 import Button from "components/Employees/Button";
 import useAuth from "hooks/useAuth";
 import NoAccess from "components/NoAccess/NoAccess";
-
-interface Employee {
-  id: number | undefined;
-  address: string;
-  age: number | undefined;
-  city: string;
-  department: string;
-  email: string;
-  name: string;
-  phone_number: number | undefined;
-  position: string;
-  salary: number | undefined;
-}
+import { Employee } from 'types/types';
 
 const initialState = {
   id: undefined,

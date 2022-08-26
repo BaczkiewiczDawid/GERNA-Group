@@ -64,9 +64,7 @@ const NewCar = () => {
         });
     }
   };
-
-  console.log(selectedEquipment);
-
+  
   return (
     <Wrapper>
       {isAuthenticated?.role === "admin" ? (

@@ -55,11 +55,11 @@ const NewEmployee = () => {
         data,
         "TFiGvZVNaPgrAPQie"
       )
-      .then((result: any) => {
+      .then((result) => {
         console.log(result.text);
         setEmployeeInformation(initialEmployeeInformations);
       })
-      .catch((err: any) => {
+      .catch((err) => {
         console.log(err.text);
       });
   };
