@@ -43,7 +43,7 @@ const Employees = () => {
 
   const getEmployeesList = () => {
     Axios.post("https://gernagroup-server.herokuapp.com/employees-list", {
-      department: department,
+      data: department,
     })
       .then((response) => {
         setEmployeesList(response.data);

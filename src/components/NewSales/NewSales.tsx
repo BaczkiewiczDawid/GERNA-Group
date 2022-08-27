@@ -9,7 +9,10 @@ import Modal from "components/Modal/Modal";
 import useModal from "hooks/useModal";
 import Select from "components/Select/Select";
 import useAuth from "hooks/useAuth";
-import { Car, Employee } from 'types/types'
+import { Car, Employee } from "types/types";
+import useAxios from "hooks/useAxios";
+import axios from "axios";
+import Error from "components/Error/Error";
 
 const NewSales = () => {
   const [carsList, setCarsList] = useState<any[]>([]);
@@ -40,60 +43,70 @@ const NewSales = () => {
     }));
   };
 
-  const getCarsList = () => {
-    Axios.get("https://gernagroup-server.herokuapp.com/get-cars")
-      .then((response) =>
-        setCarsList(
-          response.data.sort((a: any, b: any) =>
-            a.manufactuer.localeCompare(b.manufactuer)
-          )
-        )
-      )
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  const { response: employeesListResponse, error: employeesListError }: any =
+    useAxios({
+      axiosInstance: axios,
+      method: "POST",
+      url: "employees-list",
+      requestConfig: {
+        headers: {
+          "Content-Language": "en-US",
+          "Access-Control-Allow-Origin": "*",
+        },
+        data: selectedDepartment,
+      },
+    });
 
-  const getEmployeesList = () => {
-    Axios.post("https://gernagroup-server.herokuapp.com/employees-list", {
-      department: selectedDepartment,
-    })
-      .then((response) => {
-        setEmployeesList(response.data);
-        setSelectedValues((prevState: any) => ({
-          ...prevState,
-          saler: response.data[0]?.id,
-        }));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  const { response: carsListResponse, error: carsListError } = useAxios({
+    axiosInstance: axios,
+    method: "GET",
+    url: "get-cars",
+    requestConfig: {
+      headers: {
+        "Content-Language": "en-US",
+        "Access-Control-Allow-Origin": "*",
+      },
+    },
+  });
+
+  const { error: newSaleError, refetch: newSaleRefetch } = useAxios({
+    axiosInstance: axios,
+    method: "POST",
+    url: "new-sale",
+    requestConfig: {
+      headers: {
+        "Content-Language": "en-US",
+        "Access-Control-Allow-Origin": "*",
+      },
+      data: selectedValues,
+    },
+  });
 
   useEffect(() => {
     setSelectedValues((prevState: any) => ({
       ...prevState,
       car: carsList[0]?.id,
     }));
-  }, [carsList]);
-
-  useEffect(() => {
-    getCarsList();
-    getEmployeesList();
-  }, [selectedDepartment]);
+    setEmployeesList(employeesListResponse);
+    setSelectedValues((prevState: any) => ({
+      ...prevState,
+      saler: employeesListResponse[0]?.id,
+    }));
+    setCarsList(
+      carsListResponse.sort((a: any, b: any) =>
+        a.manufactuer.localeCompare(b.manufactuer)
+      )
+    );
+  }, [carsList, employeesListResponse, carsListResponse]);
 
   const handleNewSale = () => {
-    Axios.post("https://gernagroup-server.herokuapp.com/new-sale", {
-      data: selectedValues,
-    })
-      .then((response) => {
-        console.log(response);
-        showModal(ResultType.success, "New sale added successfully!");
-      })
-      .catch((err) => {
-        console.log(err);
-        showModal(ResultType.error, "Something went wrong");
-      });
+    newSaleRefetch();
+
+    if (!newSaleError) {
+      showModal(ResultType.success, "New sale added successfully!");
+    } else {
+      showModal(ResultType.error, "Something went wrong");
+    }
   };
 
   return (
@@ -101,11 +114,7 @@ const NewSales = () => {
       <h1>Add new sale</h1>
       <ContentWrapper>
         <Label>Select car</Label>
-        <Select
-          name="car"
-          title="car"
-          onChange={handleSetValues}
-        >
+        <Select name="car" title="car" onChange={handleSetValues}>
           {carsList.map((car: Car) => {
             return (
               <option key={car.id} value={car?.id}>
@@ -116,11 +125,7 @@ const NewSales = () => {
         </Select>
 
         <Label>Department</Label>
-        <Select
-          name="department"
-          title="department"
-          onChange={handleSetValues}
-        >
+        <Select name="department" title="department" onChange={handleSetValues}>
           {DepartmentsList.map((department) => {
             return (
               <option key={department.name} value={department.link}>
@@ -130,11 +135,7 @@ const NewSales = () => {
           })}
         </Select>
         <Label>Saler</Label>
-        <Select
-          name="saler"
-          title="saler"
-          onChange={handleSetValues}
-        >
+        <Select name="saler" title="saler" onChange={handleSetValues}>
           {employeesList.map((employee: Employee) => {
             return (
               <option key={employee?.id} value={employee?.id}>
@@ -143,7 +144,7 @@ const NewSales = () => {
             );
           })}
         </Select>
-        <Button text="New sale" onClick={handleNewSale} />
+        <Button text="New sale" onClick={() => handleNewSale()} />
       </ContentWrapper>
       <Modal
         setIsOpen={setModalInformation}

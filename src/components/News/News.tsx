@@ -1,15 +1,22 @@
-import { useEffect, useState } from "react";
 import Wrapper from "components/Dashboard/Wrapper";
 import { NewsWrapper } from "components/News/News.style";
 import SingleNews from "components/News/SingleNews";
-import Axios from "axios";
 import { NewsTypes } from "types/types";
 import useAxios from "hooks/useAxios";
+import axios from 'axios';
+import Error from "components/Error/Error";
 
 const News = () => {
-  const [newsList, setNewsList] = useState<NewsTypes[]>([]);
-
-  const { response, error } = useAxios("get", "news", undefined);
+  const { response, error, loading } = useAxios({
+    axiosInstance: axios,
+    method: 'GET',
+    url: 'news',
+    requestConfig: {
+      headers: {
+        'Content-Language': 'en-US'
+      },
+    }
+  })
 
   return (
     <Wrapper>
@@ -25,6 +32,7 @@ const News = () => {
             />
           );
         })}
+        {error && <Error />}
       </NewsWrapper>
     </Wrapper>
   );
