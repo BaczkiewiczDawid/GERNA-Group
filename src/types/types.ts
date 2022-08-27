@@ -1,6 +1,3 @@
-import { StringMappingType } from "typescript";
-import { boolean } from "yup";
-
 export interface Employee {
   id?: number | undefined;
   address: string;
@@ -109,3 +106,10 @@ export interface NewsProps {
 export type SelectType = {
   primary?: boolean;
 };
+
+export interface NewsTypes {
+  id: number,
+  url: string,
+  title: string,
+  description: string,
+}
