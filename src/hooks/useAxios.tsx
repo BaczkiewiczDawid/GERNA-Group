@@ -3,20 +3,15 @@ import Axios from "axios";
 
 const useAxios = (configObj: any) => {
   const [response, setResponse] = useState([]);
-  const [error, setError] = useState<string>('');
+  const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [reload, setReload] = useState<number>(0);
 
-  const baseURL = 'https://gernagroup-server.herokuapp.com/'
+  const baseURL = "https://gernagroup-server.herokuapp.com/";
 
-  const refetch = () => setReload(prev => prev + 1)
+  const refetch = () => setReload((prev) => prev + 1);
 
-  const {
-    axiosInstance,
-    method,
-    url,
-    requestConfig = {}
-  } = configObj
+  const { axiosInstance, method, url, requestConfig = {} } = configObj;
 
   useEffect(() => {
     const controller = new AbortController();
@@ -25,24 +20,26 @@ const useAxios = (configObj: any) => {
       try {
         const res = await axiosInstance[method.toLowerCase()](baseURL + url, {
           ...requestConfig,
-          signal: controller.signal
+          signal: controller.signal,
         });
-        setResponse(res.data)
+        setResponse(res.data);
       } catch (err: any) {
-        setError(err.message)
+        setError(err.message);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
+    };
 
-    fetchData();
+    if (requestConfig.data !== undefined) {
+      fetchData();
+    }
 
     return () => controller.abort();
 
     //eslint-disable-next-line
-  }, [reload])
+  }, [reload]);
 
-  return { response, error, loading, refetch}
+  return { response, error, loading, refetch };
 };
 
 export default useAxios;
