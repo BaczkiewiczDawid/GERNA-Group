@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   LoginContainer,
   Header,
@@ -9,27 +10,40 @@ import { useNavigate } from "react-router-dom";
 import { EnteredValuesProps } from "types/types";
 import { Formik } from "formik";
 import FormElement from "components/Employees/FormElement";
+import useAxios from "hooks/useAxios";
+import Error from "components/Error/Error";
+import axios from "axios";
 
 const Login = () => {
   const initialState: EnteredValuesProps = {
     email: "",
     password: "",
   };
+  const [values, setValues] = useState<EnteredValuesProps>();
 
   const navigate = useNavigate();
 
-  const handleLogin = (values: EnteredValuesProps) => {
-    Axios.post("https://gernagroup-server.herokuapp.com/login", {
-      userData: values,
-    })
-      .then((response) => {
-        localStorage.setItem("auth", JSON.stringify(response.data));
+  const { response, error, refetch }: any = useAxios({
+    axiosInstance: axios,
+    method: "POST",
+    url: "login",
+    requestConfig: {
+      headers: {
+        "Content-Language": "en-US",
+        "Access-Control-Allow-Origin": "*",
+      },
+      data: values,
+    },
+  });
+
+  useEffect(() => {
+    if (values !== undefined) {
+      if (response.authenticated === true) {
+        localStorage.setItem("auth", JSON.stringify(response));
         navigate("/", { replace: true });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+      }
+    }
+  }, [response, values, navigate]);
 
   return (
     <LoginContainer>
@@ -39,7 +53,8 @@ const Login = () => {
       <Formik
         initialValues={initialState}
         onSubmit={(values: EnteredValuesProps) => {
-          handleLogin(values);
+          setValues(values);
+          refetch();
         }}
       >
         {({ errors, touched }) => (

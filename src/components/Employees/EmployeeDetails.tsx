@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import ContentWrapper from "components/Dashboard/ContentWrapper";
 import EmployeeInformation from "components/Employees/EmployeeInformation";
 import Button from "components/Employees/Button";
-import Axios from "axios";
+import axios from "axios";
 import {
   StyledButton,
   Container,
@@ -13,27 +13,34 @@ import FormElement from "components/Employees/FormElement";
 import { StyledForm } from "components/Employees/NewEmployee.style";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { Employee, EmployeeDetailsProps } from 'types/types';
+import { Employee, EmployeeDetailsProps } from "types/types";
+import useAxios from "hooks/useAxios";
 
-const EmployeeDetails = ({ employeeDetails, setEmployeeDetails }: EmployeeDetailsProps) => {
+const EmployeeDetails = ({
+  employeeDetails,
+  setEmployeeDetails,
+}: EmployeeDetailsProps) => {
   const { handleShowModal, response } = useContext(ConfirmationModalCtx);
+  const [values, setValues] = useState<Employee>();
 
   const [selectedEmployee, setSelectedEmployee] = useState(0);
 
-  const handleUpdateUserDetails = (values: Employee) => {
-    Axios.post(
-      "https://gernagroup-server.herokuapp.com/update-employee-information",
-      {
-        data: values,
-      }
-    )
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  const { refetch } = useAxios({
+    axiosInstance: axios,
+    method: "POST",
+    url: "update-employee-information",
+    requestConfig: {
+      headers: {
+        "Content-Language": "en-US",
+        "Access-Control-Allow-Origin": "*",
+      },
+      data: values,
+    },
+  });
+
+  useEffect(() => {
+    refetch();
+  }, [values]);
 
   const handleDeleteEmployee = (id: number | undefined) => {
     if (typeof id === "number") {
@@ -42,13 +49,22 @@ const EmployeeDetails = ({ employeeDetails, setEmployeeDetails }: EmployeeDetail
     }
   };
 
+  const { refetch: deleteEmployeeRefetch } = useAxios({
+    axiosInstance: axios,
+    method: "POST",
+    url: "delete-employee",
+    requestConfig: {
+      headers: {
+        "Content-Language": "en-US",
+        "Access-Control-Allow-Origin": "*",
+      },
+      data: selectedEmployee,
+    },
+  });
+
   useEffect(() => {
-    if (response === 0) {
-      Axios.post("https://gernagroup-server.herokuapp.com/delete-employee", {
-        id: selectedEmployee,
-      });
-    }
-  }, [response, selectedEmployee]);
+    deleteEmployeeRefetch();
+  }, [selectedEmployee]);
 
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -93,7 +109,7 @@ const EmployeeDetails = ({ employeeDetails, setEmployeeDetails }: EmployeeDetail
         enableReinitialize
         initialValues={employeeDetails}
         validationSchema={employeeDetailsSchema}
-        onSubmit={(values) => handleUpdateUserDetails(values)}
+        onSubmit={(values) => setValues(values)}
       >
         {({ errors, touched }): any => (
           <StyledForm>

@@ -9,7 +9,7 @@ import {
 } from "components/Employees/Employees.style";
 import ContentWrapper from "components/Dashboard/ContentWrapper";
 import Table from "components/Dashboard/Table";
-import Axios from "axios";
+import axios from "axios";
 import EmployeeDetails from "components/Employees/EmployeeDetails";
 import SingleEmployee from "components/Employees/SingleEmployee";
 import SelectDepartment from "components/Employees/SelectDepartment";
@@ -17,7 +17,9 @@ import DepartmentNavigation from "components/Employees/DepartmentNavigation";
 import Button from "components/Employees/Button";
 import useAuth from "hooks/useAuth";
 import NoAccess from "components/NoAccess/NoAccess";
-import { Employee } from 'types/types';
+import { Employee } from "types/types";
+import useAxios from "hooks/useAxios";
+import Error from 'components/Error/Error';
 
 const initialState = {
   id: undefined,
@@ -33,50 +35,64 @@ const initialState = {
 };
 
 const Employees = () => {
-  const [employeesList, setEmployeesList] = useState<any[]>([]);
+  const [employeesList, setEmployeesList] = useState<Employee[]>([]);
   const [selectedUser, setSelectedUser] = useState<number>(1);
-  const [selectedUserDetails, setSelectedUserDetails] = useState<Employee>(initialState);
+  const [selectedUserDetails, setSelectedUserDetails] =
+    useState<any>(initialState);
 
   const isAuthenticated = useAuth();
 
   const { department } = useParams();
 
-  const getEmployeesList = () => {
-    Axios.post("https://gernagroup-server.herokuapp.com/employees-list", {
+  const {
+    response: employeesListResponse,
+    error: employeesListError,
+    refetch: employessListRefetch,
+  } = useAxios({
+    axiosInstance: axios,
+    method: "POST",
+    url: "employees-list",
+    requestConfig: {
+      headers: {
+        "Content-Language": "en-US",
+        "Access-Control-Allow-Origin": "*",
+      },
       data: department,
-    })
-      .then((response) => {
-        setEmployeesList(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+    },
+  });
 
-  const getEmployeeDetails = () => {
-    Axios.post("https://gernagroup-server.herokuapp.com/employee-details", {
-      selectedUser: selectedUser,
-    })
-      .then((response) => {
-        setSelectedUserDetails(response.data[0]);
-        console.log(response.data[0])
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  const {
+    response: employeeDetailsResponse,
+    error: employeeDetailsError,
+    refetch,
+  } = useAxios({
+    axiosInstance: axios,
+    method: "POST",
+    url: "employee-details",
+    requestConfig: {
+      headers: {
+        "Content-Language": "en-US",
+        "Access-Control-Allow-Origin": "*",
+      },
+      data: selectedUser,
+    },
+  });
 
   useEffect(() => {
-    getEmployeesList();
+    setEmployeesList(employeesListResponse);
+    setSelectedUserDetails(employeeDetailsResponse[0]);
+  }, [employeesListResponse, employeeDetailsResponse]);
+
+  useEffect(() => {
+    employessListRefetch();
   }, [department]);
-
-  useEffect(() => {
-    getEmployeeDetails();
-  }, [selectedUser]);
 
   const handleSelectEmployee = (employeeID: number) => {
     setSelectedUser(employeeID);
+    refetch();
   };
+
+  console.log(selectedUserDetails);
 
   return (
     <Container>
@@ -91,6 +107,7 @@ const Employees = () => {
             <h1>GERNA Group Employees - Katowice</h1>
             <Content>
               <ContentWrapper>
+                {employeeDetailsError && employeeDetailsError ? <Error /> : null}
                 <Table>
                   {employeesList.length < 1 ? (
                     <span>There's no employees in this department</span>
