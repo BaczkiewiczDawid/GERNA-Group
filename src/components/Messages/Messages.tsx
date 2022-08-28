@@ -5,31 +5,41 @@ import { MessagesList } from "components/Messages/Messages.style";
 import Button from "components/Messages/Button";
 import Axios from "axios";
 import useAuth from "hooks/useAuth";
-import { MessageProps } from 'types/types';
+import { MessageProps } from "types/types";
+import useAxios from "hooks/useAxios";
+import axios from "axios";
+import Error from 'components/Error/Error';
 
 const Messages = () => {
   const isAuthenticated = useAuth();
   const [messages, setMessages] = useState([]);
 
-  const getMessages = () => {
-    Axios.post("https://gernagroup-server.herokuapp.com/get-messages", {
-      user: isAuthenticated.authUser,
-    }).then((response) => {
-      setMessages(response.data);
-    });
-  };
+  const { response, error } = useAxios({
+    axiosInstance: axios,
+    method: "POST",
+    url: "get-messages",
+    requestConfig: {
+      headers: {
+        "Content-Language": "en-US",
+        "Access-Control-Allow-Origin": "*",
+      },
+      data: isAuthenticated.authUser,
+    },
+  });
 
   useEffect(() => {
-    getMessages();
-  }, []);
+    setMessages(response);
+  }, [response]);
 
   return (
     <Wrapper>
       <h1>GERNA Group Messages</h1>
       <MessagesList>
-        {messages.map((message: MessageProps) => {
+        {!error && messages.map((message: MessageProps) => {
           return (
             <SingleMessage
+              key={message.id}
+              id={message.id}
               message={message.message}
               title={message.title}
               date={message.date}
@@ -37,7 +47,8 @@ const Messages = () => {
             />
           );
         })}
-        {messages.length === 0 && <p>There's no messages in Your inbox</p>}
+        {error && <Error />}
+        {!error && messages.length === 0 && <p>There's no messages in Your inbox</p>}
       </MessagesList>
       <Button />
     </Wrapper>

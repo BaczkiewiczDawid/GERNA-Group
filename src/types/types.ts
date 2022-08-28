@@ -91,6 +91,7 @@ export interface Message {
 }
 
 export interface MessageProps {
+  id: number,
   message: string;
   title: string;
   date: string;
