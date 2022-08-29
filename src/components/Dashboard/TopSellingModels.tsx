@@ -2,33 +2,29 @@ import { useState, useEffect } from "react";
 import ContentWrapper from "components/Dashboard/ContentWrapper";
 import Table from "components/Dashboard/Table";
 import Header from "components/Dashboard/Header";
-import Axios from "axios";
-
-interface Cars {
-  id: number;
-  manufactuer: string;
-  model: string;
-  price: number;
-  sales: number;
-}
+import axios from "axios";
+import { Car, AxiosResponse } from "types/types";
+import useAxios from "hooks/useAxios";
+import Error from 'components/Error/Error';
 
 const TopSellingModels = () => {
-  const [topSellingModels, setTopSellingModels] = useState<Cars[]>([]);
+  const [topSellingModels, setTopSellingModels] = useState<Car[]>([]);
 
-  const getTopSellingModels = () => {
-    Axios.get("https://gernagroup-server.herokuapp.com/top-selling-models")
-      .then((response) => {
-        setTopSellingModels(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-        throw err;
-      });
-  };
+  const { response, error }: AxiosResponse = useAxios({
+    axiosInstance: axios,
+    method: "GET",
+    url: "top-selling-models",
+    requestConfig: {
+      headers: {
+        "Content-Language": "en-US",
+        "Access-Control-Allow-Origin": "*",
+      },
+    },
+  });
 
   useEffect(() => {
-    getTopSellingModels();
-  }, []);
+    setTopSellingModels(response);
+  }, [response]);
 
   return (
     <ContentWrapper>
@@ -43,18 +39,19 @@ const TopSellingModels = () => {
           </tr>
         </thead>
         <tbody>
-        {topSellingModels.map((car: Cars) => {
-          return (
-            <tr key={car.id}>
-              <td>
-                {car.manufactuer} {car.model}
-              </td>
-              <td>{car.price}</td>
-              <td>{car.sales}</td>
-              <td>${car.price * car.sales}</td>
-            </tr>
-          );
-        })}
+          {error !== 'canceled' && <Error />}
+          {topSellingModels.map((car: Car) => {
+            return (
+              <tr key={car.id}>
+                <td>
+                  {car.manufactuer} {car.model}
+                </td>
+                <td>{car.price}</td>
+                <td>{car.sales}</td>
+                {car.sales && <td>${car.price * car.sales}</td>}
+              </tr>
+            );
+          })}
         </tbody>
       </Table>
     </ContentWrapper>

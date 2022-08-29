@@ -34,6 +34,14 @@ const useAxios = (configObj: any) => {
       fetchData();
     }
 
+    if (method.toUpperCase() === 'POST') {
+      if (requestConfig.data !== undefined) {
+        fetchData()
+      }
+    } else {
+      fetchData();
+    }
+
     return () => controller.abort();
 
     //eslint-disable-next-line
