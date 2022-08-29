@@ -1,11 +1,7 @@
 import { Wrapper, Count, FinancialDetails } from 'components/Dashboard/Informations.style';
+import { Information } from 'types/types';
 
-interface Information {
-  title: string,
-  count: number | string,
-}
-
-const Informations = ({ title, count }: Information) => {
+const Informations = ({ title, count = 0 }: Information) => {
   return (
     <Wrapper>
       <h2>{title}</h2>

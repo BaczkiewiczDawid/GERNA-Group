@@ -1,21 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ContentWrapper from "components/Dashboard/ContentWrapper";
 import Wrapper from "components/Dashboard/Wrapper";
 import SelectDepartment from "components/Employees/SelectDepartment";
-import {
-  StyledForm,
-  Title,
-} from "components/Employees/NewEmployee.style";
+import { StyledForm, Title } from "components/Employees/NewEmployee.style";
 import Button from "components/Employees/Button";
-import Axios from "axios";
+import axios from "axios";
 import Modal from "components/Modal/Modal";
 import useModal from "hooks/useModal";
 import useAuth from "hooks/useAuth";
 import emailjs from "emailjs-com";
 import FormElement from "components/Employees/FormElement";
 import { Formik } from "formik";
-import { Employee } from 'types/types';
+import { Employee } from "types/types";
 import * as Yup from "yup";
+import useAxios from "hooks/useAxios";
 
 const initialEmployeeInformations: Employee = {
   name: "",
@@ -30,10 +28,8 @@ const initialEmployeeInformations: Employee = {
 };
 
 const NewEmployee = () => {
-  const [employeeInformation, setEmployeeInformation] = useState(
-    initialEmployeeInformations
-  );
-  
+  const [employeeInformation, setEmployeeInformation] = useState<Employee>();
+
   const isAuthenticated = useAuth();
 
   const { showModal, modalInformation, setModalInformation, ResultType } =
@@ -43,42 +39,39 @@ const NewEmployee = () => {
     const data = {
       email: values.email,
       name: values.name,
-      password: password
-    }
-
-    console.log(data)
+      password: password,
+    };
 
     emailjs
-      .send(
-        "service_aev4svh",
-        "template_vzmo5os",
-        data,
-        "TFiGvZVNaPgrAPQie"
-      )
+      .send("service_aev4svh", "template_vzmo5os", data, "TFiGvZVNaPgrAPQie")
       .then((result) => {
-        console.log(result.text);
         setEmployeeInformation(initialEmployeeInformations);
-      })
-      .catch((err) => {
-        console.log(err.text);
       });
   };
 
-  const handleNewEmployee = (values: Employee) => {
-    setEmployeeInformation(values);
-    
-    Axios.post("https://gernagroup-server.herokuapp.com/new-employee", {
-      data: values,
-    })
-      .then(async (response) => {
+  const { response, error, refetch }: any = useAxios({
+    axiosInstance: axios,
+    method: "POST",
+    url: "new-employee",
+    requestConfig: {
+      headers: {
+        "Content-Language": "en-US",
+        "Access-Control-Allow-Origin": "*",
+      },
+      data: employeeInformation,
+    },
+  });
+
+  useEffect(() => {
+    if (employeeInformation !== undefined) {
+      if (response.length > 0) {
         showModal(ResultType.success, "Employee added successfully!");
-        sendEmail(values, response.data);
-      })
-      .catch((err) => {
-        console.log(err);
+        sendEmail(employeeInformation, response);
+      } else {
         showModal(ResultType.error, "Something went wrong");
-      });
-  };
+      }
+    }
+  }, [response, employeeInformation]);
 
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -120,8 +113,9 @@ const NewEmployee = () => {
           initialValues={initialEmployeeInformations}
           validationSchema={NewEmployeeSchema}
           onSubmit={(values: Employee, { resetForm }) => {
-            handleNewEmployee(values);
-            resetForm()
+            setEmployeeInformation(values);
+            resetForm();
+            refetch();
           }}
         >
           {({ errors, touched }) => (

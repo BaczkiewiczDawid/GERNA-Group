@@ -68,6 +68,7 @@ export interface Car {
   price: number;
   engine?: string;
   equipment?: any;
+  sales?: number
 }
 
 export interface SelectEquipmentProps {
@@ -113,4 +114,22 @@ export interface NewsTypes {
   url: string,
   title: string,
   description: string,
+}
+
+export interface AxiosResponse {
+  response: any[],
+  error: string,
+  refetch: () => void
+}
+
+export interface Information {
+  title: string,
+  count: number | string,
+}
+
+export interface Salers {
+  id: number;
+  name: string;
+  totalSales: number;
+  totalIncome: string;
 }

@@ -8,8 +8,10 @@ import TotalRevenue from "components/Dashboard/TotalRevenue";
 import TopSellingModels from "components/Dashboard/TopSellingModels";
 import TopSalers from "components/Dashboard/TopSalers";
 import Wrapper from "components/Dashboard/Wrapper";
-import Axios from "axios";
-import useAuth from 'hooks/useAuth';
+import axios from "axios";
+import useAuth from "hooks/useAuth";
+import { AxiosResponse } from 'types/types';
+import useAxios from "hooks/useAxios";
 
 const Dashboard = () => {
   const [sales, setSales] = useState<number>(0);
@@ -18,30 +20,50 @@ const Dashboard = () => {
 
   const isAuthenticated = useAuth();
 
-  const getLastSales = () => {
-    Axios.get("https://gernagroup-server.herokuapp.com/recent-sales").then((response) => {
-      setSales(response.data[0].sales);
+  const { response: recentSalesResponse, error: recentSalesError }: AxiosResponse =
+    useAxios({
+      axiosInstance: axios,
+      method: "GET",
+      url: "recent-sales",
+      requestConfig: {
+        headers: {
+          "Content-Language": "en-US",
+          "Access-Control-Allow-Origin": "*",
+        },
+      },
     });
-  };
 
-  const getRecentIncome = () => {
-    Axios.get("https://gernagroup-server.herokuapp.com/recent-income").then((response) => {
-      setRecentIncome(response.data[0].totalIncome);
+  const { response: recentIncomeResponse, error: RecentIncomeResponse }: AxiosResponse =
+    useAxios({
+      axiosInstance: axios,
+      method: "GET",
+      url: "recent-income",
+      requestConfig: {
+        headers: {
+          "Content-Language": "en-US",
+          "Access-Control-Allow-Origin": "*",
+        },
+      },
     });
-  };
 
-  const getTotalIncome = () => {
-    Axios.get("https://gernagroup-server.herokuapp.com/total-income").then((response) => {
-      setTotalIncome(response.data[0].totalIncome);
-      console.log(response.data[0]);
+  const { response: totalIncomeResponse, error: totalIncomeError }: AxiosResponse =
+    useAxios({
+      axiosInstance: axios,
+      method: "GET",
+      url: "total-income",
+      requestConfig: {
+        headers: {
+          "Content-Language": "en-US",
+          "Access-Control-Allow-Origin": "*",
+        },
+      },
     });
-  };
 
   useEffect(() => {
-    getLastSales();
-    getRecentIncome();
-    getTotalIncome();
-  }, []);
+    setSales(recentSalesResponse[0]?.sales);
+    setRecentIncome(recentIncomeResponse[0]?.totalIncome);
+    setTotalIncome(totalIncomeResponse[0]?.totalIncome);
+  }, [recentSalesResponse, recentIncomeResponse, totalIncomeResponse]);
 
   return (
     <Wrapper>
