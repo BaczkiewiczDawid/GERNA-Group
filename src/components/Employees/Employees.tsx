@@ -19,7 +19,7 @@ import useAuth from "hooks/useAuth";
 import NoAccess from "components/NoAccess/NoAccess";
 import { Employee } from "types/types";
 import useAxios from "hooks/useAxios";
-import Error from 'components/Error/Error';
+import Error from "components/Error/Error";
 
 const initialState = {
   id: undefined,
@@ -92,8 +92,6 @@ const Employees = () => {
     refetch();
   };
 
-  console.log(selectedUserDetails);
-
   return (
     <Container>
       {isAuthenticated?.role === "admin" ? (
@@ -107,7 +105,11 @@ const Employees = () => {
             <h1>GERNA Group Employees - Katowice</h1>
             <Content>
               <ContentWrapper>
-                {employeeDetailsError && employeeDetailsError ? <Error /> : null}
+                {employeeDetailsError ||
+                employeeDetailsError ||
+                employeesListError ? (
+                  <Error />
+                ) : null}
                 <Table>
                   {employeesList.length < 1 ? (
                     <span>There's no employees in this department</span>
@@ -121,6 +123,7 @@ const Employees = () => {
                       {employeesList.map((employee): any => {
                         return (
                           <SingleEmployee
+                            key={employee.id}
                             employee={employee}
                             handleSelectEmployee={handleSelectEmployee}
                           />
