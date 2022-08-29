@@ -11,14 +11,17 @@ import {
   ListItem,
   ButtonWrapper,
 } from "components/CarsList/CarDetails.style";
-import Axios from "axios";
+import axios from "axios";
 import Button from "components/Employees/Button";
 import { useNavigate } from "react-router-dom";
 import useAuth from "hooks/useAuth";
-import { Car } from 'types/types';
+import { Car, AxiosResponse } from "types/types";
+import useAxios from "hooks/useAxios";
+import { useStateWithCallbackLazy } from "use-state-with-callback";
 
 const CarDetails = () => {
   const carID: any = useParams().id;
+  const [car, setCar] = useStateWithCallbackLazy<number>(0);
   const [equipmentList, setEquipmentList] = useState<string[]>([]);
   const [carDetails, setCarDetails] = useState<Car>();
 
@@ -26,17 +29,43 @@ const CarDetails = () => {
 
   const navigate = useNavigate();
 
-  const getCarDetails = () => {
-    Axios.post("https://gernagroup-server.herokuapp.com/car-details", {
-      id: carID,
-    }).then((response) => {
-      setCarDetails(response.data[0]);
-    });
-  };
+  const {
+    response: carDetailsResponse,
+    error: carDetailsError,
+    refetch: carDetailsRefetch,
+  }: AxiosResponse = useAxios({
+    axiosInstance: axios,
+    method: "POST",
+    url: "car-details",
+    requestConfig: {
+      headers: {
+        "Content-Language": "en-US",
+        "Access-Control-Allow-Origin": "*",
+      },
+      data: carID,
+    },
+  });
+
+  const {
+    response: removeCarResponse,
+    error: removeCarError,
+    refetch: removeCarRefetch,
+  }: AxiosResponse = useAxios({
+    axiosInstance: axios,
+    method: "POST",
+    url: "remove-car",
+    requestConfig: {
+      headers: {
+        "Content-Language": "en-US",
+        "Access-Control-Allow-Origin": "*",
+      },
+      data: car,
+    },
+  });
 
   useEffect(() => {
-    getCarDetails();
-  }, [carID]);
+    setCarDetails(carDetailsResponse[0]);
+  }, [carDetailsResponse]);
 
   const handleEquipmentList = async () => {
     const carEquipmentList = await JSON.parse(carDetails?.equipment);
@@ -45,16 +74,10 @@ const CarDetails = () => {
   };
 
   const handleRemoveCar = () => {
-    Axios.post("https://gernagroup-server.herokuapp.com/remove-car", {
-      carID: carID,
-    })
-      .then((response) => {
-        console.log(response);
-        navigate("/cars", { replace: true });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    setCar(carID, () => {
+      removeCarRefetch();
+      navigate("/cars", { replace: true });
+    });
   };
 
   handleEquipmentList();
