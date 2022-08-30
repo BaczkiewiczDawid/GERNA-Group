@@ -33,7 +33,7 @@ const TopSalers = () => {
         <th>Name</th>
         <th>Sold cars</th>
         <th>Total Income</th>
-        {error !== 'canceled' && <Error />}
+        {/* {error !== 'canceled' && <Error />} */}
         {topSalers.map((saler: Salers) => {
           return (
             <tr key={saler.id * 100}>

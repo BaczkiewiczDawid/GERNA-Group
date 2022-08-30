@@ -39,7 +39,7 @@ const TopSellingModels = () => {
           </tr>
         </thead>
         <tbody>
-          {error !== 'canceled' && <Error />}
+          {/* {error !== 'canceled' && <Error />} */}
           {topSellingModels.map((car: Car) => {
             return (
               <tr key={car.id}>
