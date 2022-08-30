@@ -94,7 +94,7 @@ const NewCar = () => {
                 <FormElement
                   label="Price"
                   value={inputValues.price}
-                  type="text"
+                  type="number"
                   name="price"
                   placeholder="Price..."
                   onChange={handleChangeInputValue}
