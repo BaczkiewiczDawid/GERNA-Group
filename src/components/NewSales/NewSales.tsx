@@ -9,7 +9,7 @@ import Modal from "components/Modal/Modal";
 import useModal from "hooks/useModal";
 import Select from "components/Select/Select";
 import useAuth from "hooks/useAuth";
-import { Car, Employee } from "types/types";
+import { Car, Employee, AxiosResponse } from "types/types";
 import useAxios from "hooks/useAxios";
 import axios from "axios";
 import Error from "components/Error/Error";
@@ -43,7 +43,7 @@ const NewSales = () => {
     }));
   };
 
-  const { response: employeesListResponse, error: employeesListError }: any =
+  const { response: employeesListResponse, error: employeesListError, refetch }: AxiosResponse =
     useAxios({
       axiosInstance: axios,
       method: "POST",
@@ -57,7 +57,7 @@ const NewSales = () => {
       },
     });
 
-  const { response: carsListResponse, error: carsListError } = useAxios({
+  const { response: carsListResponse, error: carsListError }: AxiosResponse = useAxios({
     axiosInstance: axios,
     method: "GET",
     url: "get-cars",
@@ -69,7 +69,7 @@ const NewSales = () => {
     },
   });
 
-  const { error: newSaleError, refetch: newSaleRefetch } = useAxios({
+  const { error: newSaleError, refetch: newSaleRefetch }: AxiosResponse = useAxios({
     axiosInstance: axios,
     method: "POST",
     url: "new-sale",
@@ -83,21 +83,25 @@ const NewSales = () => {
   });
 
   useEffect(() => {
-    setSelectedValues((prevState: any) => ({
+    setSelectedValues((prevState) => ({
       ...prevState,
       car: carsList[0]?.id,
     }));
     setEmployeesList(employeesListResponse);
-    setSelectedValues((prevState: any) => ({
+    setSelectedValues((prevState) => ({
       ...prevState,
       saler: employeesListResponse[0]?.id,
     }));
     setCarsList(
-      carsListResponse.sort((a: any, b: any) =>
+      carsListResponse.sort((a, b) =>
         a.manufactuer.localeCompare(b.manufactuer)
       )
     );
   }, [carsList, employeesListResponse, carsListResponse]);
+
+  useEffect(() => {
+    refetch()
+  }, [selectedDepartment])
 
   const handleNewSale = () => {
     newSaleRefetch();

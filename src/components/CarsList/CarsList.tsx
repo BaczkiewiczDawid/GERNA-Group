@@ -6,29 +6,32 @@ import {
   StyledLink,
   ButtonLink,
 } from "components/CarsList/CarsList.style";
-import Axios from "axios";
+import axios from "axios";
 import Button from "components/Employees/Button";
 import useAuth from "hooks/useAuth";
-import { Car } from 'types/types'
+import { Car, AxiosResponse } from "types/types";
+import useAxios from "hooks/useAxios";
 
 const CarsList = () => {
   const [carsList, setCarsList] = useState<Car[]>([]);
 
   const isAuthenticated = useAuth();
 
-  const getCarsList = () => {
-    Axios.get("https://gernagroup-server.herokuapp.com/get-cars")
-      .then((response) => {
-        setCarsList(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  const { response, error }: AxiosResponse = useAxios({
+    axiosInstance: axios,
+    method: "GET",
+    url: "get-cars",
+    requestConfig: {
+      headers: {
+        "Content-Language": "en-US",
+        "Access-Control-Allow-Origin": "*",
+      },
+    },
+  });
 
   useEffect(() => {
-    getCarsList();
-  }, []);
+    setCarsList(response);
+  }, [response]);
 
   return (
     <Wrapper>
@@ -43,6 +46,7 @@ const CarsList = () => {
           return (
             <StyledLink to={`/cars/${car.id}`}>
               <SingleCar
+                key={car.id}
                 id={car.id}
                 manufactuer={car.manufactuer}
                 model={car.model}
