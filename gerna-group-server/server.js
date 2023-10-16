@@ -137,9 +137,7 @@ app.post("/new-employee", (req, res) => {
   const employeeData = req.body.data;
 
   const addNewEmployee = `INSERT INTO gerna_employees VALUES(null, '${employeeData.name}', '${employeeData.age}', '${employeeData.position}', '${employeeData.address}', '${employeeData.city}', '${employeeData.phone_number}', '${employeeData.email}', '${employeeData.salary}', '${employeeData.department}')`;
-  const createUser = `INSERT INTO gerna_accounts VALUES(null, '${employeeData.name}', '${employeeData.email}', '${hashedPassword}', 'employee')`;
-
-  console.log(randomPassword);
+  const createUser = `INSERT INTO gerna_accounts VALUES(null, '${employeeData.name}', '${employeeData.email}', '${hashedPassword}', 'employee' )`;
 
   db.query(addNewEmployee, (err, result) => {
     if (err) {
