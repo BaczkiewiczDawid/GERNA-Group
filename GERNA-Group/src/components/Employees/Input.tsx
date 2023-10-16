@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Field } from 'formik'
 import { InputProps } from 'types/types'
 
 export const StyledInput = styled.input`
