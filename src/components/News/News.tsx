@@ -32,7 +32,7 @@ const News = () => {
             />
           );
         })}
-        {error && <Error />}
+        {/* {error && <Error />} */}
       </NewsWrapper>
     </Wrapper>
   );

@@ -13,7 +13,7 @@ const SingleCar = ({ id, manufactuer, model, price }: Car) => {
   const [sales, setSales] = useState([]);
 
   const getSalesQuantity = () => {
-    Axios.post("https://gernagroup-server.herokuapp.com/get-sales", {
+    Axios.post("http://localhost:3001/get-sales", {
       data: id,
     })
       .then((response) => {
