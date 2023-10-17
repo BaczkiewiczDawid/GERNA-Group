@@ -5,12 +5,13 @@ const cors = require("cors");
 require('dotenv').config()
 const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt");
+const path = require('path');
 
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(express.static(__dirname+"/client/build"));
+app.use('/static', express.static(path.join(__dirname, 'client/build')));
 
 const db_config = {
   host: process.env.HOST,
