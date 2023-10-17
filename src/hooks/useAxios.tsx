@@ -7,7 +7,7 @@ const useAxios = (configObj: any) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [reload, setReload] = useState<number>(0);
 
-  const baseURL = "http://localhost:3001/";
+  const baseURL = "https://gerna-group-server-92191c8dfcd4.herokuapp.com/";
 
   const refetch = () => setReload((prev) => prev + 1);
 

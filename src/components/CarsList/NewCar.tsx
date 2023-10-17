@@ -49,7 +49,7 @@ const NewCar = () => {
     }));
 
     if (!isNull) {
-      Axios.post("https://gernagroup-server.herokuapp.com/new-car", {
+      Axios.post("https://gerna-group-server-92191c8dfcd4.herokuapp.com/new-car", {
         data: inputValues,
       })
         .then((response) => {
