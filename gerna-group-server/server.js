@@ -10,6 +10,8 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use('/static', express.static(path.join(__dirname, 'client/build')));
+
 const db_config = {
   host: process.env.HOST,
   user: process.env.USER,
