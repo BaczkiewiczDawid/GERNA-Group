@@ -23,6 +23,7 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "recharts": "^2.1.13",
+    "serve": "^14.2.1",
     "styled-components": "^5.3.5",
     "typescript": "^4.7.4",
     "use-state-with-callback": "^3.0.2",
@@ -30,11 +31,12 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "dev": "react-scripts start",
+    "start": "serve -s build",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "deploy": "gh-pages -d build"
+    "heroku-postbuild": "npm run build"
   },
   "eslintConfig": {
     "extends": [
