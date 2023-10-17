@@ -1,6 +1,6 @@
 {
-  "homepage": "http://BaczkiewiczDawid.github.io/GERNA-Group",
   "name": "gerna-group",
+  "homepage": ".",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
