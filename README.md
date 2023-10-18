@@ -4,7 +4,7 @@ Application to manage a network of car dealerships
 
 # Demo
 
-https://gerna-group.herokuapp.com
+[https://gerna-group.herokuapp.com](https://gerna-group1-a74c82ba278c.herokuapp.com)
 
 # Features
 
